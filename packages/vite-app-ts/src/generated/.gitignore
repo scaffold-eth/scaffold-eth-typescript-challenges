@@ -1,0 +1,8 @@
+# Ignore everything in this directory
+*
+# Except this file
+!.gitignore
+!contracts
+!/contracts/external_contracts.js
+!/contracts/external_contracts.ts
+!/contract-types
