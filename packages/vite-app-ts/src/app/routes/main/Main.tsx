@@ -6,13 +6,13 @@ import { useGasPrice, useContractLoader, useContractReader, useBalance } from 'e
 import { useDexEthPrice } from 'eth-hooks/dapps';
 
 import { GenericContract } from 'eth-components/ant/generic-contract';
-import { Hints, Subgraph, ExampleUI } from '~~/app/routes';
+import { Hints, Subgraph } from '~~/app/routes';
 import { transactor } from 'eth-components/functions';
 
 import { ethers } from 'ethers';
 
 import { useEventListener } from 'eth-hooks';
-import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader } from './components';
+import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, Staker as StakerUI } from './components';
 import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
 import { EthComponentsContext } from 'eth-components/models';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/app/routes/main/hooks/useScaffoldAppProviders';
@@ -24,7 +24,7 @@ import { subgraphUri } from '~~/config/subgraphConfig';
 import { useEthersContext } from 'eth-hooks/context';
 import { NETWORKS } from '~~/models/constants/networks';
 import { mainnetProvider } from '~~/config/providersConfig';
-import { YourContract } from '~~/generated/contract-types';
+import { Staker } from '~~/generated/contract-types';
 
 export const DEBUG = false;
 
@@ -66,7 +66,7 @@ export const Main: FC = (props) => {
   // -----------------------------
   // example for current contract and listners
   // -----------------------------
-  const yourContractRead = readContracts['YourContract'] as YourContract;
+  const yourContractRead = readContracts['Staker'] as Staker;
   // keep track of a variable from the contract in the local React state:
   const purpose = useContractReader<string>(yourContractRead, {
     contractName: 'YourContract',
@@ -74,7 +74,7 @@ export const Main: FC = (props) => {
   });
 
   // 📟 Listen for broadcast events
-  const setPurposeEvents = useEventListener(yourContractRead, 'SetPurpose', 1);
+  // const setPurposeEvents = useEventListener(yourContractRead, 'SetPurpose', 1);
 
   // -----------------------------
   // Hooks use and examples
@@ -116,6 +116,9 @@ export const Main: FC = (props) => {
         <MainPageMenu route={route} setRoute={setRoute} />
         <Switch>
           <Route exact path="/">
+            <StakerUI />
+          </Route>
+          <Route exact path="/debug">
             <MainPageContracts
               scaffoldAppProviders={scaffoldAppProviders}
               mainnetContracts={mainnetContracts}
@@ -128,14 +131,6 @@ export const Main: FC = (props) => {
               yourCurrentBalance={yourCurrentBalance}
               mainnetProvider={scaffoldAppProviders.mainnetProvider}
               price={price}
-            />
-          </Route>
-          <Route path="/exampleui">
-            <ExampleUI
-              mainnetProvider={scaffoldAppProviders.mainnetProvider}
-              yourCurrentBalance={yourCurrentBalance}
-              price={price}
-              tx={tx}
             />
           </Route>
           <Route path="/mainnetdai">

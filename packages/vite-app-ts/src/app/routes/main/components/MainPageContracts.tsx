@@ -17,8 +17,8 @@ export interface IMainPageContractsProps {
  * 🎛 this scaffolding is full of commonly used components
     this <GenericContract/> component will automatically parse your ABI
     and give you a form to interact with it locally
- * @param props 
- * @returns 
+ * @param props
+ * @returns
  */
 export const MainPageContracts: FC<IMainPageContractsProps> = (props) => {
   const ethersContext = useEthersContext();
@@ -37,36 +37,31 @@ export const MainPageContracts: FC<IMainPageContractsProps> = (props) => {
           and give you a form to interact with it locally
         ********** */}
         <GenericContract
-          contractName="YourContract"
-          contract={contractList?.['YourContract']}
+          contractName="ExampleExternalContract"
+          contract={contractList?.['ExampleExternalContract']}
           mainnetProvider={props.scaffoldAppProviders.mainnetProvider}
           blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}
           contractConfig={props.appContractConfig}
         />
 
-        {/* **********
-         * ❓ uncomment for a second contract:
-         ********** */}
-        {/*
-          <GenericContract
-            contractName="SecondContract"
-            contract={contract={contractList?.['SecondContract']}
-            mainnetProvider={props.appProviders.mainnetProvider}
-            blockExplorer={props.appProviders.targetNetwork.blockExplorer}
-            contractConfig={props.contractConfig}
-          />
-        */}
+        <GenericContract
+          contractName="Staker"
+          contract={contractList?.['Staker']}
+          mainnetProvider={props.scaffoldAppProviders.mainnetProvider}
+          blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}
+          contractConfig={props.appContractConfig}
+        />
 
         {/***********
          *  ❓ Uncomment to display and interact with an external contract (DAI on mainnet):
          ********** */}
-        <GenericContract
+        {/* <GenericContract
           contractName="DAI"
           contract={props.mainnetContracts?.['DAI']}
           mainnetProvider={props.scaffoldAppProviders.mainnetProvider}
           blockExplorer={NETWORKS['mainnet'].blockExplorer}
           contractConfig={props.appContractConfig}
-        />
+        /> */}
       </>
     </>
   );

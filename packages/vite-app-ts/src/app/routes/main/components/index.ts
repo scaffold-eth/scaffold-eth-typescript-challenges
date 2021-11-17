@@ -18,3 +18,7 @@ export const MainPageHeader = lazier(() => import('./MainPageHeader'), 'MainPage
  * lazy/lazier loaded component
  */
 export const MainPageMenu = lazier(() => import('./MainPageMenu'), 'MainPageMenu');
+/**
+ * lazy/lazier loaded component
+ */
+export const Staker = lazier(() => import('./Staker'), 'Staker');
