@@ -116,7 +116,7 @@ export const Main: FC = (props) => {
         <MainPageMenu route={route} setRoute={setRoute} />
         <Switch>
           <Route exact path="/">
-            <StakerUI />
+            <StakerUI mainnetProvider={scaffoldAppProviders.mainnetProvider} tx={tx} />
           </Route>
           <Route exact path="/debug">
             <MainPageContracts

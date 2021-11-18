@@ -9,16 +9,31 @@ contract Staker {
   uint256 public deadline;
   uint256 public constant threshold = 1 ether;
   uint256 public stakedAmount;
+  bool public openForWithdraw = false;
   mapping(address => uint256) public balances;
 
   event Stake(address staker, uint256 amount);
 
   constructor(address exampleExternalContractAddress) {
     exampleExternalContract = ExampleExternalContract(exampleExternalContractAddress);
-    deadline = block.timestamp + 5 minutes;
+    deadline = block.timestamp + 1 minutes;
+  }
+
+  modifier notCompleted() {
+    require(!exampleExternalContract.completed(), 'The contract has already been completed');
+    _;
+  }
+
+  modifier deadlinePassed() {
+    require(block.timestamp >= deadline, 'The deadline has not been passed yet');
+    _;
   }
 
   function timeLeft() public view returns (uint256) {
+    if (block.timestamp >= deadline) {
+      return 0;
+    }
+
     return deadline - block.timestamp;
   }
 
@@ -29,14 +44,15 @@ contract Staker {
     emit Stake(msg.sender, msg.value);
   }
 
-  function execute() public {
-    require(block.timestamp >= deadline, 'Deadline has not been reached yet!');
-    require(stakedAmount >= threshold, 'Not enough staked amount!');
-    exampleExternalContract.complete{value: address(this).balance}();
+  function execute() public notCompleted deadlinePassed {
+    if (address(this).balance > threshold) {
+      exampleExternalContract.complete{value: address(this).balance}();
+    } else {
+      openForWithdraw = true;
+    }
   }
 
-  function withdraw() public {
-    require(stakedAmount < threshold, 'Cannot withdraw because the required threshold was met!');
+  function withdraw(address payable) public notCompleted deadlinePassed {
     require(balances[msg.sender] > 0, 'Cannot withdraw because you have no staked funds!');
 
     uint256 amount = balances[msg.sender];
@@ -44,5 +60,9 @@ contract Staker {
     stakedAmount -= amount;
     (bool sent, ) = msg.sender.call{value: amount}('');
     require(sent, 'Failed to send Ether');
+  }
+
+  receive() external payable {
+    stake();
   }
 }
