@@ -38,7 +38,9 @@ contract Staker {
   }
 
   function stake() public payable {
+    require(block.timestamp < deadline, 'The deadline has passed');
     require(msg.value > 0, 'Provide some eth to stake!');
+
     balances[msg.sender] += msg.value;
     stakedAmount += msg.value;
     emit Stake(msg.sender, msg.value);
@@ -53,6 +55,7 @@ contract Staker {
   }
 
   function withdraw(address payable) public notCompleted deadlinePassed {
+    require(openForWithdraw, 'Not open for withdraw');
     require(balances[msg.sender] > 0, 'Cannot withdraw because you have no staked funds!');
 
     uint256 amount = balances[msg.sender];
