@@ -14,7 +14,6 @@ import { ethers } from 'ethers';
 import { useEventListener } from 'eth-hooks';
 import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, Staker as StakerUI } from './components';
 import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
-import { EthComponentsContext } from 'eth-components/models';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/app/routes/main/hooks/useScaffoldAppProviders';
 import { useBurnerFallback } from '~~/app/routes/main/hooks/useBurnerFallback';
 import { useScaffoldHooks as useScaffoldHooksExamples } from './hooks/useScaffoldHooksExamples';
@@ -105,7 +104,7 @@ export const Main: FC = () => {
         <MainPageMenu route={route} setRoute={setRoute} />
         <Switch>
           <Route exact path="/">
-            <StakerUI mainnetProvider={scaffoldAppProviders.mainnetProvider} tx={tx} />
+            <StakerUI mainnetProvider={scaffoldAppProviders.mainnetProvider} />
           </Route>
           <Route exact path="/debug">
             <MainPageContracts
