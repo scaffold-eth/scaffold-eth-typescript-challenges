@@ -17,8 +17,7 @@ import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
 import { EthComponentsContext } from 'eth-components/models';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/app/routes/main/hooks/useScaffoldAppProviders';
 import { useBurnerFallback } from '~~/app/routes/main/hooks/useBurnerFallback';
-import { getFaucetAvailable } from '../../common/FaucetHintButton';
-import { useScaffoldHooks } from './hooks/useScaffoldHooks';
+import { useScaffoldHooks as useScaffoldHooksExamples } from './hooks/useScaffoldHooksExamples';
 import { getNetworkInfo } from '~~/helpers/getNetworkInfo';
 import { subgraphUri } from '~~/config/subgraphConfig';
 import { useEthersContext } from 'eth-hooks/context';
@@ -28,9 +27,7 @@ import { Staker } from '~~/generated/contract-types';
 
 export const DEBUG = false;
 
-export const Main: FC = (props) => {
-  const context = useContext(EthComponentsContext);
-
+export const Main: FC = () => {
   // -----------------------------
   // Providers, signers & wallets
   // -----------------------------
@@ -76,42 +73,34 @@ export const Main: FC = (props) => {
   // 📟 Listen for broadcast events
   // const setPurposeEvents = useEventListener(yourContractRead, 'SetPurpose', 1);
 
-  // -----------------------------
-  // Hooks use and examples
-  // -----------------------------
   // For more hooks, check out 🔗eth-hooks at: https://www.npmjs.com/package/eth-hooks
 
   // 💵 This hook will get the price of ETH from 🦄 Uniswap:
-  const price = useDexEthPrice(scaffoldAppProviders.mainnetProvider, scaffoldAppProviders.targetNetwork);
-
-  // 🔥 This hook will get the price of Gas from ⛽️ EtherGasStation
-  const gasPrice = useGasPrice(ethersContext.chainId, 'fast', getNetworkInfo(ethersContext.chainId));
+  const ethPrice = useDexEthPrice(scaffoldAppProviders.mainnetProvider, scaffoldAppProviders.targetNetwork);
 
   // 💰 this hook will get your balance
   const yourCurrentBalance = useBalance(ethersContext.account ?? '');
 
+  // -----------------------------
+  // Hooks use and examples
+  // -----------------------------
   // 🎉 Console logs & More hook examples:  Check out this to see how to get
-  useScaffoldHooks(scaffoldAppProviders, readContracts, writeContracts, mainnetContracts);
+  useScaffoldHooksExamples(scaffoldAppProviders, readContracts, writeContracts, mainnetContracts);
 
   // -----------------------------
   // .... 🎇 End of examples
   // -----------------------------
-
-  // The transactor wraps transactions and provides notificiations
-  const tx = transactor(context, ethersContext?.signer, gasPrice);
 
   const [route, setRoute] = useState<string>('');
   useEffect(() => {
     setRoute(window.location.pathname);
   }, [setRoute]);
 
-  // Faucet Tx can be used to send funds from the faucet
-  let faucetAvailable = getFaucetAvailable(scaffoldAppProviders, ethersContext);
-
   return (
     <div className="App">
-      <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={price} gasPrice={gasPrice} />
+      <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
 
+      {/* Routes should be added between the <Switch> </Switch> as seen below */}
       <BrowserRouter>
         <MainPageMenu route={route} setRoute={setRoute} />
         <Switch>
@@ -125,12 +114,13 @@ export const Main: FC = (props) => {
               appContractConfig={appContractConfig}
             />
           </Route>
+          {/* you can add routes here like the below examlples */}
           <Route path="/hints">
             <Hints
               address={ethersContext?.account ?? ''}
               yourCurrentBalance={yourCurrentBalance}
               mainnetProvider={scaffoldAppProviders.mainnetProvider}
-              price={price}
+              price={ethPrice}
             />
           </Route>
           <Route path="/mainnetdai">
@@ -147,7 +137,6 @@ export const Main: FC = (props) => {
           <Route path="/subgraph">
             <Subgraph
               subgraphUri={subgraphUri}
-              tx={tx}
               writeContracts={writeContracts}
               mainnetProvider={scaffoldAppProviders.mainnetProvider}
             />
@@ -155,12 +144,7 @@ export const Main: FC = (props) => {
         </Switch>
       </BrowserRouter>
 
-      <MainPageFooter
-        scaffoldAppProviders={scaffoldAppProviders}
-        price={price}
-        gasPrice={gasPrice}
-        faucetAvailable={faucetAvailable}
-      />
+      <MainPageFooter scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
     </div>
   );
 };
