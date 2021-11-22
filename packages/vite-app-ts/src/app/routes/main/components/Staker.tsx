@@ -63,7 +63,7 @@ export const Staker: FC<StakerProps> = (props) => {
   const [timeLeft, setTimeLeft] = useState<BigNumber>();
   useEffect(() => {
     const getTimeLeft = async () => {
-      const timeLeft = await stakeContractRead.timeLeft();
+      const timeLeft = await stakeContractRead?.timeLeft();
       console.log('⏳ timeLeft:', timeLeft);
       setTimeLeft(timeLeft);
     };
@@ -73,7 +73,7 @@ export const Staker: FC<StakerProps> = (props) => {
   const [completed, setCompleted] = useState<boolean>(false);
   useEffect(() => {
     const getCompleted = async () => {
-      const completed = await externalContractRead.completed();
+      const completed = await externalContractRead?.completed();
       console.log('✅ complete:', completed);
       setCompleted(completed);
     };
