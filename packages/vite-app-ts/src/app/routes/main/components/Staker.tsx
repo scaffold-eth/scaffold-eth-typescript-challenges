@@ -160,9 +160,14 @@ export const Staker: FC<StakerProps> = (props) => {
           dataSource={stakeEvents}
           renderItem={(item: any) => {
             return (
-              <List.Item key={item.blockNumber + '_' + item.sender + '_' + item.purpose}>
-                <Address address={item.args[0]} ensProvider={mainnetProvider} fontSize={16} />→
-                {formatEther(item.args[1])}
+              <List.Item
+                key={item.blockNumber + '_' + item.sender + '_' + item.purpose}
+                style={{ display: 'flex', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '.5rem' }}>
+                  <Address address={item.args[0]} ensProvider={mainnetProvider} fontSize={16} />
+                  <div>→</div>
+                  <div>{formatEther(item.args[1])}</div>
+                </div>
               </List.Item>
             );
           }}
