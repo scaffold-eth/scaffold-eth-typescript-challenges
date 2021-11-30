@@ -157,6 +157,10 @@ const config: HardhatUserConfig = {
   typechain: {
     outDir: '../vite-app-ts/src/generated/contract-types',
   },
+  etherscan: {
+    // Add your api key here
+    apiKey: 'DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW',
+  },
 };
 export default config;
 
