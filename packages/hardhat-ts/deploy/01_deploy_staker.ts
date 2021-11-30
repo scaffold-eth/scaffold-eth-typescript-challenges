@@ -1,10 +1,13 @@
+import { ethers, run } from 'hardhat';
 import { DeployFunction } from 'hardhat-deploy/types';
 import { HardhatRuntimeEnvironmentExtended } from 'helpers/types/hardhat-type-extensions';
+import '@nomiclabs/hardhat-etherscan';
 
 const func: DeployFunction = async (hre: HardhatRuntimeEnvironmentExtended) => {
-  const { getNamedAccounts, deployments } = hre as any;
+  const { getNamedAccounts, getChainId, deployments } = hre as any;
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
+  const { chainId } = await getChainId();
 
   const exampleExternalContract = await hre.deployments.get('ExampleExternalContract');
 
@@ -24,22 +27,30 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironmentExtended) => {
   */
 
   // todo: uncomment to verify your contract
-  // if (chainId !== "31337") {
+  // const Staker = await ethers.getContract('Staker', deployer);
+
+  // if (chainId !== '31337') {
   //   try {
-  //     console.log(" 🎫 Verifing Contract on Etherscan... ");
-  //     await sleep(3000); // wait 3 seconds for deployment to propagate bytecode
-  //      await run("verify:verify", {
-  //        address: Staker.address,
-  //        contract: "contracts/Staker.sol:Staker",
-  //        contractArguments: [],
-  //      });
+  //     console.log(' 🎫 Verifing Contract on Etherscan... ');
+  //     await delay(3000);
+  //     await run('verify:verify', {
+  //       address: Staker.address,
+  //       contract: 'contracts/Staker.sol:Staker',
+  //       constructorArguments: [exampleExternalContract.address],
+  //     });
+  //     console.log(' ✅ Contract Verified! ');
   //   } catch (e) {
-  //     console.log(" ⚠️ Failed to verify contract on Etherscan ");
+  //     console.log(' ⚠️ Failed to verify contract on Etherscan ');
+  //     console.log(e);
   //   }
   // }
 };
 export default func;
 func.tags = ['Staker'];
+
+const delay = (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
 
 /*
 Tenderly verification
