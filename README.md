@@ -151,19 +151,18 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 
 ---
 
-## 🔍 Etherscan Contract Verification
+### Checkpoint 6: 📜 Contract Verification
 
-> Get a free [Etherscan API Key](https://etherscan.io/apis) and update your hardhat.config.js file with it.
+Update the api-key in packages/hardhat/package.json file. You can get your key [here](https://etherscan.io/myapikey).
 
-![Screen Shot 2021-11-24 at 9 13 40 AM](https://user-images.githubusercontent.com/9419140/143254420-1916d419-7477-4eec-b201-94166174d8c3.png)
+ ![Screen Shot 2021-11-30 at 10 21 01 AM](https://user-images.githubusercontent.com/9419140/144075208-c50b70aa-345f-4e36-81d6-becaa5f74857.png)
 
-> You will need to uncomment the verify task in the deploy script to verify your contract(s). We will use your verified contract to check your work 👀
-
-![Screen Shot 2021-11-24 at 9 25 44 AM](https://user-images.githubusercontent.com/9419140/143256354-29675a6d-5e3e-421b-800f-7c35ced5e6f4.png)
+ > Now you are ready to run the `yarn verify --network your_network` command to verify your contracts on etherscan 🛰
+ This will be the URL you submit to [SpeedRun](https://speedrunethereum.com).
 
 ---
 
-### Checkpoint 6: 🎚 Frontend 🧘‍♀️
+### Checkpoint 7: 🎚 Frontend 🧘‍♀️
 
 > 📝 Edit the `targetNetworkInfo` in `providersConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
 
