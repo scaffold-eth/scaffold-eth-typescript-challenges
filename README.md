@@ -19,7 +19,7 @@ Required:
 (⚠️ Don't install the linux package `yarn` make sure you install yarn with `npm i -g yarn`)
 
 ```sh
-git clone https://github.com/scaffold-eth/scaffold-eth-challenges.git challenge-0-simple-nft
+git clone https://github.com/scaffold-eth/scaffold-eth-typescript-challenges.git challenge-0-simple-nft
 ```
 
 ```sh
