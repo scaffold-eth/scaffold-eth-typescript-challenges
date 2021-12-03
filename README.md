@@ -8,7 +8,7 @@
 
 > 🎛 Building the frontend to display the information and UI is just as important as writing the contract. The goal is to deploy the contract and the app to allow anyone to stake using your app. Use a `Stake(address,uint256)` event to <List/> all stakes.
 
-> 🏆 The final **deliverable** is deploying a decentralized application to a public blockchain and then `yarn build` and `yarn surge` your app to a public webserver. Share the url in the [Challenge 1 telegram channel](https://t.me/joinchat/E6r91UFt4oMJlt01) to earn a collectible and cred! Part of the challenge is making the **UI/UX** enjoyable and clean! 🤩
+> 🏆 The final **deliverable** is deploying a decentralized application to a public blockchain and then `yarn build` and `yarn surge` your app to a public webserver. Share the url in the [Challenge 1 telegram channel](https://t.me/joinchat/E6r91UFt4oMJlt01) to earn a collectible and cred! || Part of the challenge is making the **UI/UX** enjoyable and clean! 🍾
 
 🧫 Everything starts by ✏️ Editing `Staker.sol` in `packages/hardhat/contracts`
 
@@ -151,18 +151,7 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 
 ---
 
-### Checkpoint 6: 📜 Contract Verification
-
-Update the api-key in packages/hardhat/package.json file. You can get your key [here](https://etherscan.io/myapikey).
-
- ![Screen Shot 2021-11-30 at 10 21 01 AM](https://user-images.githubusercontent.com/9419140/144075208-c50b70aa-345f-4e36-81d6-becaa5f74857.png)
-
- > Now you are ready to run the `yarn verify --network your_network` command to verify your contracts on etherscan 🛰
- This will be the URL you submit to [SpeedRun](https://speedrunethereum.com).
-
----
-
-### Checkpoint 7: 🎚 Frontend 🧘‍♀️
+### Checkpoint 6: 🎚 Frontend 🧘‍♀️
 
 > 📝 Edit the `targetNetworkInfo` in `providersConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
 
@@ -176,12 +165,24 @@ Update the api-key in packages/hardhat/package.json file. You can get your key [
 
 💽 Upload your app to surge with `yarn surge` (you could also `yarn s3` or maybe even `yarn ipfs`?)
 
+> 📝 you will use this deploy URL to submit to [SpeedRun](https://speedrunethereum.com).
+
 🚔 Traffic to your url might break the [Infura](https://infura.io/) rate limit, edit your key: `constants.js` in `packages/ract-app/src`.
 
-> 🎖 Show off your app by pasting the url in the [Challenge 1 telegram channel](https://t.me/joinchat/E6r91UFt4oMJlt01)
+🎖 Show off your app by pasting the url in the [Challenge 1 telegram channel](https://t.me/joinchat/E6r91UFt4oMJlt01) 🎖
 
 ---
 
-> 👩‍🔬 Need a longer form tutorial to guide your coding? [Try this one!](https://github.com/austintgriffith/scaffold-eth/tree/staking-app-tutorial)
+### Checkpoint 7: 📜 Contract Verification
+
+Update the api-key in packages/hardhat/package.json file. You can get your key [here](https://etherscan.io/myapikey).
+
+![Screen Shot 2021-11-30 at 10 21 01 AM](https://user-images.githubusercontent.com/9419140/144075208-c50b70aa-345f-4e36-81d6-becaa5f74857.png)
+
+> Now you are ready to run the `yarn verify --network your_network` command to verify your contracts on etherscan 🛰
+
+---
+
+> 🏃 Head to your next challenge [here](https://speedrunethereum.com).
 
 > 💬 Problems, questions, comments on the stack? Post them to the [🏗 scaffold-eth developers chat](https://t.me/joinchat/F7nCRK3kI93PoCOk)
