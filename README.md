@@ -4,23 +4,24 @@
 
 🎫 Create a simple NFT to learn basics of 🏗 scaffold-eth. You'll use [👷‍♀️ HardHat](https://hardhat.org/getting-started/) to compile and deploy smart contracts. Then, you'll use a template React app full of important Ethereum components and hooks. Finally, you'll deploy an NFT to a public network to share with friends! 🚀
 
-🏆 The final deliverable is an app that lets users purchase and transfer NFTs. Deploy your contracts to Rinkeby and then build and upload your app to a public web server. Share the url in the Challenge 0 telegram channel!!!
+🏆 The final deliverable is an app that lets users purchase and transfer NFTs. Deploy your contracts to Rinkeby and then build and upload your app to a public web server. Share the url in the [Challenge 0 telegram channel](https://t.me/+Y2vqXZZ_pEFhMGMx)!!! 🍾
 
 ---
 
 # Checkpoint 0: 📦 Install 📚
 
-
 Required:
-* [Git](https://git-scm.com/downloads)
-* [Node](https://nodejs.org/dist/latest-v12.x/)
-* [Yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
+
+- [Git](https://git-scm.com/downloads)
+- [Node](https://nodejs.org/dist/latest-v12.x/)
+- [Yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
 
 (⚠️ Don't install the linux package `yarn` make sure you install yarn with `npm i -g yarn`)
 
 ```sh
 git clone https://github.com/scaffold-eth/scaffold-eth-challenges.git challenge-0-simple-nft
 ```
+
 ```sh
 cd challenge-0-simple-nft
 git checkout challenge-0-simple-nft
@@ -48,7 +49,7 @@ yarn deploy
 
 ---
 
-# Checkpoint 1: ⛽️  Gas & Wallets 👛
+# Checkpoint 1: ⛽️ Gas & Wallets 👛
 
 > ⛽️ You'll need to get some funds from the faucet for gas.
 
@@ -58,11 +59,9 @@ yarn deploy
 
 ![image](https://user-images.githubusercontent.com/2653167/142484483-1439d925-8cef-4b1a-a4b2-0f022eebc0f6.png)
 
-
 > 🔥 We'll use **burner wallets** on localhost...
 
-
-> 👛 Explore how **burner wallets** work in 🏗 scaffold-eth by opening a new *incognito* window and navigate it to http://localhost:3000. You'll notice it has a new wallet address in the top right. Copy the incognito browsers' address and send localhost test funds to it from your first browser:
+> 👛 Explore how **burner wallets** work in 🏗 scaffold-eth by opening a new _incognito_ window and navigate it to http://localhost:3000. You'll notice it has a new wallet address in the top right. Copy the incognito browsers' address and send localhost test funds to it from your first browser:
 
 ![image](https://user-images.githubusercontent.com/2653167/142483685-d5c6a153-da93-47fa-8caa-a425edba10c8.png)
 
@@ -81,6 +80,7 @@ yarn deploy
 ```sh
 yarn mint
 ```
+
 ![nft2](https://user-images.githubusercontent.com/526558/124386972-3d432780-dcb3-11eb-933e-dad7dfd313b2.png)
 
 👀 You should see your collectibles show up if you minted to the correct address:
@@ -151,8 +151,6 @@ yarn mint
 
 ![nft11](https://user-images.githubusercontent.com/526558/124387132-b04c9e00-dcb3-11eb-95d1-03b8c272e52f.png)
 
-
-
 📦 Build your frontend:
 
 ```sh
@@ -160,9 +158,11 @@ yarn build
 ```
 
 💽 Upload your app to surge:
+
 ```sh
 yarn surge
 ```
+
 (You could also `yarn s3` or maybe even `yarn ipfs`?)
 
 # Checkpoint 5: 📜 Contract Verification
@@ -173,15 +173,11 @@ Update the api-key in packages/hardhat/package.json file. You can get your key [
 
 > Now you are ready to run the `yarn verify --network your_network` command to verify your contracts on etherscan 🛰
 
-This will be the URL you submit to [SpeedRun](https://speedrunethereum.com).
-
----
-
 ---
 
 # Checkpoint 6: 💪 Flex!
 
-> 🎖 Show off your app by pasting the surge url in the [Challenge 0 telegram channel](https://t.me/joinchat/Y2vqXZZ_pEFhMGMx)
+> 🎖 Show off your app by pasting the surge url in the [Challenge 0 telegram channel](https://t.me/+Y2vqXZZ_pEFhMGMx) 🎖
 
 ---
 
@@ -194,18 +190,20 @@ This will be the URL you submit to [SpeedRun](https://speedrunethereum.com).
 # ⚔️ Side Quests
 
 ## 🐟 Open Sea
+
 > Add your contract to OpenSea ( create -> submit NFTs -> "or add an existing contract")
 
 (It can take a while before they show up, but here is an example:)
 https://testnets.opensea.io/assets/0xc2839329166d3d004aaedb94dde4173651babccf/1
 
 ## 🔶 Infura
+
 > You will need to get a key from infura.io and paste it into constants.js in packages/react-app/src:
 
 ![nft13](https://user-images.githubusercontent.com/526558/124387174-d83c0180-dcb3-11eb-989e-d58ba15d26db.png)
 
 ---
 
-> 🏰 Buidl Guidl Discord Server [Join Here](https://discord.gg/ZnFs36fbbU)
+> 🏃 Head to your next challenge [here](https://speedrunethereum.com).
 
 > 💬 Problems, questions, comments on the stack? Post them to the [🏗 scaffold-eth developers chat](https://t.me/joinchat/F7nCRK3kI93PoCOk)
