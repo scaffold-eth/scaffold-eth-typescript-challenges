@@ -9,7 +9,7 @@ import { transactor, TTransactor } from 'eth-components/functions';
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { useEthersContext } from 'eth-hooks/context';
 import { useContractLoader, useContractReader, useEventListener, useGasPrice } from 'eth-hooks';
-import { YourContract } from '~~/generated/contract-types';
+import { YourCollectible } from '~~/generated/contract-types';
 import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
 import { EthComponentsSettingsContext } from 'eth-components/models';
 
@@ -27,8 +27,8 @@ export const ExampleUI: FC<IExampleUIProps> = (props) => {
   const readContracts = useContractLoader(appContractConfig);
   const writeContracts = useContractLoader(appContractConfig, ethersContext?.signer);
 
-  const yourContractRead = readContracts['YourContract'] as YourContract;
-  const yourContractWrite = writeContracts['YourContract'] as YourContract;
+  const yourContractRead = readContracts['YourContract'] as any;
+  const yourContractWrite = writeContracts['YourContract'] as any;
   const purpose = useContractReader<string>(yourContractRead, {
     contractName: 'YourContract',
     functionName: 'purpose',
