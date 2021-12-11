@@ -7,15 +7,14 @@ import { useEthersContext } from 'eth-hooks/context';
 import { BigNumber, ethers } from 'ethers';
 import { create } from 'ipfs-http-client';
 
-
 export interface IYourCollectibleProps {
   mainnetProvider: StaticJsonRpcProvider;
 }
 
-const ipfs = create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+const ipfsAPI = create({ url: 'https://ipfs.infura.io:5001' });
 const getFromIPFS = async (hashToGet: string) => {
-  for await (const file of ipfs.get(hashToGet)) {
-    console.log(file);
+  for await (const file of ipfsAPI.get(hashToGet)) {
+    console.log('file');
     // if (!file.content) continue;
     // const content = new BufferList();
     // for await (const chunk of file.content) {

@@ -65,7 +65,6 @@
       "shx": "^0.3.3"
    },
    "dependencies": {
-      "ipfs-http-client": "^54.0.2",
       "react": "^17.0.2"
    }
 }

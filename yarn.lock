@@ -1957,7 +1957,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@originjs/vite-plugin-commonjs@npm:^1.0.0":
+"@originjs/vite-plugin-commonjs@npm:^1.0.1":
   version: 1.0.1
   resolution: "@originjs/vite-plugin-commonjs@npm:1.0.1"
   dependencies:
@@ -2205,7 +2205,6 @@ __metadata:
   resolution: "@scaffold-eth/typescript@workspace:."
   dependencies:
     eslint: ^7.32.0
-    ipfs-http-client: ^54.0.2
     prettier: ^2.4.1
     react: ^17.0.2
     shx: ^0.3.3
@@ -2232,7 +2231,7 @@ __metadata:
     "@maticnetwork/maticjs": ^2.0.44
     "@nomiclabs/hardhat-ethers": ^2.0.2
     "@nomiclabs/hardhat-waffle": ^2.0.1
-    "@originjs/vite-plugin-commonjs": ^1.0.0
+    "@originjs/vite-plugin-commonjs": ^1.0.1
     "@portis/web3": ^4.0.5
     "@ramp-network/ramp-instant-sdk": ^2.5.0
     "@tailwindcss/aspect-ratio": ^0.2.0
@@ -2288,6 +2287,7 @@ __metadata:
     graphql: ^15.6.1
     history: ^5.0.0
     http-browserify: ^1.7.0
+    ipfs-http-client: ^54.0.2
     less: ^4.1.2
     postcss: ^8.3.5
     prettier: ^2.4.1
@@ -3017,9 +3017,9 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:>=13.7.0":
-  version: 16.11.11
-  resolution: "@types/node@npm:16.11.11"
-  checksum: 1c472bd63f23ca0e4effc96e6e0c693b83b027f613a1f41b6d1bd7791f65ce171a351e0a5c92575cb59e84ad0a930875397bfbbb91a7c925ddbbb558f7461af8
+  version: 16.11.12
+  resolution: "@types/node@npm:16.11.12"
+  checksum: a3feb346d61a56f5a137c29bb8c63cfa3cc02e184b9dffdc18ef1528dcce55596e570575215a2e39e6ce69343eeb2a5ba71c271938f1dc8db4cc393902855412
   languageName: node
   linkType: hard
 
@@ -6334,11 +6334,11 @@ __metadata:
   linkType: hard
 
 "cborg@npm:^1.2.1":
-  version: 1.5.3
-  resolution: "cborg@npm:1.5.3"
+  version: 1.5.4
+  resolution: "cborg@npm:1.5.4"
   bin:
     cborg: cli.js
-  checksum: 40e4ee6a23db94808a5d09a3c12bdcb9a745fbdd103cb2d36f9f12b3cfc1855d9c195daa5d556f4ded07fd7f61205a5eeb296c02ea73d6931df59b02aa60c120
+  checksum: ef9680d9a0b0354ce60e2ee453548fb47f576a23451a04bea83de29601fe90889c9206c4375cdde6a2f819085dfa07f7b87e01e21fca831264f8f962a09c5c1f
   languageName: node
   linkType: hard
 
