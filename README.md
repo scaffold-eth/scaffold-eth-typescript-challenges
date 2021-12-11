@@ -1,125 +1,197 @@
-# 🏗 Scaffold-Eth Typescript
+# 🏗 scaffold-eth | 🏰 BuidlGuidl
 
-## Typescript
+## 🚩 Challenge 2: 🏵 Token Vendor 🤖
 
-This is the typescript repo of scaffold.eth. The directories that you'll use are:
 
-```bash
-packages/vite-app-ts/
-packages/hardhat-ts/
-```
+> 🤖 Smart contracts are kind of like "always on" *vending machines* that **anyone** can access. Let's make a decentralized, digital currency. Then, let's build an unstoppable vending machine that will buy and sell the currency. We'll learn about the "approve" pattern for ERC20s and how contract to contract interactions work.
 
-## Quick Start
+> 🏵 Create `YourToken.sol` smart contract that inherits the **ERC20** token standard from OpenZeppelin. Set your token to `_mint()` **1000** (\* 10 \*\* 18) tokens to the `msg.sender`. Then create a `Vendor.sol` contract that sells your token using a payable `buyTokens()` function.
 
-Running the app
+> 🎛 Edit the frontend that invites the user to `<input\>` an amount of tokens they want to buy. We'll display a preview of the amount of ETH (or USD) it will cost with a confirm button.
 
-1. install your dependencies
+> 🔍 It will be important to verify your token's source code in the block explorer after you deploy. Supporters will want to be sure that it has a fixed supply and you can't just mint more.
 
-   ```bash
-   yarn install
-   ```
+> 🏆 The final **deliverable** is an app that lets users purchase and transfer your token. Deploy your contracts on your public chain of choice and then `yarn build` and `yarn surge` your app to a public web server. Share the url in the [Challenge 2 telegram channel](https://t.me/joinchat/IfARhZFc5bfPwpjq).🍾
 
-2. start a hardhat node
+> 📱 Part of the challenge is making the **UI/UX** enjoyable and clean! 🤩
 
-   ```bash
-   yarn chain
-   ```
-
-3. run the app, `you'll need to open a new command prompt`
-
-   ```bash
-   yarn deploy
-   yarn start
-   ```
-
-## Overview
-
-> everything you need to build on Ethereum! 🚀
-
-🧪 Quickly experiment with Solidity using a frontend that adapts to your smart contract:
-
-![image](https://user-images.githubusercontent.com/2653167/124158108-c14ca380-da56-11eb-967e-69cde37ca8eb.png)
-
-# 🏄‍♂️ Building on scaffold-eth-typescript
-
-Prerequisites: [Node](https://nodejs.org/en/download/) plus [Yarn](https://classic.yarnpkg.com/en/docs/install/) and [Git](https://git-scm.com/downloads)
-
-> clone/fork 🏗 scaffold-eth:
-
-```bash
-git clone https://github.com/austintgriffith/scaffold-eth.git
-```
-
-> install and start your 👷‍ Hardhat chain:
-
-```bash
-yarn install
-yarn chain
-```
-
-> in a second terminal window, start your 📱 frontend:
-
-```bash
-yarn start
-```
-
-> in a third terminal window, 🛰 deploy your contract:
-
-```bash
-yarn compile
-yarn deploy
-```
-
-🔏 Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
-
-📝 Edit your frontend `App.jsx` in `packages/react-app/src`
-
-💼 Edit your deployment scripts in `packages/hardhat/deploy`
-
-📱 Open http://localhost:3000 to see the app
-
-# 📚 Documentation
-
-Documentation, tutorials, challenges, and many more resources, visit: [docs.scaffoldeth.io](https://docs.scaffoldeth.io)
-
-# 🔭 Learning Solidity
-
-📕 Read the docs: https://docs.soliditylang.org
-
-📚 Go through each topic from [solidity by example](https://solidity-by-example.org) editing `YourContract.sol` in **🏗 scaffold-eth**
-
--  [Primitive Data Types](https://solidity-by-example.org/primitives/)
--  [Mappings](https://solidity-by-example.org/mapping/)
--  [Structs](https://solidity-by-example.org/structs/)
--  [Modifiers](https://solidity-by-example.org/function-modifier/)
--  [Events](https://solidity-by-example.org/events/)
--  [Inheritance](https://solidity-by-example.org/inheritance/)
--  [Payable](https://solidity-by-example.org/payable/)
--  [Fallback](https://solidity-by-example.org/fallback/)
-
-📧 Learn the [Solidity globals and units](https://solidity.readthedocs.io/en/v0.6.6/units-and-global-variables.html)
-
-# 🛠 Buidl
-
-Check out all the [active branches](https://github.com/austintgriffith/scaffold-eth/branches/active), [open issues](https://github.com/austintgriffith/scaffold-eth/issues), and join/fund the 🏰 [BuidlGuidl](https://BuidlGuidl.com)!
-
--  🚤 [Follow the full Ethereum Speed Run](https://medium.com/@austin_48503/%EF%B8%8Fethereum-dev-speed-run-bd72bcba6a4c)
-
--  🎟 [Create your first NFT](https://github.com/austintgriffith/scaffold-eth/tree/simple-nft-example)
--  🥩 [Build a staking smart contract](https://github.com/austintgriffith/scaffold-eth/tree/challenge-1-decentralized-staking)
--  🏵 [Deploy a token and vendor](https://github.com/austintgriffith/scaffold-eth/tree/challenge-2-token-vendor)
--  🎫 [Extend the NFT example to make a "buyer mints" marketplace](https://github.com/austintgriffith/scaffold-eth/tree/buyer-mints-nft)
--  🎲 [Learn about commit/reveal](https://github.com/austintgriffith/scaffold-eth/tree/commit-reveal-with-frontend)
--  ✍️ [Learn how ecrecover works](https://github.com/austintgriffith/scaffold-eth/tree/signature-recover)
--  👩‍👩‍👧‍👧 [Build a multi-sig that uses off-chain signatures](https://github.com/austintgriffith/scaffold-eth/tree/meta-multi-sig)
--  ⏳ [Extend the multi-sig to stream ETH](https://github.com/austintgriffith/scaffold-eth/tree/streaming-meta-multi-sig)
--  ⚖️ [Learn how a simple DEX works](https://medium.com/@austin_48503/%EF%B8%8F-minimum-viable-exchange-d84f30bd0c90)
--  🦍 [Ape into learning!](https://github.com/austintgriffith/scaffold-eth/tree/aave-ape)
-
-# 💬 Support Chat
-
-Join the telegram [support chat 💬](https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA) to ask questions and find others building with 🏗 scaffold-eth!
+🧫 Everything starts by ✏️ Editing `YourToken.sol` in `packages/hardhat/contracts`
 
 ---
 
-🙏 Please check out our [Gitcoin grant](https://gitcoin.co/grants/2851/scaffold-eth) too!
+### Checkpoint 0: 📦 install 📚
+
+```bash
+git clone https://github.com/scaffold-eth/scaffold-eth-challenges challenge-2-token-vendor
+cd challenge-2-token-vendor
+git checkout challenge-2-token-vendor
+yarn install
+```
+
+🔏 Edit your smart contract `YourToken.sol` in `packages/hardhat/contracts`
+
+---
+
+### Checkpoint 1: 🔭 Environment 📺
+
+You'll have three terminals up for:
+
+`yarn chain` (hardhat backend)
+
+`yarn start` (react app frontend)
+
+`yarn deploy` (to compile, deploy, and publish your contracts to the frontend)
+
+> 👀 Visit your frontend at http://localhost:3000
+
+> 👩‍💻 Rerun `yarn deploy --reset` whenever you want to deploy new contracts to the frontend.
+
+> ignore any warnings, we'll get to that...
+
+---
+
+### Checkpoint 2: 🏵Your Token 💵
+
+> 👩‍💻 Edit `YourToken.sol` to inherit the **ERC20** token standard from OpenZeppelin
+
+Mint **1000** (\* 10 \*\* 18) in the constructor (to the `msg.sender`) and then send them to your frontend address in the `deploy/00_deploy_your_token.js`:
+
+```javascript
+const result = await yourToken.transfer(
+  "**YOUR FRONTEND ADDRESS**",
+  ethers.utils.parseEther("1000")
+);
+```
+
+(Your frontend address is the address in the top right of your frontend. Go to localhost:3000 and copy the address from the top right.)
+
+#### 🥅 Goals
+
+- [ ] Can you check the `balanceOf()` your frontend address in the **YourToken** of the `Debug Contracts` tab?
+- [ ] Can you `transfer()` your token to another account and check _that_ account's `balanceOf`?
+
+(Use an incognito window to create a new address and try sending to that new address. Use the `transfer()` function in the `Debug Contracts` tab.)
+
+---
+
+### Checkpoint 3: ⚖️ Vendor 🤖
+
+> 👩‍💻 Create a `Vendor.sol` contract with a **payable** `buyTokens()` function
+
+Use a price variable named `tokensPerEth` set to **100**:
+
+```solidity
+uint256 public constant tokensPerEth = 100;
+```
+
+> 📝 The `buyTokens()` function in `Vendor.sol` should use `msg.value` and `tokensPerEth` to calculate an amount of tokens to `yourToken.transfer()` to `msg.sender`.
+
+> 📟 Emit **event** `BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens)` when tokens are purchased.
+
+Edit `deploy/01_deploy_vendor.js` to deploy the `Vendor` (uncomment Vendor deploy lines).
+
+You will also want to change `00_deploy_your_token.js` and `01_deploy_vendor.js` so you transfer the tokens to the `vendor.address` instead of your frontend address.
+
+```js
+const result = await yourToken.transfer( vendor.address, ethers.utils.parseEther("1000") );
+```
+
+(You will use the `YourToken` UI tab and the frontend for most of your testing. Most of the UI is already built for you for this challenge.)
+
+> 📝 Edit `Vendor.sol` to inherit *Ownable*.
+
+In `deploy/01_deploy_vendor.js` you will need to call `transferOwnership()` on the `Vendor` to make *your frontend address* the `owner`:
+
+```js
+await vendor.transferOwnership("**YOUR FRONTEND ADDRESS**");
+```
+
+> 📝 Finally, add a `withdraw()` function in `Vendor.sol` that lets the owner withdraw ETH from the vendor.
+
+
+#### 🥅 Goals
+
+- [ ] Does the `Vendor` address start with a `balanceOf` **1000** in `YourToken` on the `Debug Contracts` tab?
+- [ ] Can you buy **10** tokens for **0.1** ETH?
+- [ ] Can you transfer tokens to a different account?
+- [ ] Can the `owner` withdraw the ETH from the `Vendor`?
+
+#### ⚔️ Side Quests
+
+- [ ] Can _anyone_ withdraw? Test _everything_!
+- [ ] What if you minted **2000** and only sent **1000** to the `Vendor`?
+
+---
+
+### Checkpoint 4: 🤔 Vendor Buyback 🤯
+
+👩‍🏫 The hardest part of this challenge is to build your `Vendor` to buy the tokens back.
+
+🧐 The reason why this is hard is the `approve()` pattern in ERC20s.
+
+😕 First, the user has to call `approve()` on the `YourToken` contract, approving the `Vendor` contract address to take some amount of tokens.
+
+🤨 Then, the user makes a *second transaction* to the `Vendor` contract to `sellTokens()`.
+
+🤓 The `Vendor` should call `yourToken.transferFrom(msg.sender, address(this), theAmount)` and if the user has approved the `Vendor` correctly, tokens should transfer to the `Vendor` and ETH should be sent to the user.
+
+(Use the `Debug Contracts` tab to call the approve and sellTokens() at first but then look in the `App.jsx` for the extra approve/sell UI to uncomment.)
+
+
+#### 🥅 Goal
+
+- [ ] Can you sell tokens back to the vendor and receive ETH?
+
+#### ⚔️ Side Quest
+
+- [ ] Should we disable the `owner` withdraw to keep liquidity in the `Vendor`?
+
+----
+
+### Checkpoint 5: 💾 Deploy it! 🛰
+
+📡 Edit the `defaultNetwork` in `packages/hardhat/hardhat.config.js`, as well as `targetNetwork` in `packages/react-app/src/App.jsx`, to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/)
+
+👩‍🚀 You will want to run `yarn account` to see if you have a **deployer address**.
+
+🔐 If you don't have one, run `yarn generate` to create a mnemonic and save it locally for deploying.
+
+🛰 Use a faucet like [faucet.paradigm.xyz](https://faucet.paradigm.xyz/) to fund your **deployer address** (run `yarn account` again to view balances)
+
+> 🚀 Run `yarn deploy` to deploy to your public network of choice (😅 wherever you can get ⛽️ gas)
+
+🔬 Inspect the block explorer for the network you deployed to... make sure your contract is there.
+
+👮 Your token contract source needs to be **verified** 🔃 (source code publicly available on the block explorer).
+
+📠 You will need a Etherscan API key for this and you can get on by creating a free account at [etherscan.io](https://etherscan.io). Add your key to the `hardhat.config` file
+at around line 258. The verify script is at the bottom of `00_deploy_your_token.js`. You will see something like this after successful completion.
+
+⚔️ Side Quest: 🔂 use this same methodology to verify the Vendor contract.
+
+### Checkpoint 6: 🚢 Ship it! 🚁
+
+📦 Run `yarn build` to package up your frontend.
+
+💽 Upload your app to surge with `yarn surge` (you could also `yarn s3` or maybe even `yarn ipfs`?)
+
+🚔 Traffic to your url might break the [Infura](https://infura.io/) rate limit, edit your key: `constants.js` in `packages/ract-app/src`.
+
+🎖 Show off your app by pasting the url in the [Challenge 2 telegram channel](https://t.me/joinchat/IfARhZFc5bfPwpjq) 🎖
+
+---
+### Checkpoint 7: 📜 Contract Verification
+
+Update the api-key in packages/hardhat/package.json file. You can get your key [here](https://etherscan.io/myapikey).
+
+![Screen Shot 2021-11-30 at 10 21 01 AM](https://user-images.githubusercontent.com/9419140/144075208-c50b70aa-345f-4e36-81d6-becaa5f74857.png)
+
+> Now you are ready to run the `yarn verify --network your_network` command to verify your contracts on etherscan 🛰
+
+This will be the URL you submit to [SpeedRun](https://speedrunethereum.com).
+
+---
+
+> 🏃 Head to your next challenge [here](https://speedrunethereum.com).
+
+> 💬 Problems, questions, comments on the stack? Post them to the [🏗 scaffold-eth developers chat](https://t.me/joinchat/F7nCRK3kI93PoCOk)
