@@ -22,13 +22,13 @@
 ### Checkpoint 0: 📦 install 📚
 
 ```bash
-git clone https://github.com/scaffold-eth/scaffold-eth-challenges challenge-2-token-vendor
+git clone https://github.com/scaffold-eth/scaffold-eth-typescript-challenges.git challenge-2-token-vendor
 cd challenge-2-token-vendor
 git checkout challenge-2-token-vendor
 yarn install
 ```
 
-🔏 Edit your smart contract `YourToken.sol` in `packages/hardhat/contracts`
+🔏 Edit your smart contract `YourToken.sol` in `packages/hardhat-ts/contracts`
 
 ---
 
