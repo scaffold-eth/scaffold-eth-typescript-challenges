@@ -3,6 +3,7 @@ import { lazier } from 'eth-hooks/helpers';
 // the components and pages are lazy loaded for performance and bundle size reasons
 // code is in the component file
 
+export const Vendor = lazier(() => import('./vendor/Vendor'), 'Vendor');
 export const ExampleUI = lazier(() => import('./exampleui/ExampleUI'), 'ExampleUI');
 export const Checkout = lazier(() => import('./checkout/Checkout'), 'Checkout');
 export const Subgraph = lazier(() => import('./subgraph/Subgraph'), 'Subgraph');

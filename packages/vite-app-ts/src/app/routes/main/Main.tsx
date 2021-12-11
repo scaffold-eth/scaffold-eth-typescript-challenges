@@ -6,7 +6,7 @@ import { useGasPrice, useContractLoader, useContractReader, useBalance } from 'e
 import { useDexEthPrice } from 'eth-hooks/dapps';
 
 import { GenericContract } from 'eth-components/ant/generic-contract';
-import { Hints, Subgraph, ExampleUI } from '~~/app/routes';
+import { Hints, Subgraph, ExampleUI, Vendor } from '~~/app/routes';
 import { transactor } from 'eth-components/functions';
 
 import { ethers } from 'ethers';
@@ -21,7 +21,6 @@ import { subgraphUri } from '~~/config/subgraphConfig';
 import { useEthersContext } from 'eth-hooks/context';
 import { NETWORKS } from '~~/models/constants/networks';
 import { mainnetProvider } from '~~/config/providersConfig';
-import { YourContract } from '~~/generated/contract-types';
 import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
 
 export const DEBUG = false;
@@ -62,15 +61,15 @@ export const Main: FC = () => {
   // -----------------------------
   // example for current contract and listners
   // -----------------------------
-  const yourContractRead = readContracts['YourContract'] as YourContract;
+  // const yourContractRead = readContracts['YourContract'] as YourContract;
   // keep track of a variable from the contract in the local React state:
-  const purpose = useContractReader<string>(yourContractRead, {
-    contractName: 'YourContract',
-    functionName: 'purpose',
-  });
+  // const purpose = useContractReader<string>(yourContractRead, {
+  //   contractName: 'YourContract',
+  //   functionName: 'purpose',
+  // });
 
   // 📟 Listen for broadcast events
-  const setPurposeEvents = useEventListener(yourContractRead, 'SetPurpose', 1);
+  // const setPurposeEvents = useEventListener(yourContractRead, 'SetPurpose', 1);
 
   // For more hooks, check out 🔗eth-hooks at: https://www.npmjs.com/package/eth-hooks
 
@@ -104,6 +103,9 @@ export const Main: FC = () => {
         <MainPageMenu route={route} setRoute={setRoute} />
         <Switch>
           <Route exact path="/">
+            <Vendor></Vendor>
+          </Route>
+          <Route exact path="/debug">
             <MainPageContracts
               scaffoldAppProviders={scaffoldAppProviders}
               mainnetContracts={mainnetContracts}
