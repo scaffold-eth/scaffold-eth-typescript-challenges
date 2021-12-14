@@ -3,7 +3,7 @@ import { Button, Card, Divider, Input, List } from 'antd';
 import { Address, AddressInput, Balance } from 'eth-components/ant';
 import { transactor } from 'eth-components/functions';
 import { EthComponentsSettingsContext } from 'eth-components/models';
-import { useContractLoader, useContractReader, useGasPrice } from 'eth-hooks';
+import { useBalance, useContractLoader, useContractReader, useGasPrice } from 'eth-hooks';
 import { useEthersContext } from 'eth-hooks/context';
 import { useDexEthPrice } from 'eth-hooks/dapps';
 import { BigNumber, ethers } from 'ethers';
@@ -25,6 +25,7 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
   const writeContracts = useContractLoader(appContractConfig, ethersContext?.signer);
 
   const address = ethersContext.account ?? '';
+  const yourCurrentBalance = useBalance(ethersContext.account ?? '');
 
   const vendorContract = readContracts['Vendor'] as Vendor;
   const yourTokenContract = readContracts['YourToken'] as YourTokenContract;
@@ -47,7 +48,7 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
       setYourTokenBalance(yourTokenBalance);
     };
     getyourTokenBalance();
-  }, [address]);
+  }, [address, yourCurrentBalance]);
 
   const [tokensPerEth, setTokensPerEth] = useState<number>();
   useEffect(() => {
@@ -59,7 +60,7 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
       setTokensPerEth(tokensPerEth.toNumber());
     };
     getTokensPerEth();
-  });
+  }, [address]);
 
   const vendorApproval = useContractReader<BigNumber>(yourTokenContract, {
     contractName: 'YourToken',
