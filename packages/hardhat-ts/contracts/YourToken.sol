@@ -10,6 +10,6 @@ contract YourToken is ERC20 {
   //       you can use the above import for ERC20.sol. Read the docs ^^^
 
   constructor() public ERC20('Gold', 'GLD') {
-    // _mint() 1000 * 10 ** 18 to msg.sender
+      _mint(msg.sender, 1000 * 10 ** 18);
   }
 }
