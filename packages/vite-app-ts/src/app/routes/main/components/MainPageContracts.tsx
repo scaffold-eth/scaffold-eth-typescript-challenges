@@ -16,8 +16,8 @@ export interface IMainPageContractsProps {
  * 🎛 this scaffolding is full of commonly used components
     this <GenericContract/> component will automatically parse your ABI
     and give you a form to interact with it locally
- * @param props 
- * @returns 
+ * @param props
+ * @returns
  */
 export const MainPageContracts: FC<IMainPageContractsProps> = (props) => {
   const ethersContext = useEthersContext();
@@ -36,34 +36,18 @@ export const MainPageContracts: FC<IMainPageContractsProps> = (props) => {
           and give you a form to interact with it locally
         ********** */}
         <GenericContract
-          contractName="YourContract"
-          contract={contractList?.['YourContract']}
+          contractName="YourToken"
+          contract={contractList?.['YourToken']}
           mainnetProvider={props.scaffoldAppProviders.mainnetProvider}
           blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}
           contractConfig={props.appContractConfig}
         />
 
-        {/* **********
-         * ❓ uncomment for a second contract:
-         ********** */}
-        {/*
-          <GenericContract
-            contractName="SecondContract"
-            contract={contract={contractList?.['SecondContract']}
-            mainnetProvider={props.appProviders.mainnetProvider}
-            blockExplorer={props.appProviders.targetNetwork.blockExplorer}
-            contractConfig={props.contractConfig}
-          />
-        */}
-
-        {/***********
-         *  ❓ Uncomment to display and interact with an external contract (DAI on mainnet):
-         ********** */}
         <GenericContract
-          contractName="DAI"
-          contract={props.mainnetContracts?.['DAI']}
+          contractName="Vendor"
+          contract={contractList?.['Vendor']}
           mainnetProvider={props.scaffoldAppProviders.mainnetProvider}
-          blockExplorer={NETWORKS['mainnet'].blockExplorer}
+          blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}
           contractConfig={props.appContractConfig}
         />
       </>

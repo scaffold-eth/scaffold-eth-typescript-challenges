@@ -24,50 +24,49 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
   const readContracts = useContractLoader(appContractConfig);
   const writeContracts = useContractLoader(appContractConfig, ethersContext?.signer);
 
-  /* 💵 This hook will get the price of ETH from 🦄 Uniswap: */
-  const price = useExchangeEthPrice('localhost', mainnetProvider); // TODO: get newtork
-
   const address = ethersContext.account ?? '';
 
   const vendorContract = readContracts['Vendor'] as Vendor;
   const yourTokenContract = readContracts['YourToken'] as YourTokenContract;
+
+  const vendorContractWrite = writeContracts['Vendor'] as Vendor;
+  const yourTokenContractWrite = writeContracts['YourToken'] as YourTokenContract;
 
   const ethComponentsSettings = useContext(EthComponentsSettingsContext);
   const gasPrice = useGasPrice(ethersContext.chainId, 'fast');
   const ethPrice = useDexEthPrice(mainnetProvider);
   const tx = transactor(ethComponentsSettings, ethersContext?.signer, gasPrice);
 
-  const yourTokenBalance = useContractReader<BigNumber>(yourTokenContract, {
-    contractName: 'YourToken',
-    functionName: 'balanceOf',
-    functionArgs: [address],
-  });
-  console.log('🏵 yourTokenBalance:', yourTokenBalance ? ethers.utils.formatEther(yourTokenBalance) : '...');
+  const [yourTokenBalance, setYourTokenBalance] = useState<BigNumber>();
+  useEffect(() => {
+    const getyourTokenBalance = async () => {
+      if (!yourTokenContract) return;
 
-  const tokensPerEth = useContractReader<BigNumber>(vendorContract, {
-    contractName: 'Vendor',
-    functionName: 'tokensPerEth',
+      const yourTokenBalance = await yourTokenContract.balanceOf(address);
+      console.log('🏵 yourTokenBalance:', yourTokenBalance ? ethers.utils.formatEther(yourTokenBalance) : '...');
+      setYourTokenBalance(yourTokenBalance);
+    };
+    getyourTokenBalance();
+  }, [address]);
+
+  const [tokensPerEth, setTokensPerEth] = useState<number>();
+  useEffect(() => {
+    const getTokensPerEth = async () => {
+      if (!vendorContract) return;
+
+      const tokensPerEth = await vendorContract.tokensPerEth();
+      console.log('🏦 tokensPerEth:', tokensPerEth ? tokensPerEth.toString() : '...');
+      setTokensPerEth(tokensPerEth.toNumber());
+    };
+    getTokensPerEth();
   });
-  console.log('🏦 tokensPerEth:', tokensPerEth ? tokensPerEth.toString() : '...');
 
   const vendorApproval = useContractReader<BigNumber>(yourTokenContract, {
     contractName: 'YourToken',
     functionName: 'allowance',
-    functionArgs: [address, vendorContract.address],
+    functionArgs: [address, vendorContract?.address],
   });
   console.log('🤏 vendorApproval', vendorApproval);
-
-  useEffect(() => {
-    console.log('tokenSellAmount', tokenSellAmount);
-    const tokenSellAmountBN = tokenSellAmount && ethers.utils.parseEther('' + tokenSellAmount);
-    console.log('tokenSellAmountBN', tokenSellAmountBN);
-    setIsSellAmountApproved(vendorApproval && tokenSellAmount && vendorApproval.gte(tokenSellAmountBN));
-  }, [tokenSellAmount, readContracts]);
-  console.log('isSellAmountApproved', isSellAmountApproved);
-
-  const ethCostToPurchaseTokens =
-    tokenBuyAmount && tokensPerEth && ethers.utils.parseEther('' + tokenBuyAmount / parseFloat(tokensPerEth));
-  console.log('ethCostToPurchaseTokens:', ethCostToPurchaseTokens);
 
   const [tokenSendToAddress, setTokenSendToAddress] = useState('');
   const [tokenSendAmount, setTokenSendAmount] = useState<number>();
@@ -75,7 +74,30 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
 
   const [tokenBuyAmount, setTokenBuyAmount] = useState<number>();
   const [tokenSellAmount, setTokenSellAmount] = useState<number>();
-  const [isSellAmountApproved, setIsSellAmountApproved] = useState<boolean>();
+  const [isSellAmountApproved, setIsSellAmountApproved] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log('tokenSellAmount', tokenSellAmount);
+    const tokenSellAmountBN = tokenSellAmount && ethers.utils.parseEther('' + tokenSellAmount);
+    if (!tokenSellAmountBN) {
+      return;
+    }
+
+    console.log('tokenSellAmountBN', tokenSellAmountBN);
+    if (vendorApproval && vendorApproval.gte(tokenSellAmountBN)) {
+      setIsSellAmountApproved(true);
+    } else {
+      setIsSellAmountApproved(false);
+    }
+  }, [tokenSellAmount, readContracts]);
+  console.log('isSellAmountApproved', isSellAmountApproved);
+
+  const ethCostToPurchaseTokens =
+    tokenBuyAmount &&
+    tokensPerEth &&
+    ethers.utils.parseEther('' + tokenBuyAmount / parseFloat(tokensPerEth.toString()));
+
+  console.log('ethCostToPurchaseTokens:', ethCostToPurchaseTokens);
 
   let transferDisplay = <></>;
   if (yourTokenBalance) {
@@ -109,10 +131,8 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
                 if (!tx) {
                   return;
                 }
-                // TODO
-                // tx(
-                //   writeContracts.YourToken.transfer(tokenSendToAddress, ethers.utils.parseEther('' + tokenSendAmount))
-                // );
+
+                tx(yourTokenContractWrite.transfer(tokenSendToAddress, ethers.utils.parseEther('' + tokenSendAmount)));
               }}>
               Send Tokens
             </Button>
@@ -127,7 +147,7 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
       <div style={{ padding: 8, marginTop: 32, width: 300, margin: 'auto' }}>
         <Card title="Your Tokens" extra={<a href="#">code</a>}>
           <div style={{ padding: 8 }}>
-            <Balance address={vendorContract.address} />
+            <Balance balance={yourTokenBalance} address={undefined} price={ethPrice} />
           </div>
         </Card>
       </div>
@@ -135,7 +155,7 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
       <Divider />
       <div style={{ padding: 8, marginTop: 32, width: 300, margin: 'auto' }}>
         <Card title="Buy Tokens" extra={<a href="#">code</a>}>
-          <div style={{ padding: 8 }}>{tokensPerEth && tokensPerEth.toNumber()} tokens per ETH</div>
+          <div style={{ padding: 8 }}>{tokensPerEth && tokensPerEth} tokens per ETH</div>
 
           <div style={{ padding: 8 }}>
             <Input
@@ -146,7 +166,7 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
                 setTokenBuyAmount(Number(e.target.value));
               }}
             />
-            <Balance balance={ethCostToPurchaseTokens} dollarMultiplier={price} />
+            <Balance balance={ethCostToPurchaseTokens ?? undefined} dollarMultiplier={ethPrice} />
           </div>
 
           <div style={{ padding: 8 }}>
@@ -154,8 +174,12 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
               type={'primary'}
               loading={buying}
               onClick={async () => {
+                if (!tx) {
+                  return;
+                }
+
                 setBuying(true);
-                await tx(writeContracts.Vendor.buyTokens({ value: ethCostToPurchaseTokens }));
+                await tx(vendorContractWrite.buyTokens({ value: ethCostToPurchaseTokens }));
                 setBuying(false);
               }}>
               Buy Tokens
@@ -167,7 +191,7 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
       <Divider />
       <div style={{ padding: 8, marginTop: 32, width: 300, margin: 'auto' }}>
         <Card title="Sell Tokens">
-          <div style={{ padding: 8 }}>{tokensPerEth && tokensPerEth.toNumber()} tokens per ETH</div>
+          <div style={{ padding: 8 }}>{tokensPerEth && tokensPerEth} tokens per ETH</div>
 
           <div style={{ padding: 8 }}>
             <Input
@@ -175,10 +199,10 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
               placeholder={'amount of tokens to sell'}
               value={tokenSellAmount}
               onChange={(e) => {
-                setTokenSellAmount(e.target.value);
+                setTokenSellAmount(Number(e.target.value));
               }}
             />
-            <Balance balance={ethCostToPurchaseTokens} dollarMultiplier={price} />
+            <Balance balance={ethCostToPurchaseTokens} dollarMultiplier={ethPrice} />
           </div>
           {isSellAmountApproved ? (
             <div style={{ padding: 8 }}>
@@ -186,9 +210,13 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
                 type={'primary'}
                 loading={buying}
                 onClick={async () => {
+                  if (!tx) {
+                    return;
+                  }
+
                   setBuying(true);
                   await tx(
-                    writeContracts.Vendor.sellTokens(tokenSellAmount && ethers.utils.parseEther(tokenSellAmount))
+                    yourTokenContractWrite.sellTokens(tokenSellAmount && ethers.utils.parseEther(tokenSellAmount))
                   );
                   setBuying(false);
                 }}>
@@ -201,9 +229,13 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
                 type={'primary'}
                 loading={buying}
                 onClick={async () => {
+                  if (!tx) {
+                    return;
+                  }
+
                   setBuying(true);
                   await tx(
-                    writeContracts.YourToken.approve(
+                    yourTokenContractWrite.approve(
                       readContracts.Vendor.address,
                       tokenSellAmount && ethers.utils.parseEther(tokenSellAmount)
                     )
@@ -217,7 +249,7 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
         </Card>
       </div>
       */
-      <div style={{ padding: 8, marginTop: 32 }}>
+      {/* <div style={{ padding: 8, marginTop: 32 }}>
         <div>Vendor Token Balance:</div>
         <Balance balance={vendorTokenBalance} fontSize={64} />
       </div>
@@ -241,10 +273,7 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
             );
           }}
         />
-      </div>
+      </div> */}
     </>
   );
 };
-function useExchangeEthPrice(targetNetwork: any, mainnetProvider: StaticJsonRpcProvider) {
-  throw new Error('Function not implemented.');
-}

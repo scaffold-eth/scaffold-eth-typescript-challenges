@@ -6,7 +6,7 @@ import { useGasPrice, useContractLoader, useContractReader, useBalance } from 'e
 import { useDexEthPrice } from 'eth-hooks/dapps';
 
 import { GenericContract } from 'eth-components/ant/generic-contract';
-import { Hints, Subgraph, ExampleUI, YourToken } from '~~/app/routes';
+import { Hints, Subgraph, YourToken } from '~~/app/routes';
 import { transactor } from 'eth-components/functions';
 
 import { ethers } from 'ethers';
@@ -103,7 +103,7 @@ export const Main: FC = () => {
         <MainPageMenu route={route} setRoute={setRoute} />
         <Switch>
           <Route exact path="/">
-            <YourToken></YourToken>
+            <YourToken mainnetProvider={scaffoldAppProviders.mainnetProvider}></YourToken>
           </Route>
           <Route exact path="/debug">
             <MainPageContracts
@@ -118,13 +118,6 @@ export const Main: FC = () => {
               address={ethersContext?.account ?? ''}
               yourCurrentBalance={yourCurrentBalance}
               mainnetProvider={scaffoldAppProviders.mainnetProvider}
-              price={ethPrice}
-            />
-          </Route>
-          <Route path="/exampleui">
-            <ExampleUI
-              mainnetProvider={scaffoldAppProviders.mainnetProvider}
-              yourCurrentBalance={yourCurrentBalance}
               price={ethPrice}
             />
           </Route>
