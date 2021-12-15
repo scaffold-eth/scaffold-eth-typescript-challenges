@@ -71,7 +71,7 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
       setTokensPerEth(tokensPerEth.toNumber());
     };
     getTokensPerEth();
-  }, [address]);
+  }, [vendorContract]);
 
   const vendorApproval = useContractReader<BigNumber[]>(yourTokenContract, {
     contractName: 'YourToken',
@@ -195,7 +195,7 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
                 setTokenBuyAmount(Number(e.target.value));
               }}
             />
-            <Balance balance={ethCostToPurchaseTokens ?? undefined} dollarMultiplier={ethPrice} address={undefined} />
+            <Balance balance={ethCostToPurchaseTokens} dollarMultiplier={ethPrice} address={undefined} />
           </div>
 
           <div style={{ padding: 8 }}>
