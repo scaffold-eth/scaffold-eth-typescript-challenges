@@ -3,12 +3,18 @@ import { Button, Card, Divider, Input, List } from 'antd';
 import { Address, AddressInput, Balance } from 'eth-components/ant';
 import { transactor } from 'eth-components/functions';
 import { EthComponentsSettingsContext } from 'eth-components/models';
-import { useBalance, useContractLoader, useContractReader, useGasPrice } from 'eth-hooks';
+import {
+  useBalance,
+  useContractLoader,
+  useContractReader,
+  useEventListener,
+  useGasPrice,
+  useOnRepetition,
+} from 'eth-hooks';
 import { useEthersContext } from 'eth-hooks/context';
 import { useDexEthPrice } from 'eth-hooks/dapps';
 import { BigNumber, ethers } from 'ethers';
 import { FC, useContext, useEffect, useState } from 'react';
-import { verifyInjectedProvider } from 'web3modal';
 import { Vendor, YourToken as YourTokenContract } from '~~/generated/contract-types';
 import { useAppContracts } from '../main/hooks/useAppContracts';
 
@@ -39,16 +45,21 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
   const tx = transactor(ethComponentsSettings, ethersContext?.signer, gasPrice);
 
   const [yourTokenBalance, setYourTokenBalance] = useState<BigNumber>();
-  useEffect(() => {
-    const getyourTokenBalance = async () => {
-      if (!yourTokenContract) return;
+  useOnRepetition(
+    async (): Promise<void> => {
+      const getyourTokenBalance = async () => {
+        if (!yourTokenContract) return;
 
-      const yourTokenBalance = await yourTokenContract.balanceOf(address);
-      console.log('🏵 yourTokenBalance:', yourTokenBalance ? ethers.utils.formatEther(yourTokenBalance) : '...');
-      setYourTokenBalance(yourTokenBalance);
-    };
-    getyourTokenBalance();
-  }, [address, yourCurrentBalance]);
+        const yourTokenBalance = await yourTokenContract.balanceOf(address);
+        console.log('🏵 yourTokenBalance:', yourTokenBalance ? ethers.utils.formatEther(yourTokenBalance) : '...');
+        setYourTokenBalance(yourTokenBalance);
+      };
+      getyourTokenBalance();
+    },
+    {
+      provider: mainnetProvider,
+    }
+  );
 
   const [tokensPerEth, setTokensPerEth] = useState<number>();
   useEffect(() => {
@@ -90,8 +101,8 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
     } else {
       setIsSellAmountApproved(false);
     }
+    console.log('isSellAmountApproved', isSellAmountApproved);
   }, [tokenSellAmount, readContracts]);
-  console.log('isSellAmountApproved', isSellAmountApproved);
 
   let ethCostToPurchaseTokens = BigNumber.from(0);
   if (tokenBuyAmount && tokensPerEth) {
@@ -99,6 +110,21 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
   }
 
   console.log('ethCostToPurchaseTokens:', ethCostToPurchaseTokens);
+
+  const [vendorTokenBalance, setVendorTokenBalance] = useState<BigNumber>();
+  useOnRepetition(
+    async (): Promise<void> => {
+      const getVendorTokenBalance = async () => {
+        const balance = await yourTokenContract?.balanceOf(vendorContract?.address);
+        console.log('🏵 vendorTokenBalance:', balance ? ethers.utils.formatEther(balance) : '...');
+        setVendorTokenBalance(balance);
+      };
+      getVendorTokenBalance();
+    },
+    {
+      provider: mainnetProvider,
+    }
+  );
 
   let transferDisplay = <></>;
   if (yourTokenBalance) {
@@ -142,6 +168,8 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
       </div>
     );
   }
+
+  const buyTokensEvents = useEventListener(vendorContract, 'BuyTokens', 1);
 
   return (
     <>
@@ -247,14 +275,13 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
           )}
         </Card>
       </div>
-      */
-      {/* <div style={{ padding: 8, marginTop: 32 }}>
+      <div style={{ padding: 8, marginTop: 32 }}>
         <div>Vendor Token Balance:</div>
-        <Balance balance={vendorTokenBalance} fontSize={64} />
+        <Balance balance={vendorTokenBalance} address={undefined} />
       </div>
       <div style={{ padding: 8 }}>
         <div>Vendor ETH Balance:</div>
-        <Balance balance={vendorETHBalance} fontSize={64} /> ETH
+        <Balance address={vendorContract?.address} /> ETH
       </div>
       <div style={{ width: 500, margin: 'auto', marginTop: 64 }}>
         <div>Buy Token Events:</div>
@@ -263,16 +290,16 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
           renderItem={(item) => {
             return (
               <List.Item key={item.blockNumber + item.blockHash}>
-                <Address value={item.args[0]} ensProvider={mainnetProvider} fontSize={16} /> paid
-                <Balance balance={item.args[1]} />
+                <Address address={item.args[0]} ensProvider={mainnetProvider} fontSize={16} /> paid
+                <Balance balance={item.args[1]} address={undefined} />
                 ETH to get
-                <Balance balance={item.args[2]} />
+                <Balance balance={item.args[2]} address={undefined} />
                 Tokens
               </List.Item>
             );
           }}
         />
-      </div> */}
+      </div>
     </>
   );
 };
