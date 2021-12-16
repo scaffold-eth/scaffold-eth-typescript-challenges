@@ -27,8 +27,6 @@ git checkout challenge-2-token-vendor
 yarn install
 ```
 
-🔏 Edit your smart contract `YourToken.sol` in `packages/hardhat-ts/contracts`
-
 ---
 
 ### Checkpoint 1: 🔭 Environment 📺
