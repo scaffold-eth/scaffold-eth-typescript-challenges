@@ -37,9 +37,11 @@ You'll have three terminals up for:
 
 `yarn chain` (hardhat backend)
 
+`yarn deploy` (to compile, deploy, and publish your contracts to the frontend)
+
 `yarn start` (react app frontend)
 
-`yarn deploy` (to compile, deploy, and publish your contracts to the frontend)
+Make sure you run the commands in the above order. The contract types get generated as part of the deploy, which will be required to build and start the app.
 
 > 👀 Visit your frontend at http://localhost:3000
 
