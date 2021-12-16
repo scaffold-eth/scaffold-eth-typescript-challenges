@@ -85,7 +85,7 @@ uint256 public constant tokensPerEth = 100;
 
 > 📝 The `buyTokens()` function in `Vendor.sol` should use `msg.value` and `tokensPerEth` to calculate an amount of tokens to `yourToken.transfer()` to `msg.sender`.
 
-> 📟 Emit **event** `BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens)` when tokens are purchased.
+> 📟 Emit **event** `BuyTokens(address buyer, uint256 amountOfEth, uint256 amountOfTokens)` when tokens are purchased.
 
 Edit `deploy/01_deploy_vendor.ts` to deploy the `Vendor` (uncomment Vendor deploy lines).
 
@@ -150,7 +150,7 @@ await vendor.transferOwnership("**YOUR FRONTEND ADDRESS**");
 
 ### Checkpoint 5: 💾 Deploy it! 🛰
 
-📡 Edit the `defaultNetwork` in `packages/hardhat-ts/hardhat.config.js`, as well as `targetNetworkInfo` in `packages/vite-app-ts/src/config/providersConfig.ts`, to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/)
+📡 Edit the `defaultNetwork` in `packages/hardhat-ts/hardhat.config.ts`, as well as `targetNetworkInfo` in `packages/vite-app-ts/src/config/providersConfig.ts`, to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/)
 
 👩‍🚀 You will want to run `yarn account` to see if you have a **deployer address**.
 
@@ -162,20 +162,13 @@ await vendor.transferOwnership("**YOUR FRONTEND ADDRESS**");
 
 🔬 Inspect the block explorer for the network you deployed to... make sure your contract is there.
 
-👮 Your token contract source needs to be **verified** 🔃 (source code publicly available on the block explorer).
-
-📠 You will need a Etherscan API key for this and you can get on by creating a free account at [etherscan.io](https://etherscan.io). Add your key to the `hardhat.config` file
-at around line 258. The verify script is at the bottom of `00_deploy_your_token.js`. You will see something like this after successful completion.
-
-⚔️ Side Quest: 🔂 use this same methodology to verify the Vendor contract.
-
 ### Checkpoint 6: 🚢 Ship it! 🚁
 
 📦 Run `yarn build` to package up your frontend.
 
 💽 Upload your app to surge with `yarn surge` (you could also `yarn s3` or maybe even `yarn ipfs`?)
 
-🚔 Traffic to your url might break the [Infura](https://infura.io/) rate limit, edit your key: `constants.ts` in `packages/ract-app/src`.
+🚔 Traffic to your url might break the [Infura](https://infura.io/) rate limit, edit your key: `constants.ts` in `packages/vite-app-ts/src/models/constants`.
 
 🎖 Show off your app by pasting the url in the [Challenge 2 telegram channel](https://t.me/joinchat/IfARhZFc5bfPwpjq) 🎖
 
