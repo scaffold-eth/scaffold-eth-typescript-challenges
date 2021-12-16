@@ -7,24 +7,13 @@ import './YourToken.sol';
 contract Vendor {
   YourToken yourToken;
 
-  uint256 public constant tokensPerEth = 100;
-
-  event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
-
   constructor(address tokenAddress) public {
     yourToken = YourToken(tokenAddress);
   }
 
-  function buyTokens() public payable {
-    uint256 amountOfTokens = msg.value * tokensPerEth;
+  // ToDo: create a payable buyTokens() function:
 
-    yourToken.transfer(msg.sender, amountOfTokens);
-    emit BuyTokens(msg.sender, msg.value, amountOfTokens);
-  }
+  // ToDo: create a withdraw() function that lets the owner withdraw ETH
 
-  function withdraw() public {}
-
-  function sellTokens(uint256 amount) public {
-    yourToken.transferFrom(msg.sender, address(this), amount);
-  }
+  // ToDo: create a sellTokens() function:
 }
