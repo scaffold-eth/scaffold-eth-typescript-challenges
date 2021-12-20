@@ -141,7 +141,7 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 
 ### Checkpoint 5: 🚢 Ship it 🚁
 
-📡 Edit the `defaultNetwork` to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/) in `packages/hardhat/hardhat.config.js`
+📡 Edit the `defaultNetwork` to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/) in `packages/hardhat-ts/hardhat.config.ts`
 
 👩‍🚀 You will want to run `yarn account` to see if you have a **deployer address**
 
