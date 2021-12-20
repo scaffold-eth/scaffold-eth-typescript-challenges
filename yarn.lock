@@ -1957,15 +1957,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@originjs/vite-plugin-commonjs@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@originjs/vite-plugin-commonjs@npm:1.0.1"
-  dependencies:
-    esbuild: ^0.12.6
-  checksum: f08cd52030ed9c1e9b5fbddb9956d23d6ad1374c85cb4e18bb63686eef30bc6636f3dee1210052cedf23dd62c65f9ce0f9cf2a353a97cf2fb60a6f9b023ea1cb
-  languageName: node
-  linkType: hard
-
 "@pedrouid/environment@npm:^1.0.1":
   version: 1.0.1
   resolution: "@pedrouid/environment@npm:1.0.1"
@@ -2231,7 +2222,6 @@ __metadata:
     "@maticnetwork/maticjs": ^2.0.44
     "@nomiclabs/hardhat-ethers": ^2.0.2
     "@nomiclabs/hardhat-waffle": ^2.0.1
-    "@originjs/vite-plugin-commonjs": ^1.0.1
     "@portis/web3": ^4.0.5
     "@ramp-network/ramp-instant-sdk": ^2.5.0
     "@tailwindcss/aspect-ratio": ^0.2.0
@@ -8461,15 +8451,6 @@ __metadata:
   version: 0.13.8
   resolution: "esbuild-windows-arm64@npm:0.13.8"
   conditions: os=win32 & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"esbuild@npm:^0.12.6":
-  version: 0.12.29
-  resolution: "esbuild@npm:0.12.29"
-  bin:
-    esbuild: bin/esbuild
-  checksum: 06a6e84eff02899b45c7d4441199f7bbc824a9f5a2d0332bfe9873963751213c71bcb03b8db96babbc45ef31c140580ff64317ee7600983fc88b84c2d9788bbf
   languageName: node
   linkType: hard
 
