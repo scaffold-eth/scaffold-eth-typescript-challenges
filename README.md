@@ -36,11 +36,13 @@ yarn install
 
 You'll have three terminals up for:
 
-`yarn start` (react app frontend)
-
 `yarn chain` (hardhat backend)
 
 `yarn deploy` (to compile, deploy, and publish your contracts to the frontend)
+
+`yarn start` (react app frontend)
+
+Make sure you run the commands in the above order. The contract types get generated as part of the deploy, which will be required to build and start the app.
 
 > 💻 View your frontend at http://localhost:3000/
 
