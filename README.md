@@ -169,7 +169,7 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 
 > 📝 you will use this deploy URL to submit to [SpeedRun](https://speedrunethereum.com).
 
-🚔 Traffic to your url might break the [Infura](https://infura.io/) rate limit, edit your key: `constants.js` in `packages/ract-app/src`.
+🚔 Traffic to your url might break the [Infura](https://infura.io/) rate limit, edit your key: `constants.ts` in `packages/vite-app-ts/src/models/constants`.
 
 🎖 Show off your app by pasting the url in the [Challenge 1 telegram channel](https://t.me/joinchat/E6r91UFt4oMJlt01) 🎖
 
