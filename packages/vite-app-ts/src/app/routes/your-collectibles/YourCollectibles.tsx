@@ -11,10 +11,14 @@ export interface IYourCollectibleProps {
   mainnetProvider: StaticJsonRpcProvider;
 }
 
-const ipfsAPI = create({ url: 'https://ipfs.infura.io:5001' });
+const ipfs = create({
+  host: 'ipfs.infura.io',
+  port: 5001,
+  protocol: 'https',
+});
 const getFromIPFS = async (hashToGet: string) => {
-  for await (const file of ipfsAPI.get(hashToGet)) {
-    console.log('file');
+  for await (const file of ipfs.get(hashToGet)) {
+    console.log(file);
     // if (!file.content) continue;
     // const content = new BufferList();
     // for await (const chunk of file.content) {
@@ -47,7 +51,7 @@ export const YourCollectibles: FC<IYourCollectibleProps> = () => {
       //   const collectibleUpdate = [];
       for (let tokenIndex = 0; tokenIndex < yourBalance; tokenIndex++) {
         try {
-          console.log('GEtting token index', tokenIndex);
+          console.log('Getting token index', tokenIndex);
           useContractReader(YourCollectible, {
             contractName: 'YourCollectible',
             functionName: 'tokenOfOwnerByIndex',
