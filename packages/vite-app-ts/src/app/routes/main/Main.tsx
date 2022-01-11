@@ -23,6 +23,7 @@ import { NETWORKS } from '~~/models/constants/networks';
 import { mainnetProvider } from '~~/config/providersConfig';
 import { YourCollectible } from '~~/generated/contract-types';
 import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
+import { EthComponentsSettingsContext } from 'eth-components/models';
 
 export const DEBUG = false;
 
@@ -82,6 +83,10 @@ export const Main: FC = () => {
   // .... 🎇 End of examples
   // -----------------------------
 
+  const ethComponentsSettings = useContext(EthComponentsSettingsContext);
+  const gasPrice = useGasPrice(ethersContext.chainId, 'fast');
+  const tx = transactor(ethComponentsSettings, ethersContext?.signer, gasPrice);
+
   const [route, setRoute] = useState<string>('');
   useEffect(() => {
     setRoute(window.location.pathname);
@@ -96,7 +101,11 @@ export const Main: FC = () => {
         <MainPageMenu route={route} setRoute={setRoute} />
         <Switch>
           <Route exact path="/">
-            <YourCollectibles mainnetProvider={scaffoldAppProviders.mainnetProvider} />
+            <YourCollectibles
+              mainnetProvider={scaffoldAppProviders.mainnetProvider}
+              blockExplorer={scaffoldAppProviders.targetNetwork.blockExplorer}
+              tx={tx}
+            />
           </Route>
           <Route exact path="/debugcontract">
             <MainPageContracts

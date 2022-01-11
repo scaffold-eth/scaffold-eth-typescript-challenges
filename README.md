@@ -73,7 +73,8 @@ yarn deploy
 
 > ✏️ Edit the mint task `hardhat.config.ts` in `packages/hardhat-ts` and update the `toAddress` to your frontend address (in the top right of http://localhost:3000).
 
-![nft1](https://user-images.githubusercontent.com/23554636/148321151-752f24ba-f8e2-484a-8511-6472b068e404.png)
+
+![nft1](https://user-images.githubusercontent.com/526558/124386962-37e5dd00-dcb3-11eb-911e-0afce760d7ee.png)
 
 > in a terminal window run the mint script:
 
