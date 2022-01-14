@@ -136,7 +136,7 @@ yarn deploy
 
 # Checkpoint 4: 🚢 Ship it! 🚁
 
-> ✏️ Edit your frontend `App.tsx` in `packages/vite-app-ts/src/app` to change the `targetNetwork` to `NETWORKS.rinkeby`:
+> ✏️ Edit the `targetNetworkInfo` in `providersConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
 
 ![image](https://user-images.githubusercontent.com/2653167/142491593-a032ebf2-38c7-4d1c-a4c5-5e02485e21b4.png)
 
