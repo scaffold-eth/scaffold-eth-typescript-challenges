@@ -110,7 +110,7 @@ yarn mint
 
 > Change the `defaultNetwork` in `packages/hardhat-ts/hardhat.config.ts` to `NETWORKS.rinkeby`
 
-![image](https://user-images.githubusercontent.com/2653167/142488032-fd3bd75f-34d0-46fc-be63-5d66e09174e6.png)
+![image](https://user-images.githubusercontent.com/46639943/149597955-90607dd6-7026-4295-b6cf-c4f0f04c20ff.png)
 
 🔐 Generate a **deployer address** with `yarn generate`
 
