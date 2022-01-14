@@ -1,20 +1,21 @@
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { YourCollectible } from '~~/generated/contract-types';
-import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
-import { useContractLoader, useContractReader } from 'eth-hooks';
+import { useContractLoader, useContractReader, useGasPrice } from 'eth-hooks';
 import { useEthersContext } from 'eth-hooks/context';
 import { BigNumber, ethers } from 'ethers';
 import { create } from 'ipfs-http-client';
 import { Button, Card, List } from 'antd';
 import { Address, AddressInput } from 'eth-components/ant';
-import { TTransactor } from 'eth-components/functions';
+import { transactor } from 'eth-components/functions';
 import { mintJson } from './mint';
+import { EthComponentsSettingsContext } from 'eth-components/models';
+import { getNetworkInfo } from '~~/functions';
+import { useAppContracts } from '~~/config/contractContext';
 
 export interface IYourCollectibleProps {
   mainnetProvider: StaticJsonRpcProvider;
   blockExplorer: string;
-  tx?: TTransactor;
 }
 
 const ipfs = create({
@@ -32,14 +33,17 @@ const getFromIPFS = async (cid: string) => {
 };
 
 export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollectibleProps) => {
+  const ethComponentsSettings = useContext(EthComponentsSettingsContext);
   const ethersContext = useEthersContext();
-  const appContractConfig = useAppContracts();
-  const readContracts = useContractLoader(appContractConfig);
-  const writeContracts = useContractLoader(appContractConfig, ethersContext?.signer);
-  const { mainnetProvider, blockExplorer, tx } = props;
+  const yourCollectible = useAppContracts("YourCollectible", ethersContext.chainId);
 
-  const YourCollectibleRead = readContracts['YourCollectible'] as YourCollectible;
-  const YourCollectibleWrite = writeContracts['YourCollectible'] as YourCollectible;
+  const [gasPrice] = useGasPrice(ethersContext.chainId, 'fast', getNetworkInfo(ethersContext.chainId));
+  const tx = transactor(ethComponentsSettings, ethersContext?.signer, gasPrice);
+
+  const { mainnetProvider, blockExplorer } = props;
+
+  // const YourCollectibleRead = readContracts['YourCollectible'] as YourCollectible;
+  // const YourCollectibleWrite = writeContracts['YourCollectible'] as YourCollectible;
 
   const balance = useContractReader<BigNumber[]>(YourCollectibleRead, {
     contractName: 'YourCollectible',

@@ -55,14 +55,11 @@ export const Main: FC = () => {
   // examples on how to get contracts
   // -----------------------------
   // init contracts
-  const yourContract = useAppContracts('YourContract', ethersContext.chainId);
+  const yourCollectible = useAppContracts('YourCollectible', ethersContext.chainId);
   const mainnetDai = useAppContracts('DAI', NETWORKS.mainnet.chainId);
 
-  // keep track of a variable from the contract in the local React state:
-  const purpose = useContractReader(yourContract, yourContract?.purpose, [], yourContract?.filters.SetPurpose());
-
   // 📟 Listen for broadcast events
-  const [setPurposeEvents] = useEventListener(yourContract, 'SetPurpose', 0);
+  const [setPurposeEvents] = useEventListener(yourCollectible, 'SetPurpose', 0);
 
   // For more hooks, check out 🔗eth-hooks at: https://www.npmjs.com/package/eth-hooks
 
@@ -82,10 +79,6 @@ export const Main: FC = () => {
   // .... 🎇 End of examples
   // -----------------------------
 
-  const ethComponentsSettings = useContext(EthComponentsSettingsContext);
-  const gasPrice = useGasPrice(ethersContext.chainId, 'fast');
-  const tx = transactor(ethComponentsSettings, ethersContext?.signer, gasPrice);
-
   const [route, setRoute] = useState<string>('');
   useEffect(() => {
     setRoute(window.location.pathname);
@@ -101,9 +94,8 @@ export const Main: FC = () => {
         <Switch>
           <Route exact path="/">
             <YourCollectibles
-              mainnetProvider={scaffoldAppProviders.mainnetProvider}
+              mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
               blockExplorer={scaffoldAppProviders.targetNetwork.blockExplorer}
-              tx={tx}
             />
           </Route>
           <Route exact path="/debugcontract">
