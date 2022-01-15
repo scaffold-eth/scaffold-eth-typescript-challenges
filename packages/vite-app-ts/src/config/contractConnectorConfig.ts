@@ -26,7 +26,7 @@ export const contractConnectorConfig = () => {
       // 🙋🏽‍♂️ Add your hadrdhat contracts here
       YourCollectible: createConnectorForHardhatContract(
         'YourCollectible',
-        hardhatContracts.YourContract__factory,
+        hardhatContracts.YourCollectible__factory,
         hardhatContractsJson
       ),
 
