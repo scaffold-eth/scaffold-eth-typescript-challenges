@@ -138,7 +138,7 @@ yarn deploy
 
 > ✏️ Edit the `targetNetworkInfo` in `providersConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
 
-![image](https://user-images.githubusercontent.com/2653167/142491593-a032ebf2-38c7-4d1c-a4c5-5e02485e21b4.png)
+![image](https://user-images.githubusercontent.com/46639943/149599234-55921640-e677-42ca-a4a7-ab1fbca36ec4.png)
 
 You should see the correct network in the frontend (http://localhost:3000):
 
@@ -168,7 +168,7 @@ yarn surge
 
 # Checkpoint 5: 📜 Contract Verification
 
-Update the api-key in packages/hardhat-ts/package.json file. You can get your key [here](https://etherscan.io/myapikey).
+Update the `api-key` in `packages/hardhat-ts/package.json` file. You can get your key [here](https://etherscan.io/myapikey).
 
 ![Screen Shot 2021-11-30 at 10 21 01 AM](https://user-images.githubusercontent.com/9419140/144075208-c50b70aa-345f-4e36-81d6-becaa5f74857.png)
 
