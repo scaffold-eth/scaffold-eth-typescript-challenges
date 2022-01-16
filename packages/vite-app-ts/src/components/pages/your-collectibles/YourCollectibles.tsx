@@ -14,7 +14,7 @@ import { getNetworkInfo } from '~~/functions';
 import { useAppContracts } from '~~/config/contractContext';
 
 export interface IYourCollectibleProps {
-  mainnetProvider: StaticJsonRpcProvider;
+  mainnetProvider: StaticJsonRpcProvider | undefined;
   blockExplorer: string;
 }
 

@@ -6,7 +6,7 @@ import { useContractReader, useBalance, useEthersAdaptorFromProviderOrSigners } 
 import { useDexEthPrice } from 'eth-hooks/dapps';
 
 import { GenericContract } from 'eth-components/ant/generic-contract';
-import { Hints, Subgraph, ExampleUI } from '~~/components/pages';
+import { Hints, Subgraph, ExampleUI, YourCollectibles } from '~~/components/pages';
 import { transactor } from 'eth-components/functions';
 
 import { useEventListener } from 'eth-hooks';
