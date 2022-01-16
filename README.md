@@ -33,14 +33,15 @@ yarn chain
 
 ```sh
 cd challenge-0-simple-nft
-yarn start
+yarn contracts:build
+yarn deploy
 ```
 
 > in a third terminal window, 🛰 deploy your contract:
 
 ```sh
 cd challenge-0-simple-nft
-yarn deploy
+yarn start
 ```
 
 > You can `yarn deploy --reset` to deploy a new contract any time.
