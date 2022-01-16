@@ -96,11 +96,11 @@ yarn mint
 
 🕵🏻‍♂️ Inspect the `Debug Contracts` tab to figure out what address is the `owner` of `YourCollectible`?
 
-🔏 You can also check out your smart contract `YourCollectible.sol` in `packages/hardhat/contracts`.
+🔏 You can also check out your smart contract `YourCollectible.sol` in `packages/hardhat-ts/contracts`.
 
-💼 Take a quick look at your deploy script `00_deploy_your_contract.js` in `packages/hardhat/deploy`.
+💼 Take a quick look at your deploy script `00_deploy_your_contract.js` in `packages/hardhat-ts/deploy`.
 
-📝 If you want to make frontend edits, open `App.jsx` in `packages/react-app/src`.
+📝 If you want to make frontend edits, open `App.tsx` in `packages/vite-app-ts/src/app`.
 
 ---
 
@@ -108,9 +108,9 @@ yarn mint
 
 🛰 Ready to deploy to a public testnet?!?
 
-> Change the `defaultNetwork` in `packages/hardhat/hardhat.config.js` to `NETWORKS.rinkeby`
+> Change the `defaultNetwork` in `packages/hardhat-ts/hardhat.config.ts` to `NETWORKS.rinkeby`
 
-![image](https://user-images.githubusercontent.com/2653167/142488032-fd3bd75f-34d0-46fc-be63-5d66e09174e6.png)
+![image](https://user-images.githubusercontent.com/46639943/149597955-90607dd6-7026-4295-b6cf-c4f0f04c20ff.png)
 
 🔐 Generate a **deployer address** with `yarn generate`
 
@@ -130,15 +130,15 @@ yarn mint
 yarn deploy
 ```
 
-> 💬 Hint: You can set the `defaultNetwork` in `hardhat.config.js` to `Rinkeby` OR you can `yarn deploy --network Rinkeby`.
+> 💬 Hint: You can set the `defaultNetwork` in `hardhat.config.ts` to `Rinkeby` OR you can `yarn deploy --network Rinkeby`.
 
 ---
 
 # Checkpoint 4: 🚢 Ship it! 🚁
 
-> ✏️ Edit your frontend `App.jsx` in `packages/react-app/src` to change the `targetNetwork` to `NETWORKS.rinkeby`:
+> ✏️ Edit the `targetNetworkInfo` in `providersConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
 
-![image](https://user-images.githubusercontent.com/2653167/142491593-a032ebf2-38c7-4d1c-a4c5-5e02485e21b4.png)
+![image](https://user-images.githubusercontent.com/46639943/149599234-55921640-e677-42ca-a4a7-ab1fbca36ec4.png)
 
 You should see the correct network in the frontend (http://localhost:3000):
 
@@ -168,7 +168,7 @@ yarn surge
 
 # Checkpoint 5: 📜 Contract Verification
 
-Update the api-key in packages/hardhat/package.json file. You can get your key [here](https://etherscan.io/myapikey).
+Update the `api-key` in `packages/hardhat-ts/package.json` file. You can get your key [here](https://etherscan.io/myapikey).
 
 ![Screen Shot 2021-11-30 at 10 21 01 AM](https://user-images.githubusercontent.com/9419140/144075208-c50b70aa-345f-4e36-81d6-becaa5f74857.png)
 
@@ -199,7 +199,7 @@ https://testnets.opensea.io/assets/0xc2839329166d3d004aaedb94dde4173651babccf/1
 
 ## 🔶 Infura
 
-> You will need to get a key from infura.io and paste it into constants.js in packages/react-app/src:
+> You will need to get a key from infura.io and paste it into `constants.ts` in `packages/vite-app-ts/src/models/constants`:
 
 ![nft13](https://user-images.githubusercontent.com/526558/124387174-d83c0180-dcb3-11eb-989e-d58ba15d26db.png)
 

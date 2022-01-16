@@ -23,6 +23,15 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         YourCollectible
       </Link>
     </Menu.Item>
+    <Menu.Item key="/debugcontract">
+      <Link
+        onClick={() => {
+          props.setRoute('/debugcontract');
+        }}
+        to="/debugcontract">
+        Debug Contract
+      </Link>
+    </Menu.Item>
     <Menu.Item key="/hints">
       <Link
         onClick={() => {
