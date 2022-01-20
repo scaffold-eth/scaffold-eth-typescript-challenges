@@ -42,15 +42,9 @@ export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollecti
 
   const { mainnetProvider, blockExplorer } = props;
 
-  // const YourCollectibleRead = readContracts['YourCollectible'] as YourCollectible;
-  // const YourCollectibleWrite = writeContracts['YourCollectible'] as YourCollectible;
   const [balance] = useContractReader(yourCollectible, yourCollectible?.balanceOf, [ethersContext.account ?? '']);
-  // const balance = useContractReader<BigNumber[]>(YourCollectibleRead, {
-  //   contractName: 'YourCollectible',
-  //   functionName: 'balanceOf',
-  //   functionArgs: [ethersContext.account],
-  // });
   console.log('balance', balance);
+
   const [yourCollectibles, setYourCollectibles] = useState<any>([]);
   const [minting, setMinting] = useState<boolean>(false);
   const [transferToAddresses, setTransferToAddresses] = useState<{ [key: string]: string }>({});
@@ -112,7 +106,7 @@ export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollecti
             '/' +
             (update.gasLimit || update.gas) +
             ' @ ' +
-            parseFloat(update.gasPrice) / 1000000000 +
+            parseFloat(update.effectiveGasPrice) / 1000000000 +
             ' gwei'
         );
       }
