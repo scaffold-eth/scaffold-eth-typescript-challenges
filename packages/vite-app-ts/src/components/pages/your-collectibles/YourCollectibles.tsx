@@ -44,25 +44,25 @@ export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollecti
 
   // const YourCollectibleRead = readContracts['YourCollectible'] as YourCollectible;
   // const YourCollectibleWrite = writeContracts['YourCollectible'] as YourCollectible;
-  const balance = useContractReader(yourCollectible, yourCollectible?.balanceOf, [ethersContext.account ?? '']);
+  const [balance] = useContractReader(yourCollectible, yourCollectible?.balanceOf, [ethersContext.account ?? '']);
   // const balance = useContractReader<BigNumber[]>(YourCollectibleRead, {
   //   contractName: 'YourCollectible',
   //   functionName: 'balanceOf',
   //   functionArgs: [ethersContext.account],
   // });
   console.log('balance', balance);
-  //
-  // 🧠 This effect will update yourCollectibles by polling when your balance changes
-  //
   const [yourCollectibles, setYourCollectibles] = useState<any>([]);
   const [minting, setMinting] = useState<boolean>(false);
   const [transferToAddresses, setTransferToAddresses] = useState<{ [key: string]: string }>({});
 
+  //
+  // 🧠 This effect will update yourCollectibles by polling when your balance changes
+  //
   useEffect(() => {
     const updateYourCollectibles = async () => {
       const collectibleUpdate = [];
       if (!balance) return;
-      const yourBalance = balance[0]?.toNumber() ?? 0;
+      const yourBalance = balance?.toNumber() ?? 0;
       for (let tokenIndex = 0; tokenIndex < yourBalance; tokenIndex++) {
         try {
           console.log('Getting token index', tokenIndex);

@@ -99,9 +99,9 @@ yarn mint
 
 🔏 You can also check out your smart contract `YourCollectible.sol` in `packages/hardhat-ts/contracts`.
 
-💼 Take a quick look at your deploy script `00_deploy_your_contract.js` in `packages/hardhat-ts/deploy`.
+💼 Take a quick look at your deploy script `00_deploy_your_collectible.ts` in `packages/hardhat-ts/deploy`.
 
-📝 If you want to make frontend edits, open `App.tsx` in `packages/vite-app-ts/src/app`.
+📝 If you want to make frontend edits, open `YourCollectible.tsx` in `packages/vite-app-ts/src/components/pages/your-collectible`.
 
 ---
 
@@ -109,7 +109,7 @@ yarn mint
 
 🛰 Ready to deploy to a public testnet?!?
 
-> Change the `defaultNetwork` in `packages/hardhat-ts/hardhat.config.ts` to `NETWORKS.rinkeby`
+> Change the `defaultNetwork` in `packages/hardhat-ts/hardhat.config.ts` to `rinkeby`
 
 ![image](https://user-images.githubusercontent.com/46639943/149597955-90607dd6-7026-4295-b6cf-c4f0f04c20ff.png)
 
@@ -131,7 +131,7 @@ yarn mint
 yarn deploy
 ```
 
-> 💬 Hint: You can set the `defaultNetwork` in `hardhat.config.ts` to `Rinkeby` OR you can `yarn deploy --network Rinkeby`.
+> 💬 Hint: You can set the `defaultNetwork` in `hardhat.config.ts` to `rinkeby` OR you can `yarn deploy --network Rinkeby`.
 
 ---
 
