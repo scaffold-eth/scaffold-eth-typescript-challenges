@@ -1,17 +1,15 @@
 import React, { FC, lazy, Suspense } from 'react';
 import { ThemeSwitcherProvider } from 'react-css-theme-switcher';
 import { ErrorBoundary, ErrorFallback } from '~~/components/common/ErrorFallback';
-import { BLOCKNATIVE_DAPPID } from '~~/models/constants/constants';
-import { subgraphUri } from '~~/config/subgraphConfig';
 import { EthComponentsSettingsContext, IEthComponentsSettings } from 'eth-components/models';
 
 /**
  * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️
- * See MainPage.tsx for main app component!
+ * 🏹 See MainPage.tsx for main app component!
  * ⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️⛳️
  *
- * This file loads the app and styles async.  It sets up context, error boundaries, etc.
- * You don't need to change this file.
+ * This file loads the app async.  It sets up context, error boundaries, styles etc.
+ * You don't need to change this file!!
  */
 
 console.log('init app...');
@@ -24,6 +22,7 @@ import '~~/styles/css/app.css';
 import { EthersAppContext } from 'eth-hooks/context';
 import { ContractsAppContext } from '~~/config/contractContext';
 import { lazier } from 'eth-hooks/helpers';
+import { BLOCKNATIVE_DAPPID } from '~~/config/apiKeysConfig';
 
 // load saved theme
 const savedTheme = window.localStorage.getItem('theme');
