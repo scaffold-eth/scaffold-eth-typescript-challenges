@@ -72,20 +72,9 @@ yarn start
 
 # Checkpoint 2: 🖨 Minting
 
-> ✏️ Edit the mint task `hardhat.config.ts` in `packages/hardhat-ts` and update the `toAddress` to your frontend address (in the top right of http://localhost:3000).
+> ✏️ Mint some NFTs! Click the `MINT NFT` button in the YourCollectibles tab.
 
-
-![nft1](https://user-images.githubusercontent.com/526558/124386962-37e5dd00-dcb3-11eb-911e-0afce760d7ee.png)
-
-> in a terminal window run the mint script:
-
-```sh
-yarn mint
-```
-
-![nft2](https://user-images.githubusercontent.com/526558/124386972-3d432780-dcb3-11eb-933e-dad7dfd313b2.png)
-
-👀 You should see your collectibles show up if you minted to the correct address:
+👀 You should see your collectibles start to show up:
 
 ![nft3](https://user-images.githubusercontent.com/526558/124386983-48965300-dcb3-11eb-88a7-e88ad6307976.png)
 
@@ -94,6 +83,10 @@ yarn mint
 🎟 Transfer an NFT to the incognito window address using the UI:
 
 ![nft5](https://user-images.githubusercontent.com/526558/124387008-58ae3280-dcb3-11eb-920d-07b6118f1ab2.png)
+
+👛 Try to mint an NFT from the incognito window.
+
+> Can you mint an NFT with no funds in this address? You might need to grab funds from the fauct to pay the gas!
 
 🕵🏻‍♂️ Inspect the `Debug Contracts` tab to figure out what address is the `owner` of `YourCollectible`?
 
@@ -109,9 +102,7 @@ yarn mint
 
 🛰 Ready to deploy to a public testnet?!?
 
-> Change the `defaultNetwork` in `packages/hardhat-ts/hardhat.config.ts` to `rinkeby`
-
-![image](https://user-images.githubusercontent.com/46639943/149597955-90607dd6-7026-4295-b6cf-c4f0f04c20ff.png)
+> Change the `TARGET_NETWORK` in `packages/hardhat-ts/hardhat.config.ts` to `rinkeby`
 
 🔐 Generate a **deployer address** with `yarn generate`
 
@@ -137,7 +128,7 @@ yarn deploy
 
 # Checkpoint 4: 🚢 Ship it! 🚁
 
-> ✏️ Edit the `targetNetworkInfo` in `providersConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
+> ✏️ Edit the `TARGET_NETWORK_INFO` in `appConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
 
 ![image](https://user-images.githubusercontent.com/46639943/149599234-55921640-e677-42ca-a4a7-ab1fbca36ec4.png)
 
@@ -145,11 +136,7 @@ You should see the correct network in the frontend (http://localhost:3000):
 
 ![nft10](https://user-images.githubusercontent.com/526558/124387099-9a3edd80-dcb3-11eb-9a57-54a7d370589a.png)
 
-🎫 Ready to mint a batch of NFTs for reals?
-
-```sh
-yarn mint
-```
+🎫 Ready to mint a batch of NFTs for reals? Use the `MINT NFT` button.
 
 ![nft11](https://user-images.githubusercontent.com/526558/124387132-b04c9e00-dcb3-11eb-95d1-03b8c272e52f.png)
 
