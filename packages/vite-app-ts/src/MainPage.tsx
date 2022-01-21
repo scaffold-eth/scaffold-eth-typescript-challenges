@@ -6,7 +6,7 @@ import { useContractReader, useBalance, useEthersAdaptorFromProviderOrSigners, u
 import { useDexEthPrice } from 'eth-hooks/dapps';
 
 import { GenericContract } from 'eth-components/ant/generic-contract';
-import { Hints, Subgraph, ExampleUI, YourCollectibles } from '~~/components/pages';
+import { Hints, YourCollectibles } from '~~/components/pages';
 import { transactor } from 'eth-components/functions';
 
 import { useEventListener } from 'eth-hooks';
@@ -120,13 +120,6 @@ export const Main: FC = () => {
               address={ethersContext?.account ?? ''}
               yourCurrentBalance={yourCurrentBalance}
               mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-              price={ethPrice}
-            />
-          </Route>
-          <Route path="/exampleui">
-            <ExampleUI
-              mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-              yourCurrentBalance={yourCurrentBalance}
               price={ethPrice}
             />
           </Route>
