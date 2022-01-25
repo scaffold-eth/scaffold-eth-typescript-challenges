@@ -1,7 +1,8 @@
 packages/subgraph/subgraph.yaml
 packages/subgraph/generated
 packages/subgraph/abis/*
-packages/hardhat/*.txt
+packages/hardhat-ts/*.txt
+packages/hardhat-ts/generated
 **/aws.json
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
