@@ -31,6 +31,7 @@
       "s3": "yarn workspace @scaffold-eth/vite-app s3",
       "ship": "yarn workspace @scaffold-eth/vite-app ship",
       "generate": "yarn workspace @scaffold-eth/hardhat generate",
+      "mint": "yarn workspace @scaffold-eth/hardhat mint",
       "account": "yarn workspace @scaffold-eth/hardhat account",
       "mine": "cd packages/hardhat-ts && npx hardhat mine",
       "wallet": "cd packages/hardhat-ts && npx hardhat wallet",
