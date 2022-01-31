@@ -1,20 +1,20 @@
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
-import { FC, useEffect, useState } from 'react';
-import { YourCollectible } from '~~/generated/contract-types';
-import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
-import { useContractLoader, useContractReader } from 'eth-hooks';
+import { FC, useContext, useEffect, useState } from 'react';
+import { useContractLoader, useContractReader, useGasPrice, useSignerAddress } from 'eth-hooks';
 import { useEthersContext } from 'eth-hooks/context';
 import { BigNumber, ethers } from 'ethers';
 import { create } from 'ipfs-http-client';
 import { Button, Card, List } from 'antd';
 import { Address, AddressInput } from 'eth-components/ant';
-import { TTransactor } from 'eth-components/functions';
+import { transactor } from 'eth-components/functions';
 import { mintJson } from './mint';
+import { EthComponentsSettingsContext } from 'eth-components/models';
+import { useAppContracts } from '~~/config/contractContext';
+import { TEthersProvider } from 'eth-hooks/models';
 
 export interface IYourCollectibleProps {
-  mainnetProvider: StaticJsonRpcProvider;
+  mainnetProvider: TEthersProvider | undefined;
   blockExplorer: string;
-  tx?: TTransactor;
 }
 
 const ipfs = create({
@@ -22,6 +22,7 @@ const ipfs = create({
   port: 5001,
   protocol: 'https',
 });
+
 const getFromIPFS = async (cid: string) => {
   const decoder = new TextDecoder();
   let content = '';
@@ -32,44 +33,38 @@ const getFromIPFS = async (cid: string) => {
 };
 
 export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollectibleProps) => {
+  const { mainnetProvider, blockExplorer } = props;
+
   const ethersContext = useEthersContext();
-  const appContractConfig = useAppContracts();
-  const readContracts = useContractLoader(appContractConfig);
-  const writeContracts = useContractLoader(appContractConfig, ethersContext?.signer);
-  const { mainnetProvider, blockExplorer, tx } = props;
+  const yourCollectible = useAppContracts('YourCollectible', ethersContext.chainId);
 
-  const YourCollectibleRead = readContracts['YourCollectible'] as YourCollectible;
-  const YourCollectibleWrite = writeContracts['YourCollectible'] as YourCollectible;
+  const ethComponentsSettings = useContext(EthComponentsSettingsContext);
+  const [gasPrice] = useGasPrice(ethersContext.chainId, 'fast');
+  const tx = transactor(ethComponentsSettings, ethersContext?.signer, gasPrice);
 
-  const balance = useContractReader<BigNumber[]>(YourCollectibleRead, {
-    contractName: 'YourCollectible',
-    functionName: 'balanceOf',
-    functionArgs: [ethersContext.account],
-  });
+  const [myAddress] = useSignerAddress(ethersContext.signer);
+  const [balance] = useContractReader(yourCollectible, yourCollectible?.balanceOf, [myAddress ?? '']);
   console.log('balance', balance);
-  //
-  // 🧠 This effect will update yourCollectibles by polling when your balance changes
-  //
+
   const [yourCollectibles, setYourCollectibles] = useState<any>([]);
   const [minting, setMinting] = useState<boolean>(false);
   const [transferToAddresses, setTransferToAddresses] = useState<{ [key: string]: string }>({});
 
+  //
+  // 🧠 This effect will update yourCollectibles by polling when your balance changes
+  //
   useEffect(() => {
     const updateYourCollectibles = async () => {
       const collectibleUpdate = [];
       if (!balance) return;
-      const yourBalance = balance[0]?.toNumber() ?? 0;
+      const yourBalance = balance?.toNumber() ?? 0;
       for (let tokenIndex = 0; tokenIndex < yourBalance; tokenIndex++) {
         try {
           console.log('Getting token index', tokenIndex);
-          const tokenId = await YourCollectibleRead.tokenOfOwnerByIndex(ethersContext.account ?? '', tokenIndex);
-          console.log('tokenId', tokenId);
-          const tokenURI = await YourCollectibleRead.tokenURI(tokenId);
-          console.log('tokenURI', tokenURI);
-
+          const tokenId = await yourCollectible?.tokenOfOwnerByIndex(ethersContext.account ?? '', tokenIndex);
+          const tokenURI = await yourCollectible?.tokenURI(tokenId ?? '');
+          if (!tokenURI) continue;
           const ipfsHash = tokenURI.replace('https://ipfs.io/ipfs/', '');
-          console.log('ipfsHash', ipfsHash);
-
           const content = await getFromIPFS(ipfsHash);
 
           try {
@@ -96,7 +91,7 @@ export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollecti
     const uploaded = await ipfs.add(JSON.stringify(mintJson[mintCount]));
     setMintCount(mintCount + 1);
     console.log('Uploaded Hash: ', uploaded);
-    await tx(YourCollectibleWrite.mintItem(ethersContext.account, uploaded.path), (update) => {
+    await tx(yourCollectible?.mintItem(ethersContext.account, uploaded.path), (update) => {
       console.log('📡 Transaction Update:', update);
       if (update && (update.status === 'confirmed' || update.status === 1)) {
         console.log(' 🍾 Transaction ' + update.hash + ' finished!');
@@ -167,7 +162,7 @@ export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollecti
                   <Button
                     onClick={() => {
                       if (!ethersContext.account || !tx) return;
-                      tx(YourCollectibleWrite.transferFrom(ethersContext.account, transferToAddresses[id], id));
+                      tx(yourCollectible?.transferFrom(ethersContext.account, transferToAddresses[id], id));
                     }}>
                     Transfer
                   </Button>
