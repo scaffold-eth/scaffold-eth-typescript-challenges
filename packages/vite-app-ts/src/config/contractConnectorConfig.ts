@@ -24,9 +24,11 @@ export const contractConnectorConfig = () => {
   try {
     const result = {
       // 🙋🏽‍♂️ Add your hadrdhat contracts here
-      YourContract: createConnectorForHardhatContract(
-        'YourContract',
-        hardhatContracts.YourContract__factory,
+      Staker: createConnectorForHardhatContract('Staker', hardhatContracts.Staker__factory, hardhatContractsJson),
+
+      ExampleExternalContract: createConnectorForHardhatContract(
+        'ExampleExternalContract',
+        hardhatContracts.ExampleExternalContract__factory,
         hardhatContractsJson
       ),
 

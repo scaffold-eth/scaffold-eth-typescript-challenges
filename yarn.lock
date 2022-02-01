@@ -2952,6 +2952,7 @@ __metadata:
     graphql: ^16.2.0
     history: ^5.2.0
     http-browserify: ^1.7.0
+    humanize-duration-ts: ^2.1.1
     ipfs-http-client: ^55.0.0
     less: ^4.1.2
     postcss: ^8.4.5
@@ -13100,6 +13101,13 @@ fsevents@~2.1.1:
   version: 2.1.0
   resolution: "human-signals@npm:2.1.0"
   checksum: b87fd89fce72391625271454e70f67fe405277415b48bcc0117ca73d31fa23a4241787afdc8d67f5a116cf37258c052f59ea82daffa72364d61351423848e3b8
+  languageName: node
+  linkType: hard
+
+"humanize-duration-ts@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "humanize-duration-ts@npm:2.1.1"
+  checksum: 4c5f0a5d65055c58792d6ed0a07da11d48f8535c472c791e8144192ce7a3d7d455e3ccd61c2a3a5ed8c1a78a6452d9819c72afaee212aef37077ad7310b7e197
   languageName: node
   linkType: hard
 
