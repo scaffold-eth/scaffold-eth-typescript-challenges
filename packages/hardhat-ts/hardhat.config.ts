@@ -10,7 +10,6 @@ import '@nomiclabs/hardhat-waffle';
 import '@nomiclabs/hardhat-ethers';
 import '@tenderly/hardhat-tenderly';
 import 'hardhat-deploy';
-// not required as we are using @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers
 
 // import 'solidity-coverage';
 
@@ -23,27 +22,25 @@ import { Provider, TransactionRequest } from '@ethersproject/providers';
 import { HardhatUserConfig, task } from 'hardhat/config';
 import { HttpNetworkUserConfig } from 'hardhat/types';
 import { HardhatRuntimeEnvironmentExtended, TEthers } from 'helpers/types/hardhat-type-extensions';
+import { create } from 'ipfs-http-client';
 
-declare module 'hardhat/types/runtime' {
-  // This is an example of an extension to the Hardhat Runtime Environment.
-  // This new field will be available in tasks' actions, scripts, and tests.
-  export interface HardhatRuntimeEnvironment {
-    ethers: TEthers;
-  }
-}
+/**
+ * Set your target network!!!
+ */
+const TARGET_NETWORK = 'localhost';
 
 const { isAddress, getAddress, formatUnits, parseUnits } = utils;
 //
 // Select the network you want to deploy to here:
 //
-const defaultNetwork = 'localhost';
 
+const mnemonicPath = './generated/mnemonic.secret';
 const getMnemonic = () => {
   try {
-    return fs.readFileSync('./mnemonic.secret').toString().trim();
+    return fs.readFileSync(mnemonicPath).toString().trim();
   } catch (e) {
     // @ts-ignore
-    if (defaultNetwork !== 'localhost') {
+    if (TARGET_NETWORK !== 'localhost') {
       console.log('☢️ WARNING: No mnemonic file created for a deploy account. Try `yarn run generate` and then `yarn run account`.');
     }
   }
@@ -51,7 +48,7 @@ const getMnemonic = () => {
 };
 
 const config: HardhatUserConfig = {
-  defaultNetwork,
+  defaultNetwork: TARGET_NETWORK,
   namedAccounts: {
     deployer: {
       default: 0, // here this will by default take the first account as deployer
@@ -192,7 +189,7 @@ task('fundedwallet', 'Create a wallet (pk) link and fund it with deployer?')
 
     let localDeployerMnemonic: string | undefined;
     try {
-      const mnemonic = fs.readFileSync('./mnemonic.secret');
+      const mnemonic = fs.readFileSync(mnemonicPath);
       localDeployerMnemonic = mnemonic.toString().trim();
     } catch (e) {
       /* do nothing - this file isn't always there */
@@ -239,8 +236,8 @@ task('generate', 'Create a mnemonic for builder deploys', async (_, { ethers }) 
   console.log(`🔐 Account Generated as ${address} and set as mnemonic in packages/hardhat`);
   console.log("💬 Use 'yarn run account' to get more information about the deployment account.");
 
-  fs.writeFileSync(`./${address}.txt`, mnemonic.toString());
-  fs.writeFileSync('./mnemonic.secret', mnemonic.toString());
+  fs.writeFileSync(`./generated/${address}.secret`, mnemonic.toString());
+  fs.writeFileSync(mnemonicPath, mnemonic.toString());
 });
 
 task('mineContractAddress', 'Looks for a deployer account that will give leading zeros')
@@ -287,14 +284,14 @@ task('mineContractAddress', 'Looks for a deployer account that will give leading
     console.log(`📜 This will create the first contract: ${chalk.magenta(`0x${contract_address}`)}`);
     console.log("💬 Use 'yarn run account' to get more information about the deployment account.");
 
-    fs.writeFileSync(`./${address}_produces${contract_address}.txt`, mnemonic.toString());
-    fs.writeFileSync('./mnemonic.secret', mnemonic.toString());
+    fs.writeFileSync(`./generated/${address}_produces${contract_address}.txt`, mnemonic.toString());
+    fs.writeFileSync(mnemonicPath, mnemonic.toString());
   });
 
 task('account', 'Get balance informations for the deployment account.', async (_, { ethers }) => {
   const hdkey = require('ethereumjs-wallet/hdkey');
   const bip39 = require('bip39');
-  const mnemonic = fs.readFileSync('./mnemonic.secret').toString().trim();
+  const mnemonic = fs.readFileSync(mnemonicPath).toString().trim();
   if (DEBUG) console.log('mnemonic', mnemonic);
   const seed = await bip39.mnemonicToSeed(mnemonic);
   if (DEBUG) console.log('seed', seed);
@@ -316,15 +313,13 @@ task('account', 'Get balance informations for the deployment account.', async (_
     // console.log(config.networks[n],n)
     try {
       const { url } = config.networks[n] as HttpNetworkUserConfig;
-      const provider = new ethers.providers.JsonRpcProvider('');
+      const provider = new ethers.providers.JsonRpcProvider(url);
       const balance = await provider.getBalance(address);
       console.log(` -- ${n} --  -- -- 📡 `);
       console.log(`   balance: ${ethers.utils.formatEther(balance)}`);
       console.log(`   nonce: ${await provider.getTransactionCount(address)}`);
     } catch (e) {
-      if (DEBUG) {
-        console.log(e);
-      }
+      if (DEBUG) console.log(e);
     }
   }
 });
@@ -407,3 +402,7 @@ task('send', 'Send ETH')
 
     return send(fromSigner as Signer, txRequest);
   });
+
+const sleep = (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
