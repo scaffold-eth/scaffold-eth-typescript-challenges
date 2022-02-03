@@ -35,7 +35,14 @@ export const MainPageContracts: FC<IMainPageContractsProps> = (props) => {
           and give you a form to interact with it locally
         ********** */}
         <GenericContract
-          contractName="YourContract"
+          contractName="Staker"
+          contract={staker}
+          mainnetAdaptor={props.scaffoldAppProviders.mainnetAdaptor}
+          blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}
+        />
+
+        <GenericContract
+          contractName="ExampleExternalContract"
           contract={staker}
           mainnetAdaptor={props.scaffoldAppProviders.mainnetAdaptor}
           blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}

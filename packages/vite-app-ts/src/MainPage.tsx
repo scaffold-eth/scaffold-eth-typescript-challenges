@@ -9,7 +9,7 @@ import { GenericContract } from 'eth-components/ant/generic-contract';
 import { Hints } from '~~/components/pages';
 
 import { useEventListener } from 'eth-hooks';
-import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader } from './components/main';
+import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, Staker } from './components/main';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
 import { useBurnerFallback } from '~~/components/main/hooks/useBurnerFallback';
 import { useScaffoldHooksExamples as useScaffoldHooksExamples } from './components/main/hooks/useScaffoldHooksExamples';
@@ -113,6 +113,9 @@ export const Main: FC = () => {
         <MainPageMenu route={route} setRoute={setRoute} />
         <Switch>
           <Route exact path="/">
+            <Staker mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}></Staker>
+          </Route>
+          <Route exact path="/debug">
             <MainPageContracts scaffoldAppProviders={scaffoldAppProviders} />
           </Route>
           {/* you can add routes here like the below examlples */}

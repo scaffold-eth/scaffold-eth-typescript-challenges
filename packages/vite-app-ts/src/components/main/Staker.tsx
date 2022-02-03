@@ -1,9 +1,8 @@
 import { EtherscanProvider, StaticJsonRpcProvider } from '@ethersproject/providers';
-import { transactor, TTransactor } from 'eth-components/functions';
-import { useBalance, useContractLoader, useEventListener, useGasPrice, useOnRepetition } from 'eth-hooks';
+import { transactor } from 'eth-components/functions';
+import { useBalance, useContractLoader, useEventListener, useGasPrice } from 'eth-hooks';
 import { useEthersContext } from 'eth-hooks/context';
 import React, { FC, useContext, useEffect, useState } from 'react';
-import { useAppContracts } from '../hooks/useAppContracts';
 import { Staker as StakerContract, ExampleExternalContract } from '~~/generated/contract-types';
 import { Button, List } from 'antd';
 import { Address, Balance } from 'eth-components/ant';
@@ -13,37 +12,35 @@ import { HumanizeDurationLanguage, HumanizeDuration } from 'humanize-duration-ts
 import { ethers } from 'ethers';
 import { EthComponentsSettingsContext } from 'eth-components/models';
 import { useDexEthPrice } from 'eth-hooks/dapps';
+import { useAppContracts } from '~~/config/contractContext';
+import { TEthersProvider } from 'eth-hooks/models';
 
 const langService: HumanizeDurationLanguage = new HumanizeDurationLanguage();
 const humanizer: HumanizeDuration = new HumanizeDuration(langService);
 
 export interface StakerProps {
-  mainnetProvider: StaticJsonRpcProvider;
+  mainnetProvider: TEthersProvider | undefined;
 }
 
 export const Staker: FC<StakerProps> = (props) => {
   const { mainnetProvider } = props;
 
-  const appContractConfig = useAppContracts();
   const ethersContext = useEthersContext();
-  const readContracts = useContractLoader(appContractConfig);
-  const writeContracts = useContractLoader(appContractConfig, ethersContext?.signer);
 
   const yourCurrentBalance = useBalance(ethersContext.account ?? '');
 
-  const stakeContractRead = readContracts['Staker'] as StakerContract;
-  const stakeContractWrite = writeContracts['Staker'] as StakerContract;
-  const externalContractRead = readContracts['ExampleExternalContract'] as ExampleExternalContract;
+  const stakerContract = useAppContracts('Staker', ethersContext.chainId);
+  const externalContract = useAppContracts('ExampleExternalContract', ethersContext.chainId);
 
   const ethComponentsSettings = useContext(EthComponentsSettingsContext);
-  const gasPrice = useGasPrice(ethersContext.chainId, 'fast');
-  const ethPrice = useDexEthPrice(mainnetProvider);
+  const [gasPrice] = useGasPrice(ethersContext.chainId, 'fast');
+  const [ethPrice] = useDexEthPrice(mainnetProvider);
   const tx = transactor(ethComponentsSettings, ethersContext?.signer, gasPrice);
 
   const [threshold, setThreshold] = useState<BigNumber>();
   useEffect(() => {
     const getThreshold = async () => {
-      const threshold = await stakeContractRead?.threshold();
+      const threshold = await stakerContract?.threshold();
       console.log('💵 threshold:', threshold);
       setThreshold(threshold);
     };
@@ -53,7 +50,7 @@ export const Staker: FC<StakerProps> = (props) => {
   const [balanceStaked, setBalanceStaked] = useState<BigNumber>();
   useEffect(() => {
     const getBalanceStaked = async () => {
-      const balanceStaked = await stakeContractRead?.balances(ethersContext?.account ?? '');
+      const balanceStaked = await stakerContract?.balances(ethersContext?.account ?? '');
       console.log('💵 balanceStaked:', balanceStaked);
       setBalanceStaked(balanceStaked);
     };
@@ -63,7 +60,7 @@ export const Staker: FC<StakerProps> = (props) => {
   const [timeLeft, setTimeLeft] = useState<BigNumber>();
   useEffect(() => {
     const getTimeLeft = async () => {
-      const timeLeft = await stakeContractRead?.timeLeft();
+      const timeLeft = await stakerContract?.timeLeft();
       console.log('⏳ timeLeft:', timeLeft);
       setTimeLeft(timeLeft);
     };
@@ -73,22 +70,22 @@ export const Staker: FC<StakerProps> = (props) => {
   const [completed, setCompleted] = useState<boolean>(false);
   useEffect(() => {
     const getCompleted = async () => {
-      const completed = await externalContractRead?.completed();
+      const completed = await externalContract?.completed();
       console.log('✅ complete:', completed);
-      setCompleted(completed);
+      setCompleted(completed ?? false);
     };
     getCompleted();
   }, [yourCurrentBalance]);
 
   // ** 📟 Listen for broadcast events
-  const stakeEvents = useEventListener(stakeContractRead, 'Stake', 1);
+  const stakeEvents = useEventListener(stakerContract, 'Stake', 1);
 
   let completeDisplay = <></>;
   if (completed) {
     completeDisplay = (
       <div style={{ padding: 64, backgroundColor: '#eeffef', fontWeight: 'bolder' }}>
         🚀 🎖 👩‍🚀 - Staking App triggered `ExampleExternalContract` -- 🎉 🍾 🎊
-        <Balance address={externalContractRead?.address} /> ETH staked!
+        <Balance address={externalContract?.address} /> ETH staked!
       </div>
     );
   }
@@ -98,7 +95,7 @@ export const Staker: FC<StakerProps> = (props) => {
 
       <div style={{ padding: 8, marginTop: 32 }}>
         <div>Staker Contract:</div>
-        <Address address={stakeContractRead?.address} />
+        <Address address={stakerContract?.address} />
       </div>
 
       <div style={{ padding: 8, marginTop: 32 }}>
@@ -108,7 +105,7 @@ export const Staker: FC<StakerProps> = (props) => {
 
       <div style={{ padding: 8 }}>
         <div>Total staked:</div>
-        <Balance address={stakeContractRead?.address} />/
+        <Balance address={stakerContract?.address} />/
         <Balance address={undefined} balance={threshold} />
       </div>
 
@@ -122,7 +119,7 @@ export const Staker: FC<StakerProps> = (props) => {
           type={'default'}
           onClick={() => {
             if (tx) {
-              tx(stakeContractWrite.execute());
+              tx(stakerContract?.execute());
             }
           }}>
           📡 Execute!
@@ -134,7 +131,7 @@ export const Staker: FC<StakerProps> = (props) => {
           type={'default'}
           onClick={() => {
             if (tx && ethersContext.account) {
-              tx(stakeContractWrite.withdraw(ethersContext.account));
+              tx(stakerContract?.withdraw(ethersContext.account));
             }
           }}>
           🏧 Withdraw
@@ -146,7 +143,7 @@ export const Staker: FC<StakerProps> = (props) => {
           type={balanceStaked ? 'primary' : 'default'}
           onClick={() => {
             if (tx) {
-              tx(stakeContractWrite.stake({ value: ethers.utils.parseEther('0.5') }));
+              tx(stakerContract?.stake({ value: ethers.utils.parseEther('0.5') }));
             }
           }}>
           🥩 Stake 0.5 ether!
