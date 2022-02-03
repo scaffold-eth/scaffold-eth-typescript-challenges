@@ -23,7 +23,7 @@ contract Staker {
   function execute() public {}
 
   // if the `threshold` was not met, allow everyone to call a `withdraw()` function
-  function withdraw() public {}
+  function withdraw(address to) public {}
 
   // Add a `timeLeft()` view function that returns the time left before the deadline for the frontend
   function timeLeft() public view returns (uint256) {}

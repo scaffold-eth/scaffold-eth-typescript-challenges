@@ -3,7 +3,6 @@ import { transactor } from 'eth-components/functions';
 import { useBalance, useContractLoader, useEventListener, useGasPrice } from 'eth-hooks';
 import { useEthersContext } from 'eth-hooks/context';
 import React, { FC, useContext, useEffect, useState } from 'react';
-import { Staker as StakerContract, ExampleExternalContract } from '~~/generated/contract-types';
 import { Button, List } from 'antd';
 import { Address, Balance } from 'eth-components/ant';
 import { formatEther, parseEther } from '@ethersproject/units';
@@ -161,9 +160,9 @@ export const Staker: FC<StakerProps> = (props) => {
                 key={item.blockNumber + '_' + item.sender + '_' + item.purpose}
                 style={{ display: 'flex', justifyContent: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '.5rem' }}>
-                  <Address address={item.args[0]} ensProvider={mainnetProvider} fontSize={16} />
+                  {/* <Address address={item?.args[0]} ensProvider={mainnetProvider} fontSize={16} /> */}
                   <div>→</div>
-                  <div>{formatEther(item.args[1])}</div>
+                  {/* <div>{formatEther(item.args[1])}</div> */}
                 </div>
               </List.Item>
             );
