@@ -1,5 +1,5 @@
 import { TNetworkInfo } from 'eth-hooks/models';
-import { INFURA_ID } from './constants';
+import { INFURA_ID } from '../../config/apiKeysConfig';
 
 export type TNetworkNames =
   | 'localhost'
@@ -12,13 +12,18 @@ export type TNetworkNames =
   | 'matic'
   | 'mumbai';
 
+let hostname = '';
+if (typeof window !== 'undefined') {
+  hostname = window?.location?.hostname;
+}
+
 export const NETWORKS: Record<TNetworkNames, TNetworkInfo> = {
   localhost: {
     name: 'localhost',
     color: '#666666',
     chainId: 31337,
     blockExplorer: '',
-    rpcUrl: 'http://' + window.location.hostname + ':8545',
+    rpcUrl: 'http://' + hostname + ':8545',
   },
   mainnet: {
     name: 'mainnet',

@@ -4,15 +4,47 @@ import macrosPlugin from 'vite-plugin-babel-macros';
 import reactPlugin from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import path, { resolve } from 'path';
+import { viteExternalsPlugin } from 'vite-plugin-externals';
 
 const isDev = process.env.ENVIRONMENT == 'DEVELOPMENT';
 console.log('env.dev:', process.env.ENVIRONMENT, ' isDev:', isDev);
 
-// https://vitejs.dev/config/
+/**
+ * browserify for web3 components
+ */
+const externals = {
+  http: 'http-browserify',
+  https: 'http-browserify',
+  timers: 'timers-browserify',
+  electron: 'electron',
+  'electron-fetch': 'electron-fetch',
+};
+
+const nodeShims = {
+  util: 'util',
+};
+
+/**
+ * Externals:
+ * - node externals are required because web3 are terribly bundled and some of them use commonjs libraries.  modern libs like ethers help with this.
+ * - electron:  added due to ipfs-http-client.  it has very poor esm compatibility and a ton of dependency bugs. see: https://github.com/ipfs/js-ipfs/issues/3452
+ */
+const externalPlugin = viteExternalsPlugin({
+  electron: 'electron',
+  'electron-fetch': 'electron-fetch',
+  ...externals,
+  ...(isDev ? { ...nodeShims } : {}),
+});
+
+/**
+ * These libraries should not be egarly bundled by vite.  They have strange dependencies and are not needed for the app.
+ */
+const excludeDeps = ['@apollo/client', `graphql`, 'ipfs-http-client'];
+
 export default defineConfig({
-  plugins: [reactPlugin(), macrosPlugin(), tsconfigPaths()],
+  plugins: [reactPlugin(), macrosPlugin(), tsconfigPaths(), externalPlugin],
   build: {
-    // sourcemap: true,
+    sourcemap: true,
     commonjsOptions: {
       include: /node_modules/,
       transformMixedEsModules: true,
@@ -29,19 +61,17 @@ export default defineConfig({
   },
   define: {},
   optimizeDeps: {
-    exclude: ['@apollo/client', `graphql`],
+    exclude: excludeDeps,
   },
   resolve: {
     preserveSymlinks: true,
     mainFields: ['module', 'main', 'browser'],
     alias: {
       '~~': resolve(__dirname, 'src'),
-      /** browserify for web3 components */
-      stream: 'stream-browserify',
-      http: 'http-browserify',
-      https: 'http-browserify',
-      timers: 'timers-browserify',
+      ...externals,
+      ...nodeShims,
       process: 'process',
+      stream: 'stream-browserify',
     },
   },
   server: {
@@ -49,6 +79,7 @@ export default defineConfig({
       followSymlinks: true,
     },
     fs: {
+      // compatability for yarn workspaces
       allow: ['../../'],
     },
   },
