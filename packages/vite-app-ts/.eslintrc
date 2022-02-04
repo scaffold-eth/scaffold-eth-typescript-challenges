@@ -16,7 +16,6 @@
       "build",
       ".yarn",
       "build-utils",
-      "docs",
       "./src/styles"
     ]
   },
@@ -30,12 +29,13 @@
     "plugin:import/warnings",
     "plugin:import/typescript",
     "plugin:react-hooks/recommended",
+    "plugin:jest/recommended",
     "plugin:react/recommended",
     "plugin:tailwind/recommended",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
   "plugins": ["prettier", "react", "react-hooks", "unused-imports", "testing-library"],
   "rules": {
@@ -123,16 +123,7 @@
         "peerDependencies": false
       }
     ],
-    "no-underscore-dangle": [
-      "warn",
-      {
-        "allowFunctionParams": false,
-        "allowAfterSuper": true,
-        "allowAfterThis": true,
-        "allowAfterThisConstructor": true,
-        "enforceInMethodNames": true
-      }
-    ],
+    "no-underscore-dangle": ["warn", { "allow": ["_network", "_lastBlockNumber"] }],
     "sort-keys": "off",
     "comma-dangle": "off",
     "@typescript-eslint/comma-dangle": ["off"],
