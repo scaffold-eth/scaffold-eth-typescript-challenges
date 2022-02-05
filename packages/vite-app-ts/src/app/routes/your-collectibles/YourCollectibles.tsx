@@ -1,6 +1,7 @@
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { FC, useEffect, useState } from 'react';
 import { YourCollectible } from '~~/generated/contract-types';
+import { targetNetworkInfo } from '~~/config/providersConfig';
 import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
 import { useContractLoader, useContractReader } from 'eth-hooks';
 import { useEthersContext } from 'eth-hooks/context';
@@ -35,7 +36,7 @@ export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollecti
   const ethersContext = useEthersContext();
   const appContractConfig = useAppContracts();
   const readContracts = useContractLoader(appContractConfig);
-  const writeContracts = useContractLoader(appContractConfig, ethersContext?.signer);
+  const writeContracts = useContractLoader(appContractConfig, ethersContext?.signer, targetNetworkInfo.chainId);
   const { mainnetProvider, blockExplorer, tx } = props;
 
   const YourCollectibleRead = readContracts['YourCollectible'] as YourCollectible;
@@ -102,12 +103,12 @@ export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollecti
         console.log(' 🍾 Transaction ' + update.hash + ' finished!');
         console.log(
           ' ⛽️ ' +
-            update.gasUsed +
-            '/' +
-            (update.gasLimit || update.gas) +
-            ' @ ' +
-            parseFloat(update.gasPrice) / 1000000000 +
-            ' gwei'
+          update.gasUsed +
+          '/' +
+          (update.gasLimit || update.gas) +
+          ' @ ' +
+          parseFloat(update.gasPrice) / 1000000000 +
+          ' gwei'
         );
       }
     });
