@@ -139,6 +139,11 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 
 ---
 
+#### ⚠️ Test it!
+-  Now is a good time to run `yarn test` to run the automated testing function. It will test that you hit the core checkpoints.  You are looking for all green checkmarks and passing tests!
+
+---
+
 ### Checkpoint 5: 🚢 Ship it 🚁
 
 📡 Edit the `defaultNetwork` to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/) in `packages/hardhat-ts/hardhat.config.ts`
