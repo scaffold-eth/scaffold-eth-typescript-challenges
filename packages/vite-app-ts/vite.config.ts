@@ -30,8 +30,6 @@ const nodeShims = {
  * - electron:  added due to ipfs-http-client.  it has very poor esm compatibility and a ton of dependency bugs. see: https://github.com/ipfs/js-ipfs/issues/3452
  */
 const externalPlugin = viteExternalsPlugin({
-  electron: 'electron',
-  'electron-fetch': 'electron-fetch',
   ...externals,
   ...(isDev ? { ...nodeShims } : {}),
 });
@@ -39,7 +37,7 @@ const externalPlugin = viteExternalsPlugin({
 /**
  * These libraries should not be egarly bundled by vite.  They have strange dependencies and are not needed for the app.
  */
-const excludeDeps = ['@apollo/client', `graphql`];
+const excludeDeps = ['@apollo/client', `graphql`, 'electron', 'electron-fetch'];
 
 export default defineConfig({
   plugins: [reactPlugin(), macrosPlugin(), tsconfigPaths(), externalPlugin],
