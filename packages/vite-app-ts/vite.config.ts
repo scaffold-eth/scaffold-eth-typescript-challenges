@@ -1,12 +1,14 @@
-import { defineConfig } from 'vite';
-//import reactRefresh from '@vitejs/plugin-react-refresh';
-import macrosPlugin from 'vite-plugin-babel-macros';
+import { resolve } from 'path';
+
 import reactPlugin from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+// import reactRefresh from '@vitejs/plugin-react-refresh';
+import macrosPlugin from 'vite-plugin-babel-macros';
+import { viteExternalsPlugin } from 'vite-plugin-externals';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import path, { resolve } from 'path';
 import { viteExternalsPlugin } from 'vite-plugin-externals';
 
-const isDev = process.env.ENVIRONMENT == 'DEVELOPMENT';
+const isDev = process.env.ENVIRONMENT === 'DEVELOPMENT';
 console.log('env.dev:', process.env.ENVIRONMENT, ' isDev:', isDev);
 
 /**
