@@ -1,16 +1,37 @@
-import { StaticJsonRpcProvider } from '@ethersproject/providers';
-import { FC, useContext, useEffect, useState } from 'react';
-import { useContractLoader, useContractReader, useGasPrice, useSignerAddress } from 'eth-hooks';
-import { useEthersContext } from 'eth-hooks/context';
-import { BigNumber, ethers } from 'ethers';
-import { create } from 'ipfs-http-client';
 import { Button, Card, List } from 'antd';
 import { Address, AddressInput } from 'eth-components/ant';
 import { transactor } from 'eth-components/functions';
-import { mintJson } from './mint';
 import { EthComponentsSettingsContext } from 'eth-components/models';
-import { useAppContracts } from '~~/config/contractContext';
+import { useContractReader, useGasPrice, useSignerAddress } from 'eth-hooks';
+import { useEthersContext } from 'eth-hooks/context';
 import { TEthersProvider } from 'eth-hooks/models';
+import { BigNumber } from 'ethers';
+import { create } from 'ipfs-http-client';
+import { FC, useContext, useEffect, useState } from 'react';
+
+import { mintJson } from './mint';
+
+import { useAppContracts } from '~~/config/contractContext';
+
+interface Metadata {
+  descriptions: string;
+  image: string;
+  name: string;
+}
+
+interface Collectible extends Metadata {
+  id: BigNumber | undefined;
+  uri: string;
+  owner: string | undefined;
+}
+
+interface TxUpdate {
+  hash: string;
+  gasLimit: BigNumber;
+  gasUsed: BigNumber;
+  gasPrice: BigNumber;
+  status: number | string;
+}
 
 export interface IYourCollectibleProps {
   mainnetProvider: TEthersProvider | undefined;
@@ -23,7 +44,7 @@ const ipfs = create({
   protocol: 'https',
 });
 
-const getFromIPFS = async (cid: string) => {
+const getFromIPFS = async (cid: string): Promise<string> => {
   const decoder = new TextDecoder();
   let content = '';
   for await (const chunk of ipfs.cat(cid)) {
@@ -46,7 +67,7 @@ export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollecti
   const [balance] = useContractReader(yourCollectible, yourCollectible?.balanceOf, [myAddress ?? '']);
   console.log('balance', balance);
 
-  const [yourCollectibles, setYourCollectibles] = useState<any>([]);
+  const [yourCollectibles, setYourCollectibles] = useState<Collectible[]>([]);
   const [minting, setMinting] = useState<boolean>(false);
   const [transferToAddresses, setTransferToAddresses] = useState<{ [key: string]: string }>({});
 
@@ -54,9 +75,9 @@ export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollecti
   // 🧠 This effect will update yourCollectibles by polling when your balance changes
   //
   useEffect(() => {
-    const updateYourCollectibles = async () => {
-      const collectibleUpdate = [];
-      if (!balance) return;
+    const getYourCollectibles = async (): Promise<Collectible[]> => {
+      const collectibles: Collectible[] = [];
+      if (!balance) return [];
       const yourBalance = balance?.toNumber() ?? 0;
       for (let tokenIndex = 0; tokenIndex < yourBalance; tokenIndex++) {
         try {
@@ -68,9 +89,9 @@ export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollecti
           const content = await getFromIPFS(ipfsHash);
 
           try {
-            const ipfsObject = JSON.parse(content);
+            const ipfsObject = JSON.parse(content) as Metadata;
             console.log('ipfsObject', ipfsObject);
-            collectibleUpdate.push({ id: tokenId, uri: tokenURI, owner: ethersContext.account, ...ipfsObject });
+            collectibles.push({ id: tokenId, uri: tokenURI, owner: ethersContext.account, ...ipfsObject });
           } catch (e) {
             console.log(e);
           }
@@ -78,32 +99,30 @@ export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollecti
           console.log(e);
         }
       }
-      setYourCollectibles(collectibleUpdate);
+      return collectibles;
     };
-    updateYourCollectibles();
-  }, [ethersContext.account, balance]);
+
+    getYourCollectibles().then(
+      (c) => setYourCollectibles(c),
+      (_) => setYourCollectibles([])
+    );
+  }, [yourCollectible, ethersContext.account, balance]);
 
   const [mintCount, setMintCount] = useState<number>(0);
-  const mintItem = async () => {
+  const mintItem = async (): Promise<void> => {
     if (!tx || !ethersContext.account) return;
 
     // upload to ipfs
     const uploaded = await ipfs.add(JSON.stringify(mintJson[mintCount]));
     setMintCount(mintCount + 1);
     console.log('Uploaded Hash: ', uploaded);
-    await tx(yourCollectible?.mintItem(ethersContext.account, uploaded.path), (update) => {
+    await tx(yourCollectible?.mintItem(ethersContext.account, uploaded.path), (update: TxUpdate) => {
+      console.log('Update...', update);
       console.log('📡 Transaction Update:', update);
       if (update && (update.status === 'confirmed' || update.status === 1)) {
-        console.log(' 🍾 Transaction ' + update.hash + ' finished!');
-        console.log(
-          ' ⛽️ ' +
-            update.gasUsed +
-            '/' +
-            (update.gasLimit || update.gas) +
-            ' @ ' +
-            parseFloat(update.gasPrice) / 1000000000 +
-            ' gwei'
-        );
+        const gas = parseFloat(update.gasPrice.toString()) / 1000000000;
+        console.log(`🍾 Transaction ${update.hash} finished!`);
+        console.log(`⛽️ ${update.gasUsed.toString()} / ${update.gasLimit.toString()} @ ${gas} gwei`);
       }
     });
   };
@@ -115,7 +134,7 @@ export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollecti
           disabled={minting || mintCount >= mintJson.length - 1}
           shape="round"
           size="large"
-          onClick={async () => {
+          onClick={async (): Promise<void> => {
             setMinting(true);
             await mintItem();
             setMinting(false);
@@ -127,10 +146,10 @@ export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollecti
         <List
           bordered
           dataSource={yourCollectibles}
-          renderItem={(item: any) => {
+          renderItem={(item: any): JSX.Element => {
             const id = item.id.toNumber();
             return (
-              <List.Item key={id + '_' + item.uri + '_' + item.owner}>
+              <List.Item key={`${id}_${item.uri}_${item.owner}`}>
                 <Card
                   title={
                     <div>
@@ -155,14 +174,16 @@ export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollecti
                     ensProvider={mainnetProvider}
                     placeholder="transfer to address"
                     address={transferToAddresses[id]}
-                    onChange={(newValue) => {
+                    onChange={(newValue): void => {
                       setTransferToAddresses({ ...transferToAddresses, ...{ [id]: newValue } });
                     }}
                   />
                   <Button
-                    onClick={() => {
+                    onClick={async (): Promise<void> => {
                       if (!ethersContext.account || !tx) return;
-                      tx(yourCollectible?.transferFrom(ethersContext.account, transferToAddresses[id], id));
+                      await tx(
+                        yourCollectible?.transferFrom(ethersContext.account, transferToAddresses[id], id as BigNumber)
+                      );
                     }}>
                     Transfer
                   </Button>

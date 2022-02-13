@@ -1,11 +1,12 @@
-import { Account } from 'eth-components/ant';
 import { getNetwork } from '@ethersproject/networks';
 import { Alert, PageHeader } from 'antd';
+import { Account } from 'eth-components/ant';
+import { useGasPrice } from 'eth-hooks';
+import { useEthersContext } from 'eth-hooks/context';
 import React, { FC, ReactElement } from 'react';
+
 import { FaucetHintButton } from '~~/components/common/FaucetHintButton';
 import { IScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
-import { useEthersContext } from 'eth-hooks/context';
-import { useGasPrice } from 'eth-hooks';
 import { getNetworkInfo } from '~~/functions';
 
 // displays a page header
@@ -33,7 +34,7 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
     <>
       <div>
         <PageHeader
-          title="🏰 BuidlGuidl"
+          title="🏭 Scaffold-Eth"
           subTitle={
             <span>
               v2.1 - [
@@ -75,7 +76,7 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
    * display the current network on the top left
    */
   let networkDisplay: ReactElement | undefined;
-  if (selectedChainId && selectedChainId != props.scaffoldAppProviders.targetNetwork.chainId) {
+  if (selectedChainId && selectedChainId !== props.scaffoldAppProviders.targetNetwork.chainId) {
     const description = (
       <div>
         You have <b>{getNetwork(selectedChainId)?.name}</b> selected and you need to be on{' '}
@@ -83,7 +84,7 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
       </div>
     );
     networkDisplay = (
-      <div style={{ zIndex: 2, position: 'absolute', right: 0, top: 60, padding: 16 }}>
+      <div style={{ zIndex: 2, position: 'absolute', right: 0, top: 90, padding: 16 }}>
         <Alert message="⚠️ Wrong Network" description={description} type="error" closable={false} />
       </div>
     );
@@ -92,8 +93,8 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
       <div
         style={{
           position: 'absolute',
-          right: 18,
-          top: 54,
+          right: 16,
+          top: 84,
           padding: 10,
           color: props.scaffoldAppProviders.targetNetwork.color,
         }}>

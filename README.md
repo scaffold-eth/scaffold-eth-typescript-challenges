@@ -191,7 +191,7 @@ https://testnets.opensea.io/assets/0xc2839329166d3d004aaedb94dde4173651babccf/1
 
 ![nft13](https://user-images.githubusercontent.com/526558/124387174-d83c0180-dcb3-11eb-989e-d58ba15d26db.png)
 
----
+### 🙏🏽 Support us!
 
 > 🏃 Head to your next challenge [here](https://speedrunethereum.com).
 
