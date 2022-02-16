@@ -114,7 +114,7 @@ export const Main: FC = () => {
             />
           </Route>
           {/* you can add routes here like the below examlples */}
-          <Route exact path="/debugcontract">
+          <Route exact path="/debugcontracts">
             <MainPageContracts scaffoldAppProviders={scaffoldAppProviders} />
           </Route>
           <Route path="/mainnetdai">
