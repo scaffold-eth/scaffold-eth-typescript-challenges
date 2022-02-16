@@ -102,7 +102,7 @@ yarn start
 
 🛰 Ready to deploy to a public testnet?!?
 
-> Change the `TARGET_NETWORK` in `packages/hardhat-ts/hardhat.config.ts` to `rinkeby`
+> Change the `HARDHAT_TARGET_NETWORK` in `packages/vite-app-ts/.env` to `rinkeby`
 
 🔐 Generate a **deployer address** with `yarn generate`
 
@@ -122,13 +122,13 @@ yarn start
 yarn deploy
 ```
 
-> 💬 Hint: You can set the `defaultNetwork` in `hardhat.config.ts` to `rinkeby` OR you can `yarn deploy --network Rinkeby`.
+> 💬 Hint: You can set the `HARDHAT_TARGET_NETWORK` in `packages/vite-app-ts/.env` to `rinkeby` OR you can `yarn deploy --network Rinkeby`.
 
 ---
 
 # Checkpoint 4: 🚢 Ship it! 🚁
 
-> ✏️ Edit the `TARGET_NETWORK_INFO` in `appConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
+> ✏️ Edit the `VITE_APP_TARGET_NETWORK` in `packages/vite-app-ts/.env` to be the public network where you deployed your smart contract.
 
 ![image](https://user-images.githubusercontent.com/46639943/149599234-55921640-e677-42ca-a4a7-ab1fbca36ec4.png)
 
