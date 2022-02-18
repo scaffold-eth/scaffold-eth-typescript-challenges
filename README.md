@@ -93,7 +93,7 @@ yarn start
 
 💼 Take a quick look at your deploy script `00_deploy_your_collectible.ts` in `packages/hardhat-ts/deploy`.
 
-📝 If you want to make frontend edits, open `YourCollectible.tsx` in `packages/vite-app-ts/src/components/pages/your-collectible`.
+📝 If you want to make frontend edits, open `YourCollectible.tsx` in `packages/vite-app-ts/src/app/routes/your-collectibles`.
 
 ---
 
@@ -127,7 +127,7 @@ yarn deploy
 
 # Checkpoint 4: 🚢 Ship it! 🚁
 
-> ✏️ Edit the `TARGET_NETWORK_INFO` in `appConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
+> ✏️ Edit the `TARGET_NETWORK_INFO` in `providersConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
 
 ![image](https://user-images.githubusercontent.com/46639943/149599234-55921640-e677-42ca-a4a7-ab1fbca36ec4.png)
 
