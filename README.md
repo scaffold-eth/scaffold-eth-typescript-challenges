@@ -32,6 +32,6 @@ https://github.com/scaffold-eth/scaffold-eth-typescript-challenges/tree/challeng
 
 Join the telegram [support chat 💬](https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA) to ask questions and find others building with 🏗 scaffold-eth!
 
----
+### 🙏🏽 Support us!
 
-🙏 Please check out our [Gitcoin grant](https://gitcoin.co/grants/2851/scaffold-eth) too!
+Please check out our [Gitcoin grant](https://gitcoin.co/grants/2851/scaffold-eth) too!
