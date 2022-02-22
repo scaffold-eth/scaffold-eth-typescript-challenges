@@ -19,6 +19,7 @@ const externals = {
   timers: 'timers-browserify',
   electron: 'electron',
   'electron-fetch': 'electron-fetch',
+  'node-fetch': 'node-fetch',
 };
 
 const nodeShims = {

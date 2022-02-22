@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import '~~/styles/main-page.css';
 
 import { GenericContract } from 'eth-components/ant/generic-contract';
-import { useContractReader, useBalance, useEthersAdaptorFromProviderOrSigners, useEventListener } from 'eth-hooks';
+import { useBalance, useEthersAdaptorFromProviderOrSigners } from 'eth-hooks';
 import { useEthersContext } from 'eth-hooks/context';
 import { useDexEthPrice } from 'eth-hooks/dapps';
 import { asEthersAdaptor } from 'eth-hooks/functions';
@@ -14,7 +14,7 @@ import { useScaffoldHooksExamples as useScaffoldHooksExamples } from './componen
 
 import { useBurnerFallback } from '~~/components/main/hooks/useBurnerFallback';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/components/main/hooks/useScaffoldAppProviders';
-import { Hints, ExampleUI } from '~~/components/pages';
+import { YourCollectibles } from '~~/components/pages';
 import { BURNER_FALLBACK_ENABLED, MAINNET_PROVIDER } from '~~/config/appConfig';
 import { useAppContracts, useConnectAppContracts, useLoadAppContracts } from '~~/config/contractContext';
 import { NETWORKS } from '~~/models/constants/networks';
@@ -71,19 +71,19 @@ export const Main: FC = () => {
   // -----------------------------
 
   // init contracts
-  const yourContract = useAppContracts('YourContract', ethersContext.chainId);
+  // const yourContract = useAppContracts('YourContract', ethersContext.chainId);
   const mainnetDai = useAppContracts('DAI', NETWORKS.mainnet.chainId);
 
   // keep track of a variable from the contract in the local React state:
-  const [purpose, update] = useContractReader(
-    yourContract,
-    yourContract?.purpose,
-    [],
-    yourContract?.filters.SetPurpose()
-  );
+  // const [purpose, update] = useContractReader(
+  //   yourContract,
+  //   yourContract?.purpose,
+  //   [],
+  //   yourContract?.filters.SetPurpose()
+  // );
 
   // 📟 Listen for broadcast events
-  const [setPurposeEvents] = useEventListener(yourContract, 'SetPurpose', 0);
+  // const [setPurposeEvents] = useEventListener(yourContract, 'SetPurpose', 0);
 
   // -----------------------------
   // .... 🎇 End of examples
@@ -108,23 +108,14 @@ export const Main: FC = () => {
         <MainPageMenu route={route} setRoute={setRoute} />
         <Switch>
           <Route exact path="/">
-            <MainPageContracts scaffoldAppProviders={scaffoldAppProviders} />
+            <YourCollectibles
+              mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
+              blockExplorer={scaffoldAppProviders.targetNetwork.blockExplorer}
+            />
           </Route>
           {/* you can add routes here like the below examlples */}
-          <Route path="/hints">
-            <Hints
-              address={ethersContext?.account ?? ''}
-              yourCurrentBalance={yourCurrentBalance}
-              mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-              price={ethPrice}
-            />
-          </Route>
-          <Route path="/exampleui">
-            <ExampleUI
-              mainnetProvider={scaffoldAppProviders.mainnetAdaptor?.provider}
-              yourCurrentBalance={yourCurrentBalance}
-              price={ethPrice}
-            />
+          <Route path="/debugcontracts">
+            <MainPageContracts scaffoldAppProviders={scaffoldAppProviders} />
           </Route>
           <Route path="/mainnetdai">
             {MAINNET_PROVIDER != null && (

@@ -1,32 +1,87 @@
-# 🏗👷🏾 Scaffold-ETH Challenges
+# 🏗 Scaffold-Eth Typescript
 
-> learn how to use 🏗 scaffold-eth to create decentralized applications on Ethereum. 🚀
+## Typescript
 
----
+This is the typescript repo of scaffold.eth. The directories that you'll use are:
 
-## 🚩 Challenge 0: 🎟 Simple NFT Example 🤓
+```bash
+packages/vite-app-ts/
+packages/hardhat-ts/
+```
 
-🎫 Create a simple NFT to learn basics of 🏗 scaffold-eth. You'll use 👷‍♀️ HardHat to compile and deploy smart contracts. Then, you'll use a template React app full of important Ethereum components and hooks. Finally, you'll deploy an NFT to a public network to share with friends! 🚀
+## Quick Start
 
-https://github.com/scaffold-eth/scaffold-eth-typescript-challenges/tree/challenge-0-simple-nft
+Running the app
 
----
+1. install your dependencies
 
-## 🚩 Challenge 1: 🥩 Decentralized Staking App
+   ```bash
+   yarn install
+   ```
 
-🦸 A superpower of Ethereum is allowing you, the builder, to create a simple set of rules that an adversarial group of players can use to work together. In this challenge, you create a decentralized application where users can coordinate a group funding effort. If the users cooperate, the money is collected in a second smart contract. If they defect, the worst that can happen is everyone gets their money back. The users only have to trust the code.
+2. start a hardhat node
 
-https://github.com/scaffold-eth/scaffold-eth-typescript-challenges/tree/challenge-1-decentralized-staking
+   ```bash
+   yarn chain
+   ```
 
----
+3. run the app, `open a new command prompt`
 
-## 🚩 Challenge 2: 🏵 Token Vendor 🤖
+   ```bash
+   # build hardhat & external contracts types
+   yarn contracts:build 
+   # deploy your hardhat contracts
+   yarn deploy
+   # start vite 
+   yarn start 
+   ```
+   
+## Guides
 
-🤖 Smart contracts are kind of like "always on" vending machines that anyone can access. Let's make a decentralized, digital currency. Then, let's build an unstoppable vending machine that will buy and sell the currency. We'll learn about the "approve" pattern for ERC20s and how contract to contract interactions work.
+- Check out [eth-hooks docs](https://scaffold-eth.github.io/eth-hooks/docs/overview) for example of how to use hooks
+- you can look at [speedrun ethereum](https://speedrunethereum.com/) to get started with scaffold-eth-typescript and web3.  
+  - 🏁 Make sure to click on the typescript tab!
 
-https://github.com/scaffold-eth/scaffold-eth-typescript-challenges/tree/challenge-2-token-vendor
 
----
+## Overview
+
+Everything you need to build on Ethereum! 🚀 Quickly experiment with Solidity using a frontend that adapts to your smart contract:
+
+![image](https://user-images.githubusercontent.com/2653167/124158108-c14ca380-da56-11eb-967e-69cde37ca8eb.png)
+
+- 🔏 Edit your smart contract `YourContract.sol` in `packages/hardhat-ts/contracts`
+- 📝 Edit your frontend `MainPage.jsx` in `packages/vite-app-ts/src`
+- 💼 Edit your deployment scripts in `packages/hardhat-ts/deploy`
+- 📱 Open http://localhost:3000 to see the app
+
+## More Information!
+### 📚 Documentation
+
+Documentation, tutorials, challenges, and many more resources, visit: [docs.scaffoldeth.io](https://docs.scaffoldeth.io)
+
+Eth-hooks documentation is [here](https://scaffold-eth.github.io/eth-hooks/).  Learn how to use the contexts here.
+
+
+### 🔭 Learning Solidity
+
+Read the docs: https://docs.soliditylang.org
+
+Go through each topic from [solidity by example](https://solidity-by-example.org) editing `YourContract.sol` in **🏗 scaffold-eth**
+
+
+### 🏃💨 Speedrun Ethereum
+Register as a builder [here](https://speedrunethereum.com) and start on some of the challenges and build a portfolio.
+
+### 🛠 Buidl
+
+Check out all the [active branches](https://github.com/austintgriffith/scaffold-eth/branches/active), [open issues](https://github.com/austintgriffith/scaffold-eth/issues), and join/fund the 🏰 [BuidlGuidl](https://BuidlGuidl.com)!
+
+[Follow the full Ethereum Speed Run](https://medium.com/@austin_48503/%EF%B8%8Fethereum-dev-speed-run-bd72bcba6a4c)
+
+
+### 💌 P.S.
+
+You need an RPC key for testnets and production deployments, create an [Alchemy](https://www.alchemy.com/) account and replace the value of `ALCHEMY_KEY = xxx` in `packages/react-app/src/constants.js` with your new key.
 
 ### 💬 Support Chat
 
