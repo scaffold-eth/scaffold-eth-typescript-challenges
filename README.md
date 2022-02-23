@@ -29,14 +29,15 @@ yarn install
 yarn chain
 ```
 
-> in a second terminal window, start your 📱 frontend:
+> in a second terminal window, 🛰 deploy your contract:
 
 ```sh
 cd challenge-0-simple-nft
+yarn contracts:build
 yarn deploy
 ```
 
-> in a third terminal window, 🛰 deploy your contract:
+> in a third terminal window, start your 📱 frontend:
 
 ```sh
 cd challenge-0-simple-nft
@@ -101,7 +102,7 @@ yarn start
 
 🛰 Ready to deploy to a public testnet?!?
 
-> Change the `TARGET_NETWORK` in `packages/hardhat-ts/hardhat.config.ts` to `rinkeby`
+> Change the `HARDHAT_TARGET_NETWORK` in `.env` in `packages/vite-app-ts` to `rinkeby`
 
 🔐 Generate a **deployer address** with `yarn generate`
 
@@ -121,13 +122,13 @@ yarn start
 yarn deploy
 ```
 
-> 💬 Hint: You can set the `defaultNetwork` in `hardhat.config.ts` to `Rinkeby` OR you can `yarn deploy --network Rinkeby`.
+> 💬 Hint: You can set the `HARDHAT_TARGET_NETWORK` in `.env` to `Rinkeby` OR you can `yarn deploy --network Rinkeby`.
 
 ---
 
 # Checkpoint 4: 🚢 Ship it! 🚁
 
-> ✏️ Edit the `TARGET_NETWORK_INFO` in `appConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
+> ✏️ Edit the `VITE_APP_TARGET_NETWORK` in `.env` to be the public network where you deployed your smart contract.
 
 ![image](https://user-images.githubusercontent.com/46639943/149599234-55921640-e677-42ca-a4a7-ab1fbca36ec4.png)
 
@@ -186,9 +187,7 @@ https://testnets.opensea.io/assets/0xc2839329166d3d004aaedb94dde4173651babccf/1
 
 ## 🔶 Infura
 
-> You will need to get a key from infura.io and paste it into `constants.ts` in `packages/vite-app-ts/src/models/constants`:
-
-![nft13](https://user-images.githubusercontent.com/526558/124387174-d83c0180-dcb3-11eb-989e-d58ba15d26db.png)
+> You will need to get a key from infura.io and paste it into `VITE_KEY_INFURA` in `.env`:
 
 ---
 
