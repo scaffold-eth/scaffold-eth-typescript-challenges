@@ -128,9 +128,7 @@ yarn deploy
 
 # Checkpoint 4: 🚢 Ship it! 🚁
 
-> ✏️ Edit the `VITE_APP_TARGET_NETWORK` in `.env` to be the public network where you deployed your smart contract.
-
-![image](https://user-images.githubusercontent.com/46639943/149599234-55921640-e677-42ca-a4a7-ab1fbca36ec4.png)
+> ✏️ Edit the `VITE_APP_TARGET_NETWORK` in `.env` to be the public network where you deployed your smart contract. If your frontend is still running, you'll need to stop and restart it after changing the network.
 
 You should see the correct network in the frontend (http://localhost:3000):
 
