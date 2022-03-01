@@ -97,7 +97,7 @@ yarn start
 
 💼 Take a quick look at your deploy script `00_deploy_your_collectible.ts` in `packages/hardhat-ts/deploy`.
 
-📝 If you want to make frontend edits, open `YourCollectible.tsx` in `packages/vite-app-ts/src/components/pages/your-collectible`.
+📝 If you want to make frontend edits, open `YourCollectible.tsx` in `packages/vite-app-ts/src/app/routes/your-collectibles`.
 
 ---
 
