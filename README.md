@@ -10,6 +10,10 @@
 
 # Checkpoint 0: 📦 Install 📚
 
+Want a fresh cloud environment? Click this to open a gitpod workspace, then skip to Checkpoint 1 after the tasks are complete.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/scaffold-eth/scaffold-eth-typescript-challenges/tree/challenge-0-simple-nft)
+
 Required:
 
 - [Git](https://git-scm.com/downloads)
@@ -85,7 +89,7 @@ yarn start
 
 👛 Try to mint an NFT from the incognito window.
 
-> Can you mint an NFT with no funds in this address? You might need to grab funds from the fauct to pay the gas!
+> Can you mint an NFT with no funds in this address? You might need to grab funds from the faucet to pay the gas!
 
 🕵🏻‍♂️ Inspect the `Debug Contracts` tab to figure out what address is the `owner` of `YourCollectible`?
 
@@ -101,7 +105,7 @@ yarn start
 
 🛰 Ready to deploy to a public testnet?!?
 
-> Change the `TARGET_NETWORK` in `packages/hardhat-ts/hardhat.config.ts` to `rinkeby`
+> Change the `defaultNetwork` in `packages/hardhat-ts/hardhat.config.ts` to `rinkeby`
 
 🔐 Generate a **deployer address** with `yarn generate`
 
