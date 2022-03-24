@@ -148,7 +148,10 @@ await vendor.transferOwnership("**YOUR FRONTEND ADDRESS**");
 
 - [ ] Should we disable the `owner` withdraw to keep liquidity in the `Vendor`?
 
----
+#### ⚠️ Test it!
+-  Now is a good time to run `yarn test` to run the automated testing function. It will test that you hit the core checkpoints.  You are looking for all green checkmarks and passing tests!
+
+----
 
 ### Checkpoint 5: 💾 Deploy it! 🛰
 
