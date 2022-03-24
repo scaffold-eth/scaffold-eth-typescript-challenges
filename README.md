@@ -66,6 +66,9 @@ uint256 public constant threshold = 1 ether;
 
 > 👩‍💻 Write your `stake()` function and test it with the `Debug Contracts` tab in the frontend
 
+💸 Need more funds from the faucet?  Enter your frontend address into the wallet to get as much as you need!
+![Wallet_Medium](https://user-images.githubusercontent.com/12072395/159990402-d5535875-f1eb-4c75-86a7-6fbd5e6cbe5f.png)
+
 #### 🥅 Goals
 
 - [ ] Do you see the balance of the `Staker` contract go up when you `stake()`?
