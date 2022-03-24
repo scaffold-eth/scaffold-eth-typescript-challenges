@@ -4,16 +4,22 @@
 
 🎫 Create a simple NFT to learn basics of 🏗 scaffold-eth. You'll use [👷‍♀️ HardHat](https://hardhat.org/getting-started/) to compile and deploy smart contracts. Then, you'll use a template React app full of important Ethereum components and hooks. Finally, you'll deploy an NFT to a public network to share with friends! 🚀
 
-🏆 The final deliverable is an app that lets users purchase and transfer NFTs. Deploy your contracts to Rinkeby and then build and upload your app to a public web server. Share the url in the [Challenge 0 telegram channel](https://t.me/+Y2vqXZZ_pEFhMGMx)!!! 🍾
+🌟 The final deliverable is an app that lets users purchase and transfer NFTs. Deploy your contracts to Rinkeby and then build and upload your app to a public web server. Submit the url on [SpeedRunEthereum.com](https://speedrunethereum.com)!
+
+💬 Meet other builders working on this challenge and get help in the [Challenge 0 telegram](https://t.me/+Y2vqXZZ_pEFhMGMx)!!!
 
 ---
 
 # Checkpoint 0: 📦 Install 📚
 
+Want a fresh cloud environment? Click this to open a gitpod workspace, then skip to Checkpoint 1 after the tasks are complete.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/scaffold-eth/scaffold-eth-typescript-challenges/tree/challenge-0-simple-nft)
+
 Required:
 
 - [Git](https://git-scm.com/downloads)
-- [Node](https://nodejs.org/dist/latest-v12.x/)
+- [Node](https://nodejs.org/dist/latest-v16.x/)  (🧨 Use Node v16 or a previous version as v17 may cause errors 🧨)
 - [Yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable)
 
 (⚠️ Don't install the linux package `yarn` make sure you install yarn with `npm i -g yarn`)
@@ -85,7 +91,7 @@ yarn start
 
 👛 Try to mint an NFT from the incognito window.
 
-> Can you mint an NFT with no funds in this address? You might need to grab funds from the fauct to pay the gas!
+> Can you mint an NFT with no funds in this address? You might need to grab funds from the faucet to pay the gas!
 
 🕵🏻‍♂️ Inspect the `Debug Contracts` tab to figure out what address is the `owner` of `YourCollectible`?
 
@@ -93,7 +99,7 @@ yarn start
 
 💼 Take a quick look at your deploy script `00_deploy_your_collectible.ts` in `packages/hardhat-ts/deploy`.
 
-📝 If you want to make frontend edits, open `YourCollectible.tsx` in `packages/vite-app-ts/src/components/pages/your-collectible`.
+📝 If you want to make frontend edits, open `YourCollectible.tsx` in `packages/vite-app-ts/src/app/routes/your-collectibles`.
 
 ---
 
@@ -101,7 +107,7 @@ yarn start
 
 🛰 Ready to deploy to a public testnet?!?
 
-> Change the `TARGET_NETWORK` in `packages/hardhat-ts/hardhat.config.ts` to `rinkeby`
+> Change the `defaultNetwork` in `packages/hardhat-ts/hardhat.config.ts` to `rinkeby`
 
 🔐 Generate a **deployer address** with `yarn generate`
 
@@ -127,7 +133,7 @@ yarn deploy
 
 # Checkpoint 4: 🚢 Ship it! 🚁
 
-> ✏️ Edit the `TARGET_NETWORK_INFO` in `appConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
+> ✏️ Edit the `TARGET_NETWORK_INFO` in `providersConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
 
 ![image](https://user-images.githubusercontent.com/46639943/149599234-55921640-e677-42ca-a4a7-ab1fbca36ec4.png)
 
@@ -173,10 +179,6 @@ Update the `api-key` in `packages/hardhat-ts/package.json` file. You can get you
 ---
 
 # Checkpoint 6: 💪 Flex!
-
-> 🎖 Show off your app by pasting the surge url in the [Challenge 0 telegram channel](https://t.me/+Y2vqXZZ_pEFhMGMx) 🎖
-
----
 
 👩‍❤️‍👨 Share your public url with a friend and ask them for their address to send them a collectible :)
 
