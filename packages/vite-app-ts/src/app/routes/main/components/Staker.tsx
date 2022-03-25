@@ -134,7 +134,7 @@ export const Staker: FC<StakerProps> = (props) => {
           type={'default'}
           onClick={() => {
             if (tx && ethersContext.account) {
-              tx(stakeContractWrite.withdraw(ethersContext.account));
+              tx(stakeContractWrite.withdraw());
             }
           }}>
           🏧 Withdraw

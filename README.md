@@ -69,6 +69,9 @@ uint256 public constant threshold = 1 ether;
 
 > 👩‍💻 Write your `stake()` function and test it with the `Debug Contracts` tab in the frontend
 
+💸 Need more funds from the faucet?  Enter your frontend address into the wallet to get as much as you need!
+![Wallet_Medium](https://user-images.githubusercontent.com/12072395/159990402-d5535875-f1eb-4c75-86a7-6fbd5e6cbe5f.png)
+
 #### 🥅 Goals
 
 - [ ] Do you see the balance of the `Staker` contract go up when you `stake()`?
@@ -93,7 +96,7 @@ uint256 public deadline = block.timestamp + 30 seconds;
 
 If the `address(this).balance` of the contract is over the `threshold` by the `deadline`, you will want to call: `exampleExternalContract.complete{value: address(this).balance}()`
 
-If the balance is less than the `threshold`, you want to set a `openForWithdraw` bool to `true` and allow users to `withdraw(address payable)` their funds.
+If the balance is less than the `threshold`, you want to set a `openForWithdraw` bool to `true` and allow users to `withdraw()` their funds.
 
 (You'll have 30 seconds after deploying until the deadline is reached, you can adjust this in the contract.)
 
@@ -109,7 +112,7 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 
 - [ ] Can you see `timeLeft` counting down in the `Staker UI` tab when you trigger a transaction with the faucet?
 - [ ] If you `stake()` enough ETH before the `deadline`, does it call `complete()`?
-- [ ] If you don't `stake()` enough can you `withdraw(address payable)` your funds?
+- [ ] If you don't `stake()` enough can you `withdraw()` your funds?
 
 ---
 
@@ -142,6 +145,11 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 
 ---
 
+#### ⚠️ Test it!
+-  Now is a good time to run `yarn test` to run the automated testing function. It will test that you hit the core checkpoints.  You are looking for all green checkmarks and passing tests!
+
+---
+
 ### Checkpoint 5: 🚢 Ship it 🚁
 
 📡 Edit the `defaultNetwork` to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/) in `packages/hardhat-ts/hardhat.config.ts`
@@ -167,6 +175,8 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 📡 When you are ready to ship the frontend app...
 
 📦 Run `yarn build` to package up your frontend.
+
+ > 📝 If you plan on submitting this challenge, be sure to set your ```deadline``` to at least ```block.timestamp + 72 hours```
 
 💽 Upload your app to surge with `yarn surge` (you could also `yarn s3` or maybe even `yarn ipfs`?)
 
