@@ -18,7 +18,6 @@ contract Staker {
   //  It should call `exampleExternalContract.complete{value: address(this).balance}()` to send all the value
 
   // TODO: if the `threshold` was not met, allow everyone to call a `withdraw()` function
-  //  It should call `payable(address).transfer(value)' to send Ether
 
   // TODO: Add a `timeLeft()` view function that returns the time left before the deadline for the frontend
 
