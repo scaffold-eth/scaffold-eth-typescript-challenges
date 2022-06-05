@@ -4,6 +4,10 @@
 // This adds support for typescript paths mappings
 import 'tsconfig-paths/register';
 
+// let us use the .env file
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import { Signer, utils } from 'ethers';
 import '@typechain/hardhat';
 import '@nomiclabs/hardhat-waffle';
