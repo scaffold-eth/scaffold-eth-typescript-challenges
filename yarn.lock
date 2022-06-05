@@ -1767,6 +1767,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@scaffold-eth/typescript@workspace:."
   dependencies:
+    dotenv: ^16.0.1
     eslint: ^7.32.0
     prettier: ^2.4.1
     react: ^17.0.2
