@@ -120,10 +120,6 @@ describe("🚩 Challenge 1: 🥩 Decentralized Staking App", function () {
           await network.provider.send("evm_increaseTime", [3600])
           await network.provider.send("evm_mine")
 
-          console.log('\t'," 🎉 calling execute")
-          const execResult = await stakerContract.execute();
-          console.log('\t'," 🏷  execResult: ",execResult.hash)
-
           const result = await exampleExternalContract.completed()
           console.log('\t'," 🥁 complete should be false: ",result)
           expect(result).to.equal(false);
