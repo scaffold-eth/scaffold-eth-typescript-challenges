@@ -20,7 +20,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
           props.setRoute('/');
         }}
         to="/">
-        StakerUI
+        Dice
       </Link>
     </Menu.Item>
     <Menu.Item key="/debug">
@@ -41,7 +41,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Hints
       </Link>
     </Menu.Item>
-    <Menu.Item key="/mainnetdai">
+    {/* <Menu.Item key="/mainnetdai">
       <Link
         onClick={() => {
           props.setRoute('/mainnetdai');
@@ -58,6 +58,6 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         to="/subgraph">
         Subgraph
       </Link>
-    </Menu.Item>
+    </Menu.Item> */}
   </Menu>
 );
