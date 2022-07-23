@@ -118,6 +118,8 @@ You have beaten the game, but where is your money?  Since the RiggedRoll contrac
 ---
 ### Checkpoint 6: 🚢 Ship it! 🚁
 
+📡 Edit the `export const targetNetworkInfo: TNetworkInfo = NETWORKS.localhost;` to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/) in `packages/vite-app-ts/src/config/providersConfig.ts`
+
 📦 Run `yarn build` to package up your frontend.
 
 💽 Upload your app to surge with `yarn surge` (you could also `yarn s3` or maybe even `yarn ipfs`?)
