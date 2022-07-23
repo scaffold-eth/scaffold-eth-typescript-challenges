@@ -1,199 +1,141 @@
 # 🏗 scaffold-eth | 🏰 BuidlGuidl
 
-## 🚩 Challenge 1: 🥩 Decentralized Staking App
+## 🚩 Challenge 3: 🎲 Dice Game 
 
-> 🦸 A super power of Ethereum is allowing you, the builder, to create a simple set of rules that an adversarial group of players can use to work together. In this challenge, you create a decentralized application where users can coordinate a group funding effort. If the users cooperate, the money is collected in a second smart contract. If they defect, the worst that can happen is everyone gets their money back. The users only have to trust the code.
+> 🎰 Randomness is tricky on a public deterministic blockchain. The block hash is the result proof-of-work (for now) and some builders use this as a weak form of randomness. This challenge will give you an example of a contract using block hash to create random numbers.  This randomness is exploitable.  Other, stronger forms of randomness include commit/reveal schemes, oracles, or VRF from Chainlink.
 
-> 🏦 Build a `Staker.sol` contract that collects **ETH** from numerous addresses using a payable `stake()` function and keeps track of `balances`. After some `deadline` if it has at least some `threshold` of ETH, it sends it to an `ExampleExternalContract` and triggers the `complete()` action sending the full balance. If not enough **ETH** is collected, allow users to `withdraw()`.
+> 👍 One day soon, randomness will be built into the Ethereum protocol!
 
-> 🎛 Building the frontend to display the information and UI is just as important as writing the contract. The goal is to deploy the contract and the app to allow anyone to stake using your app. Use a `Stake(address,uint256)` event to <List/> all stakes.
+> 💬 Dice Game is a contract that allows users to roll the dice to try and win the prize.  If players roll either a 0, 1, or 2 they will win the current prize amount.  The initial prize is 10% of the contract's balance, which starts out at .05 Eth.  
+ 
+> 🧤 Every time a player rolls the dice, they are required to send .002 Eth.  40 percent of this value is added to the current prize amount while the other 60 percent stays in the contract to fund future prizes.  Once a prize is won, the new prize amount is set to 10% of the total balance of the DiceGame contract. 
+ 
+> 🧨 Your job is to attack the Dice Game contract!  You will create a new contract that will predict the randomness ahead of time and only roll the dice when you're guaranteed to be a winner!
 
-> 🌟 The final deliverable is deploying a decentralized application to a public blockchain and then `yarn build` and `yarn surge` your app to a public webserver.  Submit the url on [SpeedRunEthereum.com](https://speedrunethereum.com)!
-
-> 💬 Meet other builders working on this challenge and get help in the [Challenge 1 telegram](https://t.me/joinchat/E6r91UFt4oMJlt01)!
-
-
-🧫 Everything starts by ✏️ Editing `Staker.sol` in `packages/hardhat-ts/contracts`
-
+> 💬 Meet other builders working on this challenge and get help in the [Challenge 3 telegram](https://t.me/+3StA0aBSArFjNjUx)!
+ 
 ---
 
 ### Checkpoint 0: 📦 install 📚
 
 ```bash
-
-git clone https://github.com/scaffold-eth/scaffold-eth-typescript-challenges.git challenge-1-decentralized-staking
-
-cd challenge-1-decentralized-staking
-
-git checkout challenge-1-decentralized-staking
-
+git clone https://github.com/scaffold-eth/scaffold-eth-typescript-challenges.git challenge-3-dice-game
+cd challenge-3-dice-game
+git checkout challenge-3-dice-game
 yarn install
-
 ```
-
-🔏 Edit your smart contract `Staker.sol` in `packages/hardhat/contracts`
-
 ---
 
 ### Checkpoint 1: 🔭 Environment 📺
 
 You'll have three terminals up for:
 
-`yarn chain` (hardhat backend)
+```bash
+yarn chain   (hardhat backend)
+yarn start   (react app frontend)
+yarn deploy  (to compile, deploy, and publish your contracts to the frontend)
+```
 
-`yarn deploy` (to compile, deploy, and publish your contracts to the frontend)
-
-`yarn start` (react app frontend)
-
-Make sure you run the commands in the above order. The contract types get generated as part of the deploy, which will be required to build and start the app.
-
-> 💻 View your frontend at http://localhost:3000/
+> 👀 Visit your frontend at http://localhost:3000
 
 > 👩‍💻 Rerun `yarn deploy --reset` whenever you want to deploy new contracts to the frontend.
 
 ---
 
-### Checkpoint 2: 🥩 Staking 💵
+### Checkpoint 2: 🎲 Dice Game
 
-You'll need to track individual `balances` using a mapping:
+ 🔍 Inspect the code in the `DiceGame.sol` contract in `packages/hardhat/contracts`
 
-```solidity
-mapping ( address => uint256 ) public balances;
-```
+ 🔒  You will not be changing any code in the DiceGame.sol contract in this challenge.  You will write your own contract to predict the outcome, then only roll the dice when it is favourable.
 
-And also track a constant `threshold` at `1 ether`
+ 💸 Grab some funds from the faucet and roll the dice a few times.  Watch the balance of the DiceGame contract in the Debug tab.  It increases on a failed roll and decreases by the prize amount on a successful roll. 
 
-```solidity
-uint256 public constant threshold = 1 ether;
-```
+![image](https://user-images.githubusercontent.com/12072395/168866845-bfc07d54-4722-44a8-ae07-544e001ceeaa.png)
 
-> 👩‍💻 Write your `stake()` function and test it with the `Debug Contracts` tab in the frontend
-
-💸 Need more funds from the faucet?  Enter your frontend address into the wallet to get as much as you need!
-![Wallet_Medium](https://user-images.githubusercontent.com/12072395/159990402-d5535875-f1eb-4c75-86a7-6fbd5e6cbe5f.png)
 
 #### 🥅 Goals
 
-- [ ] Do you see the balance of the `Staker` contract go up when you `stake()`?
-- [ ] Is your `balance` correctly tracked?
-- [ ] Do you see the events in the `Staker UI` tab?
+- [ ] Track the solidity code to find out how the DiceGame contract is generating random numbers.
+- [ ] Is it possible to predict the random number for any given roll?
 
 ---
 
-### Checkpoint 3: 🔬 State Machine / Timing ⏱
+### Checkpoint 3: 🔑 Rigged Contract
 
-> ⚙️ Think of your smart contract like a _state machine_. First, there is a **stake** period. Then, if you have gathered the `threshold` worth of ETH, there is a **success** state. Or, we go into a **withdraw** state to let users withdraw their funds.
+Start by creating a `receive()` function in the `RiggedRoll.sol` contract to allow it to receive Eth.  This will allow us to fund the RiggedRoll contract from the faucet which is required for our contract to call the rollTheDice() function.
 
-Set a `deadline` of `block.timestamp + 30 seconds`
+Next add a `riggedRoll()` function. This function should predict the randomness of a roll, and if the outcome will be a winner, call `rollTheDice()` on the DiceGame contract.
 
-```solidity
-uint256 public deadline = block.timestamp + 30 seconds;
-```
+ 🃏 Predict the outcome by generating your random numbers in the exact same way as the DiceGame contract.
 
-👨‍🏫 Smart contracts can't execute automatically, you always need to have a transaction execute to change state. Because of this, you will need to have an `execute()` function that _anyone_ can call, just once, after the `deadline` has expired.
+> 📣 Reminder!  Calling rollTheDice() will fail unless you send a message value of at least .002 Eth! [Here is one example of how to send value with a function call.](https://ethereum.stackexchange.com/questions/6665/call-contract-and-send-value-from-solidity)
 
-> 👩‍💻 Write your `execute()` function and test it with the `Debug Contracts` tab
+🚀 To deploy your RiggedRoll contract, uncomment the appropriate lines in the `01_deploy_riggedRoll.ts` file in `packages/hardhat/deploy`
 
-If the `address(this).balance` of the contract is over the `threshold` by the `deadline`, you will want to call: `exampleExternalContract.complete{value: address(this).balance}()`
+❓ If you're struggling to get the exact same random number as the DiceGame contract, try adding some `console.log()` statements in both contracts to help you track the values.  These messages will appear in the Hardhat node terminal.
 
-If the balance is less than the `threshold`, you want to set a `openForWithdraw` bool to `true` and allow users to `withdraw()` their funds.
+#### ⚔️ Side Quest
 
-(You'll have 30 seconds after deploying until the deadline is reached, you can adjust this in the contract.)
+- [ ] Add a statement to require `address(this).balance >= .002 ether` in your riggedRoll function.  This will help prevent calling the rollTheDice() function without enough value.
+- [ ] Uncomment the code in `packages/vite-app-ts/src/app/routes/main/components/Dice.tsx` to show a riggedRoll button and contract balance on the main UI tab.  Now you can test your function without switching tabs.
+- [ ] Does your riggedRoll function only call rollTheDice() when it's going to be a winning roll?  What happens when it does call rollTheDice()?  
 
-> 👩‍💻 Create a `timeLeft()` function including `public view returns (uint256)` that returns how much time is left.
+---
 
-⚠️ Be careful! if `block.timestamp >= deadline` you want to `return 0;`
+### Checkpoint 4: 💵 Where's my money?!?
 
-⏳ The time will only update if a transaction occurs. You can see the time update by getting funds from the faucet just to trigger a new block.
+You have beaten the game, but where is your money?  Since the RiggedRoll contract is the one calling `rollTheDice()`, that is where the prize money is being sent.  
 
-> 👩‍💻 You can call `yarn deploy --reset` any time you want a fresh contract
+📥 Create a `withdraw(address _addr, uint256 _amount)` function to allow you to send Eth from RiggedRoll to another address.
 
 #### 🥅 Goals
 
-- [ ] Can you see `timeLeft` counting down in the `Staker UI` tab when you trigger a transaction with the faucet?
-- [ ] If you `stake()` enough ETH before the `deadline`, does it call `complete()`?
-- [ ] If you don't `stake()` enough can you `withdraw()` your funds?
+- [ ] Can you send value from the riggedRoll contract to your front end address?
+- [ ] Is anyone able to call the withdraw function?  What would be the downside to that?
 
----
+#### ⚔️ Side Quest
 
-### Checkpoint 4: 💵 Receive Function / UX 🙎
+- [ ] Lock the withdraw function so it can only be called by the owner.
 
-🎀 To improve the user experience, set your contract up so it accepts ETH sent to it and calls `stake()`. You will use what is called the `receive()` function.
+> ⚠️ But wait, I am not the owner!  You will want to set your front end address as the owner in `01_deploy_riggedRoll.ts`.  This will allow your front end address to call the withdraw function.
 
-> Use the [receive()](https://docs.soliditylang.org/en/v0.8.9/contracts.html?highlight=receive#receive-ether-function) function in solidity to "catch" ETH sent to the contract and call `stake()` to update `balances`.
-
----
-
-#### 🥅 Goals
-
-- [ ] If you send ETH directly to the contract address does it update your `balance`?
-
----
-
-## ⚔️ Side Quests
-
-- [ ] Can execute get called more than once, and is that okay?
-- [ ] Can you stake and withdraw freely after the `deadline`, and is that okay?
-- [ ] What are other implications of _anyone_ being able to withdraw for someone?
-
----
-
-## 🐸 It's a trap!
-
-- [ ] Make sure funds can't get trapped in the contract! **Try sending funds after you have executed! What happens?**
-- [ ] Try to create a [modifier](https://solidity-by-example.org/function-modifier/) called `notCompleted`. It will check that `ExampleExternalContract` is not completed yet. Use it to protect your `execute` and `withdraw` functions.
-
----
-
-#### ⚠️ Test it!
--  Now is a good time to run `yarn test` to run the automated testing function. It will test that you hit the core checkpoints.  You are looking for all green checkmarks and passing tests!
-
----
-
-### Checkpoint 5: 🚢 Ship it 🚁
+### Checkpoint 5: 💾 Deploy it! 🛰
 
 📡 Edit the `defaultNetwork` to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/) in `packages/hardhat-ts/hardhat.config.ts`
 
-👩‍🚀 You will want to run `yarn account` to see if you have a **deployer address**
+👩‍🚀 You will want to run `yarn account` to see if you have a **deployer address**.
 
 🔐 If you don't have one, run `yarn generate` to create a mnemonic and save it locally for deploying.
 
-⛽️ You will need to send ETH to your **deployer address** with your wallet.
+🛰 Use a faucet like [faucet.paradigm.xyz](https://faucet.paradigm.xyz/) to fund your **deployer address** (run `yarn account` again to view balances)
 
-> 🚀 Run `yarn deploy` to deploy your smart contract to a public network (selected in hardhat.config.js)
+> ⚠️ Make sure you fund your account with enough Eth! .05 is required to initially fund the DiceGame contract and .01 more is required to fund the riggedRoll contract.  Plus a bit extra to pay the gas.
+
+ 🚀 Run `yarn deploy` to deploy to your public network of choice (😅 wherever you can get ⛽️ gas)
+
+🔬 Inspect the block explorer for the network you deployed to... make sure your contract is there.
 
 ---
-
-### Checkpoint 6: 🎚 Frontend 🧘‍♀️
-
-> 📝 Edit the `targetNetworkInfo` in `providersConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
-
-> 💻 View your frontend at http://localhost:3000/
-
-📡 When you are ready to ship the frontend app...
+### Checkpoint 6: 🚢 Ship it! 🚁
 
 📦 Run `yarn build` to package up your frontend.
 
- > 📝 If you plan on submitting this challenge, be sure to set your ```deadline``` to at least ```block.timestamp + 72 hours```
-
 💽 Upload your app to surge with `yarn surge` (you could also `yarn s3` or maybe even `yarn ipfs`?)
 
-> 📝 you will use this deploy URL to submit to [SpeedRun](https://speedrunethereum.com).
+>  😬 Windows users beware!  You may have to change the surge code in `packages/vite-app-ts/package.json` to just `"surge": "surge ./build",`
 
-🚔 Traffic to your url might break the [Infura](https://infura.io/) rate limit, edit your key: `constants.ts` in `packages/vite-app-ts/src/models/constants`.
+⚙ If you get a permissions error `yarn surge` again until you get a unique URL, or customize it in the command line.
+
+🚔 Traffic to your url might break the [Infura](https://infura.io/) rate limit, edit your key: `constants.ts` in `packages/vite-app-ts/src/models/constants`
 
 ---
 
 ### Checkpoint 7: 📜 Contract Verification
 
-Update the api-key in packages/hardhat/package.json file. You can get your key [here](https://etherscan.io/myapikey).
-
-![Screen Shot 2021-11-30 at 10 21 01 AM](https://user-images.githubusercontent.com/9419140/144075208-c50b70aa-345f-4e36-81d6-becaa5f74857.png)
+Update the `apikey` in `packages/hardhat/package.json`. You can get your key [here](https://etherscan.io/myapikey).
 
 > Now you are ready to run the `yarn verify --network your_network` command to verify your contracts on etherscan 🛰
 
+Copy the verified address for your RiggedRoll contract and enter that into the appropriate Etherscan testnet.
+
 ---
-
-> 🏃 Head to your next challenge [here](https://speedrunethereum.com).
-
-> 💬 Problems, questions, comments on the stack? Post them to the [🏗 scaffold-eth developers chat](https://t.me/joinchat/F7nCRK3kI93PoCOk)
