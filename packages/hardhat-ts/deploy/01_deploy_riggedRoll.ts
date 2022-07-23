@@ -26,17 +26,4 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironmentExtended) => {
 
 };
 export default func;
-func.tags = ['Staker'];
-
-const delay = (ms: number) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-};
-
-/*
-Tenderly verification
-let verification = await tenderly.verify({
-  name: contractName,
-  address: contractAddress,
-  network: targetNetwork,
-});
-*/
+func.tags = ['RiggedRoll'];
