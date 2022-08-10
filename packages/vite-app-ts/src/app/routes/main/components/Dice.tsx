@@ -83,41 +83,43 @@ export const Dice: FC<DiceProps> = (props) => {
     }
   };
 
-  // const riggedRoll = async () => {
-  //   if (!tx) {
-  //     return;
-  //   }
-  //   try {
-  //     tx(riggedRollContractWrite.riggedRoll({ gasLimit: 500000 }), update => {
-  //       console.log("TX UPDATE", update);
-  //       if (update?.status === "sent" || update?.status === 1) {
-  //         setDiceRolled(true);
-  //         setDiceRollImage("ROLL");
-  //       }
-  //       if (update?.status === "failed") {
-  //         setDiceRolled(false);
-  //         //setDiceRollImage(null);
-  //       }
-  //       if (update?.status == 1 || update?.status == "confirmed") {
-  //         setTimeout(() => {
-  //           setDiceRolled(false);
-  //         }, 1500);
-  //       }
-  //     });
-  //   }
-  //   catch (e) {
-  //     setDiceRolled(false);
-  //   }
-  // };
+  /*
+  const riggedRoll = async () => {
+    if (!tx) {
+      return;
+    }
+    try {
+      tx(riggedRollContractWrite.riggedRoll({ gasLimit: 500000 }), update => {
+        console.log("TX UPDATE", update);
+        if (update?.status === "sent" || update?.status === 1) {
+          setDiceRolled(true);
+          setDiceRollImage("ROLL");
+        }
+        if (update?.status === "failed") {
+          setDiceRolled(false);
+          //setDiceRollImage(null);
+        }
+        if (update?.status == 1 || update?.status == "confirmed") {
+          setTimeout(() => {
+            setDiceRolled(false);
+          }, 1500);
+        }
+      });
+    }
+    catch (e) {
+      setDiceRolled(false);
+    }
+  };
 
-  // const riggedFilter = diceGameContractRead?.filters.Roll(riggedRollContractRead.address, null);
-  // readContracts.DiceGame?.on(riggedFilter, (_, value) => {
-  //   if (value) {
-  //     const numberRolled = value.toNumber().toString(16).toUpperCase();
-  //     setDiceRollImage(numberRolled);
-  //     setDiceRolled(false);
-  //   }
-  // });
+  const riggedFilter = diceGameContractRead?.filters.Roll(riggedRollContractRead.address, null);
+  readContracts.DiceGame?.on(riggedFilter, (_, value) => {
+    if (value) {
+      const numberRolled = value.toNumber().toString(16).toUpperCase();
+      setDiceRollImage(numberRolled);
+      setDiceRolled(false);
+    }
+  });
+  */
 
   const filter = diceGameContractRead?.filters.Roll(ethersContext.account, null);
 
@@ -157,17 +159,18 @@ export const Dice: FC<DiceProps> = (props) => {
           <Button type="primary" disabled={diceRolled} onClick={rollTheDice}>
             Roll the dice!
           </Button>
-
-          {/* <div style={{ padding: 16 }}>
+          {/*
+          <div style={{ padding: 16 }}>
             <div style={{ padding: 16 }}>
+              <Address address={readContracts?.RiggedRoll?.address} ensProvider={mainnetProvider} fontSize={24} />
+              <div />
               <Balance address={readContracts?.RiggedRoll?.address} price={ethPrice} />
-              <Address address={readContracts?.RiggedRoll?.address} ensProvider={mainnetProvider} fontSize={16} />
             </div>
             <Button style={{ margin: 16 }} type="primary" disabled={diceRolled} onClick={riggedRoll}>
               Rigged Roll!
             </Button>
-          </div> */}
-
+          </div>
+        */}
         </div>
         {diceRollImg}
       </div>
