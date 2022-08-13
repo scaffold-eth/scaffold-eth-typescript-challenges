@@ -3,7 +3,7 @@ import { ContractFactory, ethers } from 'ethers';
 //import type {YourContract} from "../generated/contract-types";
 // this import allows hot module reload to work
 
-const contractListJsonPromise = import('../generated/contracts/hardhat_contracts.json');
+const contractListJsonPromise = import('../generated/contracts/hardhat_contracts.json.bak');
 
 /**
  * - run yarn compile and yarn deploy to generate hardhhat_contracts.json
