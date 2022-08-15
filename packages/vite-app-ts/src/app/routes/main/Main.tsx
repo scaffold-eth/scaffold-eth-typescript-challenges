@@ -97,7 +97,7 @@ export const Main: FC = () => {
 
   return (
     <div className="App">
-      <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} />
+      <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} readContracts={readContracts} />
 
       {/* Routes should be added between the <Switch> </Switch> as seen below */}
       <BrowserRouter>
