@@ -103,7 +103,7 @@ export const Main: FC = () => {
         <MainPageMenu route={route} setRoute={setRoute} />
         <Switch>
           <Route exact path="/">
-            <DEX_UI mainnetProvider={scaffoldAppProviders.mainnetProvider} />
+            <DEX_UI scaffoldAppProviders={scaffoldAppProviders} appContractConfig={appContractConfig} readContracts={readContracts}/>
           </Route>
           <Route exact path="/events">
             <EventsUI mainnetProvider={scaffoldAppProviders.mainnetProvider} />
