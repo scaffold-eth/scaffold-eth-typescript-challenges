@@ -12,7 +12,7 @@ import { transactor } from 'eth-components/functions';
 import { ethers } from 'ethers';
 
 import { useEventListener } from 'eth-hooks';
-import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, DEX as DEX_UI } from './components';
+import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, DEX as DEX_UI, Events as EventsUI } from './components';
 import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/app/routes/main/hooks/useScaffoldAppProviders';
 import { useBurnerFallback } from '~~/app/routes/main/hooks/useBurnerFallback';
@@ -104,6 +104,9 @@ export const Main: FC = () => {
         <Switch>
           <Route exact path="/">
             <DEX_UI mainnetProvider={scaffoldAppProviders.mainnetProvider} />
+          </Route>
+          <Route exact path="/events">
+            <EventsUI mainnetProvider={scaffoldAppProviders.mainnetProvider} />
           </Route>
           <Route exact path="/debug">
             <MainPageContracts
