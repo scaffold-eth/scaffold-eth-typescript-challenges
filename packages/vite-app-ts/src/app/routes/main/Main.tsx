@@ -12,7 +12,7 @@ import { transactor } from 'eth-components/functions';
 import { ethers } from 'ethers';
 
 import { useEventListener } from 'eth-hooks';
-import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, Staker as StakerUI } from './components';
+import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, DEX as DEX_UI } from './components';
 import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/app/routes/main/hooks/useScaffoldAppProviders';
 import { useBurnerFallback } from '~~/app/routes/main/hooks/useBurnerFallback';
@@ -22,7 +22,6 @@ import { subgraphUri } from '~~/config/subgraphConfig';
 import { useEthersContext } from 'eth-hooks/context';
 import { NETWORKS } from '~~/models/constants/networks';
 import { mainnetProvider } from '~~/config/providersConfig';
-import { Staker } from '~~/generated/contract-types';
 
 export const DEBUG = false;
 
@@ -62,12 +61,12 @@ export const Main: FC = () => {
   // -----------------------------
   // example for current contract and listners
   // -----------------------------
-  const yourContractRead = readContracts['Staker'] as Staker;
-  // keep track of a variable from the contract in the local React state:
-  const purpose = useContractReader<string>(yourContractRead, {
-    contractName: 'YourContract',
-    functionName: 'purpose',
-  });
+  // const yourContractRead = readContracts['Staker'] as Staker;
+  // // keep track of a variable from the contract in the local React state:
+  // const purpose = useContractReader<string>(yourContractRead, {
+  //   contractName: 'YourContract',
+  //   functionName: 'purpose',
+  // });
 
   // 📟 Listen for broadcast events
   // const setPurposeEvents = useEventListener(yourContractRead, 'SetPurpose', 1);
@@ -104,7 +103,7 @@ export const Main: FC = () => {
         <MainPageMenu route={route} setRoute={setRoute} />
         <Switch>
           <Route exact path="/">
-            <StakerUI mainnetProvider={scaffoldAppProviders.mainnetProvider} />
+            <DEX_UI mainnetProvider={scaffoldAppProviders.mainnetProvider} />
           </Route>
           <Route exact path="/debug">
             <MainPageContracts
