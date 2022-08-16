@@ -22,6 +22,8 @@ import { subgraphUri } from '~~/config/subgraphConfig';
 import { useEthersContext } from 'eth-hooks/context';
 import { NETWORKS } from '~~/models/constants/networks';
 import { mainnetProvider } from '~~/config/providersConfig';
+import { EthComponentsSettingsContext } from 'eth-components/models';
+import { useDebounce } from 'use-debounce';
 
 export const DEBUG = false;
 
@@ -94,6 +96,19 @@ export const Main: FC = () => {
     setRoute(window.location.pathname);
   }, [setRoute]);
 
+  const ethComponentsSettings = useContext(EthComponentsSettingsContext);
+  const gasPrice = useGasPrice(ethersContext.chainId, 'fast');
+  const tx = transactor(ethComponentsSettings, ethersContext?.signer, gasPrice);
+
+  const [accountAddress] = useDebounce<string | undefined>(
+    ethersContext.account,
+    200,
+    {
+      trailing: true,
+    }
+  );
+
+
   return (
     <div className="App">
       <MainPageHeader scaffoldAppProviders={scaffoldAppProviders} price={ethPrice} readContracts={readContracts} />
@@ -103,7 +118,14 @@ export const Main: FC = () => {
         <MainPageMenu route={route} setRoute={setRoute} />
         <Switch>
           <Route exact path="/">
-            <DEX_UI scaffoldAppProviders={scaffoldAppProviders} appContractConfig={appContractConfig} readContracts={readContracts}/>
+            <DEX_UI
+              scaffoldAppProviders={scaffoldAppProviders}
+              appContractConfig={appContractConfig}
+              readContracts={readContracts}
+              writeContracts={writeContracts}
+              tx={tx}
+              address={accountAddress}
+            />
           </Route>
           <Route exact path="/events">
             <EventsUI mainnetProvider={scaffoldAppProviders.mainnetProvider} />
