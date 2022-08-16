@@ -28,7 +28,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         onClick={() => {
           props.setRoute('/events');
         }}
-        to="/">
+        to="/events">
         Events
       </Link>
     </Menu.Item>

@@ -128,7 +128,30 @@ export const Main: FC = () => {
             />
           </Route>
           <Route exact path="/events">
-            <EventsUI mainnetProvider={scaffoldAppProviders.mainnetProvider} />
+            <EventsUI
+              contract={readContracts["DEX"]}
+              eventName="EthToTokenSwap"
+              mainnetProvider={scaffoldAppProviders.mainnetProvider}
+              startBlock={1}
+            />
+            <EventsUI
+              contract={readContracts["DEX"]}
+              eventName="TokenToEthSwap"
+              mainnetProvider={scaffoldAppProviders.mainnetProvider}
+              startBlock={1}
+            />
+            <EventsUI
+              contract={readContracts["DEX"]}
+              eventName="LiquidityProvided"
+              mainnetProvider={scaffoldAppProviders.mainnetProvider}
+              startBlock={1}
+            />
+            <EventsUI
+              contract={readContracts["DEX"]}
+              eventName="LiquidityRemoved"
+              mainnetProvider={scaffoldAppProviders.mainnetProvider}
+              startBlock={1}
+            />
           </Route>
           <Route exact path="/debug">
             <MainPageContracts
