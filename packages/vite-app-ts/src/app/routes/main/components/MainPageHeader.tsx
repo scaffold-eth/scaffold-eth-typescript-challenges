@@ -62,7 +62,7 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
    * 👨‍💼 Your account is in the top right with a wallet at connect options
    */
   const right = (
-    <div style={{ position: 'fixed', textAlign: 'right', right: 0, top: 0, padding: 10 }}>
+    <div style={{ position: 'fixed', textAlign: 'right', right: 0, top: 0, padding: 10, zIndex:1 }}>
       <Account
         createLoginConnector={props.scaffoldAppProviders.createLoginConnector}
         ensProvider={props.scaffoldAppProviders.mainnetProvider}
@@ -97,9 +97,9 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
       <div
         style={{
           position: 'absolute',
-          right: 18,
-          top: 54,
-          padding: 10,
+          right: 154,
+          top: 28,
+          padding: 16,
           color: props.scaffoldAppProviders.targetNetwork.color,
         }}>
         {props.scaffoldAppProviders.targetNetwork.name}
