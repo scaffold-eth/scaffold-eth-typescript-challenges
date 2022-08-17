@@ -2,9 +2,9 @@ import { List } from "antd";
 import { useEventListener } from "eth-hooks";
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { FC } from 'react';
-import { Address } from "eth-components/ant";
+import { Address, Balance } from "eth-components/ant";
 import { Contract, EventFilter } from "ethers";
-import { TokenBalance } from "./temp/TokenBalance";
+
 
 
 export interface IEventsProps {
@@ -48,12 +48,12 @@ export const Events: FC<IEventsProps> = (props) => {
             <List.Item key={item.blockNumber + "_" + item.args[0].toString()}>
               <Address address={item.args[0]} ensProvider={props.mainnetProvider} fontSize={16} />
               {item.args[1].toString().indexOf("E") == -1 ? (
-                <TokenBalance balance={item.args[1]} />
+                <Balance address={undefined} balance={item.args[1]} />
               ) : (
                 `${item.args[1].toString()}`
               )}
-              <TokenBalance balance={item.args[2]} />
-              <TokenBalance balance={item.args[3]} />
+              <Balance address={undefined} balance={item.args[2]} />
+              <Balance address={undefined} balance={item.args[3]} />
             </List.Item>
           );
         }}
