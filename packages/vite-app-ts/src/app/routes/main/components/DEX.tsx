@@ -178,7 +178,7 @@ export const DEX: FC<IDEXProps> = (props) => {
               <Address address={contractAddress} />
               <div style={{ float: "right", fontSize: 24 }}>
                 {parseFloat(ethers.utils.formatEther(contractBalance)).toFixed(4)} ⚖️
-                <TokenContractBalance img={"🎈"} contract={BalloonsContract} address={DEXContract?.address} />
+                <TokenContractBalance img={"🎈"} contract={BalloonsContract} contractName={'Balloons'} address={DEXContract?.address} />
               </div>
             </div>
           }

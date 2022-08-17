@@ -1,26 +1,30 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { BigNumber, Contract } from "ethers";
 import { Balance } from "eth-components/ant";
+import { useContractReader } from "eth-hooks";
 
 export interface ITokenContractBalanceProps {
   contract?: Contract;
+  contractName: string;
   dollarMultiplier?: number;
   img?: string;
   address?: string;
 }
 
 export const TokenContractBalance: FC<ITokenContractBalanceProps> = (props) => {
-  const { contract, address } = props;
+  const { contract, address, contractName } = props;
 
-  const [balance, setBalance] = useState<BigNumber>();
-  useEffect(() => {
-    const getBalanceStaked = async () => {
-      const balance = contract ? await contract.balanceOf(address ?? '') : BigNumber.from(0);
-      // console.log('💵 balance:', balance.toString());
-      setBalance(balance);
-    };
-    getBalanceStaked();
-  }, [contract, address]);
+  if (!contract) {
+    return (<></>);
+  }
+
+  const balanceArray = useContractReader<BigNumber[]>(contract, {
+    contractName: contractName,
+    functionName: 'balanceOf',
+    functionArgs: [address]
+  });
+
+  const balance = balanceArray ? balanceArray[0] : undefined;
 
   return (
     <>

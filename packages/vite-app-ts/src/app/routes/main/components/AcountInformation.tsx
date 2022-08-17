@@ -37,7 +37,7 @@ export const AccountInformation: FC<IAccountInformationProps> = (props) => {
 
   return (
     <>
-      <TokenContractBalance img={"🎈"} contract={BalloonsContract} address={localAddress} />
+      <TokenContractBalance img={"🎈"} contract={BalloonsContract} contractName={'Balloons'} address={localAddress} />
       <h3>
         💦💦: <Balance address={undefined} balance={liquidity} />
       </h3>
