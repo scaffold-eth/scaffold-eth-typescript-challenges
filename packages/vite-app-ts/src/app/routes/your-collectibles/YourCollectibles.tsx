@@ -18,10 +18,19 @@ export interface IYourCollectibleProps {
 }
 
 const ipfs = create({
+  host: 'ipfs.nifty.ink',
+  port: 3001,
+  protocol: 'https',
+});
+
+/*
+const ipfs = create({
   host: 'ipfs.infura.io',
   port: 5001,
   protocol: 'https',
 });
+*/
+
 const getFromIPFS = async (cid: string) => {
   const decoder = new TextDecoder();
   let content = '';
