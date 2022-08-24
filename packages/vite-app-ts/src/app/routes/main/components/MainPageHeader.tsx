@@ -1,16 +1,20 @@
 import { Account } from 'eth-components/ant';
 import { getNetwork } from '@ethersproject/networks';
 import { Alert, PageHeader } from 'antd';
-import React, { FC, ReactElement } from 'react';
+import { FC, ReactElement } from 'react';
 import { FaucetHintButton } from '~~/app/common/FaucetHintButton';
 import { IScaffoldAppProviders } from '~~/app/routes/main/hooks/useScaffoldAppProviders';
 import { useEthersContext } from 'eth-hooks/context';
 import { useGasPrice } from 'eth-hooks';
 import { getNetworkInfo } from '~~/helpers';
+import { ethers } from 'ethers';
+import { AccountInformation } from './AcountInformation';
+
 
 // displays a page header
 export interface IMainPageHeaderProps {
   scaffoldAppProviders: IScaffoldAppProviders;
+  readContracts: Record<string, ethers.Contract>,
   price: number;
 }
 
@@ -58,7 +62,7 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
    * 👨‍💼 Your account is in the top right with a wallet at connect options
    */
   const right = (
-    <div style={{ position: 'fixed', textAlign: 'right', right: 0, top: 0, padding: 10 }}>
+    <div style={{ position: 'fixed', textAlign: 'right', right: 0, top: 0, padding: 10, zIndex:1 }}>
       <Account
         createLoginConnector={props.scaffoldAppProviders.createLoginConnector}
         ensProvider={props.scaffoldAppProviders.mainnetProvider}
@@ -66,6 +70,7 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
         blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}
         hasContextConnect={true}
       />
+      <AccountInformation readContracts={props.readContracts} />
       <FaucetHintButton scaffoldAppProviders={props.scaffoldAppProviders} gasPrice={gasPrice} />
       {props.children}
     </div>
@@ -92,9 +97,9 @@ export const MainPageHeader: FC<IMainPageHeaderProps> = (props) => {
       <div
         style={{
           position: 'absolute',
-          right: 18,
-          top: 54,
-          padding: 10,
+          right: 154,
+          top: 28,
+          padding: 16,
           color: props.scaffoldAppProviders.targetNetwork.color,
         }}>
         {props.scaffoldAppProviders.targetNetwork.name}

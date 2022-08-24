@@ -36,16 +36,16 @@ export const MainPageContracts: FC<IMainPageContractsProps> = (props) => {
           and give you a form to interact with it locally
         ********** */}
         <GenericContract
-          contractName="ExampleExternalContract"
-          contract={contractList?.['ExampleExternalContract']}
+          contractName="DEX"
+          contract={contractList?.['DEX']}
           mainnetProvider={props.scaffoldAppProviders.mainnetProvider}
           blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}
           contractConfig={props.appContractConfig}
         />
 
         <GenericContract
-          contractName="Staker"
-          contract={contractList?.['Staker']}
+          contractName="Balloons"
+          contract={contractList?.['Balloons']}
           mainnetProvider={props.scaffoldAppProviders.mainnetProvider}
           blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}
           contractConfig={props.appContractConfig}

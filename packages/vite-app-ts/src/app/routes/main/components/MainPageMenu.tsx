@@ -20,7 +20,16 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
           props.setRoute('/');
         }}
         to="/">
-        StakerUI
+        Home
+      </Link>
+    </Menu.Item>
+    <Menu.Item key="/events">
+      <Link
+        onClick={() => {
+          props.setRoute('/events');
+        }}
+        to="/events">
+        Events
       </Link>
     </Menu.Item>
     <Menu.Item key="/debug">

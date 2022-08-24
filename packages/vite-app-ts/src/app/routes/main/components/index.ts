@@ -21,4 +21,8 @@ export const MainPageMenu = lazier(() => import('./MainPageMenu'), 'MainPageMenu
 /**
  * lazy/lazier loaded component
  */
-export const Staker = lazier(() => import('./Staker'), 'Staker');
+export const DEX = lazier(() => import('./DEX'), 'DEX');
+/**
+ * lazy/lazier loaded component
+ */
+ export const Events = lazier(() => import('./Events'), 'Events');
