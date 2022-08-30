@@ -4,7 +4,7 @@
 
 🎫 Create a simple NFT to learn basics of 🏗 scaffold-eth. You'll use [👷‍♀️ HardHat](https://hardhat.org/getting-started/) to compile and deploy smart contracts. Then, you'll use a template React app full of important Ethereum components and hooks. Finally, you'll deploy an NFT to a public network to share with friends! 🚀
 
-🌟 The final deliverable is an app that lets users purchase and transfer NFTs. Deploy your contracts to Rinkeby and then build and upload your app to a public web server. Submit the url on [SpeedRunEthereum.com](https://speedrunethereum.com)!
+🌟 The final deliverable is an app that lets users purchase and transfer NFTs. Deploy your contracts to a testnet and then build and upload your app to a public web server. Submit the url on [SpeedRunEthereum.com](https://speedrunethereum.com)!
 
 💬 Meet other builders working on this challenge and get help in the [Challenge 0 telegram](https://t.me/+Y2vqXZZ_pEFhMGMx)!!!
 
@@ -107,7 +107,7 @@ yarn start
 
 🛰 Ready to deploy to a public testnet?!?
 
-> Change the `defaultNetwork` in `packages/hardhat-ts/hardhat.config.ts` to `rinkeby`
+> Change the `defaultNetwork` in `packages/hardhat-ts/hardhat.config.ts` to `georli`
 
 🔐 Generate a **deployer address** with `yarn generate`
 
@@ -127,7 +127,7 @@ yarn start
 yarn deploy
 ```
 
-> 💬 Hint: You can set the `defaultNetwork` in `hardhat.config.ts` to `Rinkeby` OR you can `yarn deploy --network Rinkeby`.
+> 💬 Hint: You can set the `defaultNetwork` in `hardhat.config.ts` to `goerli` OR you can `yarn deploy --network goerli`.
 
 ---
 
@@ -135,11 +135,11 @@ yarn deploy
 
 > ✏️ Edit the `TARGET_NETWORK_INFO` in `providersConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
 
-![image](https://user-images.githubusercontent.com/46639943/149599234-55921640-e677-42ca-a4a7-ab1fbca36ec4.png)
+![image](https://user-images.githubusercontent.com/12072395/187539869-934b3a7a-f399-4f86-bd86-1ef85de28453.PNG)
 
 You should see the correct network in the frontend (http://localhost:3000):
 
-![nft10](https://user-images.githubusercontent.com/526558/124387099-9a3edd80-dcb3-11eb-9a57-54a7d370589a.png)
+![nft10](https://user-images.githubusercontent.com/12072395/187537642-11a60aae-2b1d-4c8f-a3fa-65e4ce36830e.PNG)
 
 🎫 Ready to mint a batch of NFTs for reals? Use the `MINT NFT` button.
 
