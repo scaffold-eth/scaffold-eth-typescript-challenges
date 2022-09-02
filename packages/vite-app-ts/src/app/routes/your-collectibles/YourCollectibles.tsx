@@ -17,19 +17,25 @@ export interface IYourCollectibleProps {
   tx?: TTransactor;
 }
 
+const projectId = "2DDHiA47zFkJXtnxzl2jFkyuaoq";
+const projectSecret = "96a91eeafc0a390ab66e6a87f61152aa";;
+const projectIdAndSecret = `${projectId}:${projectSecret}`;
+
+/*
 const ipfs = create({
   host: 'ipfs.nifty.ink',
   port: 3001,
   protocol: 'https',
 });
+*/
 
-/*
 const ipfs = create({
   host: 'ipfs.infura.io',
   port: 5001,
   protocol: 'https',
+  headers: { authorization: `Basic ${Buffer.from(projectIdAndSecret).toString("base64")}` },
 });
-*/
+
 
 const getFromIPFS = async (cid: string) => {
   const decoder = new TextDecoder();
@@ -111,12 +117,12 @@ export const YourCollectibles: FC<IYourCollectibleProps> = (props: IYourCollecti
         console.log(' 🍾 Transaction ' + update.hash + ' finished!');
         console.log(
           ' ⛽️ ' +
-            update.gasUsed +
-            '/' +
-            (update.gasLimit || update.gas) +
-            ' @ ' +
-            parseFloat(update.gasPrice) / 1000000000 +
-            ' gwei'
+          update.gasUsed +
+          '/' +
+          (update.gasLimit || update.gas) +
+          ' @ ' +
+          parseFloat(update.gasPrice) / 1000000000 +
+          ' gwei'
         );
       }
     });
