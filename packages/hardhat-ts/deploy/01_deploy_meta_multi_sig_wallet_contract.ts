@@ -10,7 +10,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironmentExtended) => {
     from: deployer,
     args: [
       31337,
-      ["0x53386b18809922960793C4636572e4830F822474"],
+      ["0x6383D532bED4447f180eccc9c29ba61a21835cEe"],
       1
     ],
     log: true,
