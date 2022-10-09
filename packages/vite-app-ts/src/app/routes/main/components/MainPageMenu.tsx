@@ -11,6 +11,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
   <Menu
     style={{
       textAlign: 'center',
+      justifyContent: 'center',
     }}
     selectedKeys={[props.route]}
     mode="horizontal">
@@ -20,7 +21,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
           props.setRoute('/');
         }}
         to="/">
-        StakerUI
+        Multi Sign
       </Link>
     </Menu.Item>
     <Menu.Item key="/debug">
@@ -41,7 +42,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Hints
       </Link>
     </Menu.Item>
-    <Menu.Item key="/mainnetdai">
+    {/* <Menu.Item key="/mainnetdai">
       <Link
         onClick={() => {
           props.setRoute('/mainnetdai');
@@ -58,6 +59,6 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         to="/subgraph">
         Subgraph
       </Link>
-    </Menu.Item>
+    </Menu.Item> */}
   </Menu>
 );

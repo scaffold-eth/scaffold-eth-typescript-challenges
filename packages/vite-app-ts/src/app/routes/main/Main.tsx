@@ -12,7 +12,7 @@ import { transactor } from 'eth-components/functions';
 import { ethers } from 'ethers';
 
 import { useEventListener } from 'eth-hooks';
-import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, Staker as StakerUI } from './components';
+import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, FrontPage as FrontPageUI } from './components';
 import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/app/routes/main/hooks/useScaffoldAppProviders';
 import { useBurnerFallback } from '~~/app/routes/main/hooks/useBurnerFallback';
@@ -21,8 +21,8 @@ import { getNetworkInfo } from '~~/helpers/getNetworkInfo';
 import { subgraphUri } from '~~/config/subgraphConfig';
 import { useEthersContext } from 'eth-hooks/context';
 import { NETWORKS } from '~~/models/constants/networks';
-import { mainnetProvider } from '~~/config/providersConfig';
-import { Staker } from '~~/generated/contract-types';
+import { mainnetProvider, localProvider } from '~~/config/providersConfig';
+import { MetaMultiSigWallet } from '~~/generated/contract-types';
 
 export const DEBUG = false;
 
@@ -62,12 +62,12 @@ export const Main: FC = () => {
   // -----------------------------
   // example for current contract and listners
   // -----------------------------
-  const yourContractRead = readContracts['Staker'] as Staker;
+  const metaMultiSigWalletContractRead = readContracts['MetaMultiSigWallet'] as MetaMultiSigWallet;
   // keep track of a variable from the contract in the local React state:
-  const purpose = useContractReader<string>(yourContractRead, {
-    contractName: 'YourContract',
-    functionName: 'purpose',
-  });
+  // const purpose = useContractReader<string>(metaMultiSigWalletContractRead, {
+  //   contractName: 'YourContract',
+  //   functionName: 'purpose',
+  // });
 
   // 📟 Listen for broadcast events
   // const setPurposeEvents = useEventListener(yourContractRead, 'SetPurpose', 1);
@@ -85,6 +85,8 @@ export const Main: FC = () => {
   // -----------------------------
   // 🎉 Console logs & More hook examples:  Check out this to see how to get
   useScaffoldHooksExamples(scaffoldAppProviders, readContracts, writeContracts, mainnetContracts);
+
+  const executeTransactionEvents = useEventListener(metaMultiSigWalletContractRead, "ExecuteTransaction", 1);
 
   // -----------------------------
   // .... 🎇 End of examples
@@ -104,7 +106,14 @@ export const Main: FC = () => {
         <MainPageMenu route={route} setRoute={setRoute} />
         <Switch>
           <Route exact path="/">
-            <StakerUI mainnetProvider={scaffoldAppProviders.mainnetProvider} />
+            <FrontPageUI
+              executeTransactionEvents={executeTransactionEvents}
+              contractName={'MetaMultiSigWallet'}
+              localProvider={localProvider}
+              readContracts={readContracts}
+              price={ethPrice}
+              mainnetProvider={mainnetProvider}
+            />
           </Route>
           <Route exact path="/debug">
             <MainPageContracts
@@ -122,7 +131,7 @@ export const Main: FC = () => {
               price={ethPrice}
             />
           </Route>
-          <Route path="/mainnetdai">
+          {/* <Route path="/mainnetdai">
             {mainnetProvider != null && (
               <GenericContract
                 contractName="DAI"
@@ -132,14 +141,14 @@ export const Main: FC = () => {
                 contractConfig={appContractConfig}
               />
             )}
-          </Route>
-          <Route path="/subgraph">
+          </Route> */}
+          {/* <Route path="/subgraph">
             <Subgraph
               subgraphUri={subgraphUri}
               writeContracts={writeContracts}
               mainnetProvider={scaffoldAppProviders.mainnetProvider}
             />
-          </Route>
+          </Route> */}
         </Switch>
       </BrowserRouter>
 
