@@ -9,10 +9,10 @@ import { GenericContract } from 'eth-components/ant/generic-contract';
 import { Hints, Subgraph } from '~~/app/routes';
 import { transactor } from 'eth-components/functions';
 
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 
 import { useEventListener } from 'eth-hooks';
-import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, FrontPage as FrontPageUI } from './components';
+import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, FrontPage as FrontPageUI, OwnersPage as OwnersPageUI } from './components';
 import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/app/routes/main/hooks/useScaffoldAppProviders';
 import { useBurnerFallback } from '~~/app/routes/main/hooks/useBurnerFallback';
@@ -88,6 +88,14 @@ export const Main: FC = () => {
 
   const executeTransactionEvents = useEventListener(metaMultiSigWalletContractRead, "ExecuteTransaction", 1);
 
+  const contractName = 'MetaMultiSigWallet';
+
+  const ownerEvents = useEventListener(metaMultiSigWalletContractRead, "Owner", 1);
+  const signaturesRequired = useContractReader<BigNumber[]>(metaMultiSigWalletContractRead, {
+    contractName,
+    functionName: "signaturesRequired",
+  });
+
   // -----------------------------
   // .... 🎇 End of examples
   // -----------------------------
@@ -108,11 +116,20 @@ export const Main: FC = () => {
           <Route exact path="/">
             <FrontPageUI
               executeTransactionEvents={executeTransactionEvents}
-              contractName={'MetaMultiSigWallet'}
+              contractName={contractName}
               localProvider={localProvider}
               readContracts={readContracts}
               price={ethPrice}
               mainnetProvider={mainnetProvider}
+            />
+          </Route>
+          <Route exact path="/owners">
+            <OwnersPageUI
+              contractName={contractName}
+              mainnetProvider={mainnetProvider}
+              readContracts={readContracts}
+              ownerEvents={ownerEvents}
+              signaturesRequired={signaturesRequired ? signaturesRequired[0] : undefined}
             />
           </Route>
           <Route exact path="/debug">

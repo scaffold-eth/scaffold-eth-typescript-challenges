@@ -25,4 +25,10 @@ export const Staker = lazier(() => import('./Staker'), 'Staker');
 /**
  * lazy/lazier loaded component
  */
- export const FrontPage = lazier(() => import('./FrontPage'), 'FrontPage');
+export const FrontPage = lazier(() => import('./FrontPage'), 'FrontPage');
+
+/**
+ * lazy/lazier loaded component
+ */
+export const OwnersPage = lazier(() => import('./OwnersPage'), 'OwnersPage');
+

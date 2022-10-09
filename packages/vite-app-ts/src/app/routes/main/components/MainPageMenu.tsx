@@ -24,6 +24,15 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Multi Sign
       </Link>
     </Menu.Item>
+    <Menu.Item key="/owners">
+      <Link
+        onClick={() => {
+          props.setRoute('/owners');
+        }}
+        to="/owners">
+        Owners
+      </Link>
+    </Menu.Item>
     <Menu.Item key="/debug">
       <Link
         onClick={() => {
