@@ -186,11 +186,15 @@ Update the `api-key` in `packages/hardhat-ts/package.json` file. You can get you
 
 ---
 
-# ⚔️ Side Quests
-
 ## 🐟 Open Sea
 
-> Add your contract to OpenSea ( create -> submit NFTs -> "or add an existing contract")
+> 🐃 Want to see your new NFTs on Opensea?  Head to [Testnets Opensea](https://testnets.opensea.io/)
+
+> 🎫 Make sure you have minted some NFTs on your Surge page, then connect to Opensea using that same wallet.
+
+![nft14](https://user-images.githubusercontent.com/12072395/188957491-bb5eeaf9-5b3c-4667-9d75-9f88bc7acc5d.PNG)
+
+> You can see your collection of shiny new NFTs on a testnet!
 
 (It can take a while before they show up, but here is an example:)
 https://testnets.opensea.io/assets/0xc2839329166d3d004aaedb94dde4173651babccf/1
