@@ -32,3 +32,7 @@ export const FrontPage = lazier(() => import('./FrontPage'), 'FrontPage');
  */
 export const OwnersPage = lazier(() => import('./OwnersPage'), 'OwnersPage');
 
+/**
+ * lazy/lazier loaded component
+ */
+ export const CreateTransactionPage = lazier(() => import('./CreateTransactionPage'), 'CreateTransactionPage');

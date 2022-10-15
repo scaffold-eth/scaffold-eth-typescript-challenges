@@ -33,6 +33,15 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Owners
       </Link>
     </Menu.Item>
+    <Menu.Item key="/create">
+      <Link
+        onClick={() => {
+          props.setRoute('/create');
+        }}
+        to="/create">
+        Create
+      </Link>
+    </Menu.Item>
     <Menu.Item key="/debug">
       <Link
         onClick={() => {

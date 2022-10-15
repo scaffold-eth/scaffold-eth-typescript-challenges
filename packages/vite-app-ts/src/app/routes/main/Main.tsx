@@ -12,7 +12,7 @@ import { transactor } from 'eth-components/functions';
 import { BigNumber, ethers } from 'ethers';
 
 import { useEventListener } from 'eth-hooks';
-import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, FrontPage as FrontPageUI, OwnersPage as OwnersPageUI } from './components';
+import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, FrontPage as FrontPageUI, OwnersPage as OwnersPageUI, CreateTransactionPage as CreateTransactionPageUI } from './components';
 import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/app/routes/main/hooks/useScaffoldAppProviders';
 import { useBurnerFallback } from '~~/app/routes/main/hooks/useBurnerFallback';
@@ -23,6 +23,8 @@ import { useEthersContext } from 'eth-hooks/context';
 import { NETWORKS } from '~~/models/constants/networks';
 import { mainnetProvider, localProvider } from '~~/config/providersConfig';
 import { MetaMultiSigWallet } from '~~/generated/contract-types';
+import { useDebounce } from 'use-debounce';
+
 
 export const DEBUG = false;
 
@@ -30,6 +32,8 @@ export const Main: FC = () => {
   // -----------------------------
   // Providers, signers & wallets
   // -----------------------------
+
+  const poolServerUrl = "http://localhost:49832/";
 
   // 🛰 providers
   // see useLoadProviders.ts for everything to do with loading the right providers
@@ -95,6 +99,15 @@ export const Main: FC = () => {
     contractName,
     functionName: "signaturesRequired",
   });
+  
+
+  const [accountAddress] = useDebounce<string | undefined>(
+    ethersContext.account,
+    200,
+    {
+      trailing: true,
+    }
+  );
 
   // -----------------------------
   // .... 🎇 End of examples
@@ -130,6 +143,17 @@ export const Main: FC = () => {
               readContracts={readContracts}
               ownerEvents={ownerEvents}
               signaturesRequired={signaturesRequired ? signaturesRequired[0] : undefined}
+            />
+          </Route>
+          <Route path="/create">
+            <CreateTransactionPageUI
+              poolServerUrl={poolServerUrl}
+              contractName={contractName}
+              mainnetProvider={mainnetProvider}
+              localProvider={localProvider}
+              price={ethPrice}
+              readContracts={readContracts}
+              address={accountAddress}
             />
           </Route>
           <Route exact path="/debug">
