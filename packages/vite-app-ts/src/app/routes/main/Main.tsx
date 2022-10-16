@@ -99,7 +99,6 @@ export const Main: FC = () => {
     contractName,
     functionName: "signaturesRequired",
   });
-  
 
   const [accountAddress] = useDebounce<string | undefined>(
     ethersContext.account,
@@ -154,6 +153,7 @@ export const Main: FC = () => {
               price={ethPrice}
               readContracts={readContracts}
               address={accountAddress}
+              signer={ethersContext.signer}
             />
           </Route>
           <Route exact path="/debug">
