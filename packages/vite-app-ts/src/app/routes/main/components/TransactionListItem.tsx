@@ -3,15 +3,15 @@ import { Button, List } from 'antd';
 import { Address, Balance } from 'eth-components/ant';
 import { parseEther } from '@ethersproject/units';
 import { EllipsisOutlined } from "@ant-design/icons";
-import { Blockie } from './Blockie';
-import { TransactionDetailsModal } from './TransactionDetailsModal';
-import { TypedEvent } from 'eth-hooks/models';
 import { FunctionFragment, Result, TransactionDescription } from 'ethers/lib/utils';
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { BaseContract, BigNumber } from 'ethers';
+import { Blockie } from './Blockie';
+import { Transaction } from '../interfaces/Transaction';
+import { TransactionDetailsModal } from './TransactionDetailsModal';
 
 export interface TransactionListItemProps {
-  item: any,
+  item: Transaction,
   price: number,
   mainnetProvider: StaticJsonRpcProvider,
   readContracts: Record<string, BaseContract>,
