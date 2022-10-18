@@ -35,4 +35,9 @@ export const OwnersPage = lazier(() => import('./OwnersPage'), 'OwnersPage');
 /**
  * lazy/lazier loaded component
  */
- export const CreateTransactionPage = lazier(() => import('./CreateTransactionPage'), 'CreateTransactionPage');
+export const CreateTransactionPage = lazier(() => import('./CreateTransactionPage'), 'CreateTransactionPage');
+
+/**
+ * lazy/lazier loaded component
+ */
+export const TransactionsPage = lazier(() => import('./TransactionsPage'), 'TransactionsPage');
