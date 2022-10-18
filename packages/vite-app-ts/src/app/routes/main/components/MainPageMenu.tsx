@@ -42,6 +42,15 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         Create
       </Link>
     </Menu.Item>
+    <Menu.Item key="/pool">
+      <Link
+        onClick={() => {
+          props.setRoute('/pool');
+        }}
+        to="/pool">
+        Pool
+      </Link>
+    </Menu.Item>
     <Menu.Item key="/debug">
       <Link
         onClick={() => {

@@ -12,7 +12,16 @@ import { transactor } from 'eth-components/functions';
 import { BigNumber, ethers } from 'ethers';
 
 import { useEventListener } from 'eth-hooks';
-import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, FrontPage as FrontPageUI, OwnersPage as OwnersPageUI, CreateTransactionPage as CreateTransactionPageUI } from './components';
+import {
+  MainPageMenu,
+  MainPageContracts,
+  MainPageFooter,
+  MainPageHeader,
+  FrontPage as FrontPageUI,
+  OwnersPage as OwnersPageUI,
+  CreateTransactionPage as CreateTransactionPageUI,
+  TransactionsPage as TransactionsPageUI,
+} from './components';
 import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/app/routes/main/hooks/useScaffoldAppProviders';
 import { useBurnerFallback } from '~~/app/routes/main/hooks/useBurnerFallback';
@@ -24,6 +33,7 @@ import { NETWORKS } from '~~/models/constants/networks';
 import { mainnetProvider, localProvider } from '~~/config/providersConfig';
 import { MetaMultiSigWallet } from '~~/generated/contract-types';
 import { useDebounce } from 'use-debounce';
+import { EthComponentsSettingsContext } from 'eth-components/models';
 
 
 export const DEBUG = false;
@@ -108,6 +118,15 @@ export const Main: FC = () => {
     }
   );
 
+  const ethComponentsSettings = useContext(EthComponentsSettingsContext);
+  const gasPrice = useGasPrice(ethersContext.chainId, 'fast');
+  const tx = transactor(ethComponentsSettings, ethersContext?.signer, gasPrice);
+  
+  const nonce = useContractReader<BigNumber[]>(readContracts[contractName], {
+    contractName,
+    functionName: "nonce",
+  });
+
   // -----------------------------
   // .... 🎇 End of examples
   // -----------------------------
@@ -154,6 +173,25 @@ export const Main: FC = () => {
               readContracts={readContracts}
               address={accountAddress}
               signer={ethersContext.signer}
+              nonce={nonce && nonce[0]}
+              chainId={ethersContext.chainId}
+            />
+          </Route>
+          <Route path="/pool">
+            <TransactionsPageUI
+              poolServerUrl={poolServerUrl}
+              contractName={contractName}
+              mainnetProvider={mainnetProvider}
+              localProvider={localProvider}
+              price={ethPrice}
+              readContracts={readContracts}
+              writeContracts={writeContracts}
+              address={accountAddress}
+              signer={ethersContext.signer}
+              signaturesRequired={signaturesRequired ? signaturesRequired[0] : undefined}
+              nonce={nonce && nonce[0]}
+              tx={tx}
+              chainId={ethersContext.chainId}
             />
           </Route>
           <Route exact path="/debug">

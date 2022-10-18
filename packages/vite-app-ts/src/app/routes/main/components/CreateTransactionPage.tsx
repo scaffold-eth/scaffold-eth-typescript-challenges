@@ -1,20 +1,14 @@
 import React, { FC, useState } from 'react';
 import axios from 'axios';
-import { BaseContract, BigNumber, Contract, Signer, Wallet } from 'ethers';
+import { BaseContract, BigNumber, Contract, Signer } from 'ethers';
 import { JsonRpcProvider, StaticJsonRpcProvider } from '@ethersproject/providers';
 import { parseEther } from '@ethersproject/units';
 import { Button, Input, Select, Spin } from 'antd';
-import { useContractReader } from 'eth-hooks';
 import { AddressInput, EtherInput } from 'eth-components/ant';
 import { useHistory } from 'react-router-dom';
 import { useLocalStorage } from '~~/app/common/hooks';
 import { Blockie } from './Blockie';
-import { toUtf8Bytes } from "@ethersproject/strings";
-import { hexlify } from '@ethersproject/bytes';
-
-interface Transaction {
-  hash: string;
-}
+import { Transaction } from '../interfaces/Transaction';
 
 export interface CreateTransactionPageProps {
   poolServerUrl: string,
@@ -26,6 +20,8 @@ export interface CreateTransactionPageProps {
   signer?: Signer,
   address?: string,
   userProvider?: JsonRpcProvider,
+  nonce?: BigNumber,
+  chainId?: number,
 }
 
 export const CreateTransactionPage: FC<CreateTransactionPageProps> = (props) => {
@@ -38,11 +34,8 @@ export const CreateTransactionPage: FC<CreateTransactionPageProps> = (props) => 
   const poolServerUrl = props.poolServerUrl;
   const address = props.address;
   const signer = props.signer;
-
-  const nonce = useContractReader<BigNumber[]>(readContracts[contractName], {
-    contractName,
-    functionName: "nonce",
-  });
+  const nonce = props.nonce;
+  const chainId = props.chainId;
 
   const history = useHistory();
 
@@ -62,9 +55,9 @@ export const CreateTransactionPage: FC<CreateTransactionPageProps> = (props) => 
   const { Option } = Select;
 
   const inputPlaceholder = "" + (
-    nonce && nonce[0]
+    nonce
       ?
-      nonce[0].toNumber()
+      nonce.toNumber()
       :
       "loading..."
   );
@@ -95,6 +88,9 @@ export const CreateTransactionPage: FC<CreateTransactionPageProps> = (props) => 
     }
     const signature = await provider.send("personal_sign", [newHash, address.toLowerCase()]);
 
+    // const signature2 = await signer?.signMessage(newHash);
+    // const recover2 = await metaMultiSigWallet.recover(newHash, signature2);
+
     console.log("signature", signature);
 
     const recover = await metaMultiSigWallet.recover(newHash, signature);
@@ -105,9 +101,9 @@ export const CreateTransactionPage: FC<CreateTransactionPageProps> = (props) => 
 
     if (isOwner) {
       const res = await axios.post<Transaction>(poolServerUrl, {
-        chainId: localProvider._network.chainId,
+        chainId,
         address: metaMultiSigWallet.address,
-        nonce: nonce,
+        nonce: nonce.toNumber(),
         to,
         amount,
         data,
