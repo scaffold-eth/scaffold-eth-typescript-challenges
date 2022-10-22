@@ -156,12 +156,16 @@ export const TransactionsPage: FC<TransactionsPageProps> = (props) => {
                                     );
                                     console.log("newHash", newHash);
 
-                                    const provider = signer?.provider as StaticJsonRpcProvider;
-                                    if (!provider) {
-                                    return;
+                                    if(!signer) {
+                                        return;
                                     }
 
-                                    const signature = await signer?.signMessage(ethers.utils.isHexString(newHash) ? ethers.utils.arrayify(newHash) : newHash);
+                                    const provider = signer?.provider as StaticJsonRpcProvider;
+                                    if (!provider) {
+                                        return;
+                                    }
+
+                                    const signature = await signer.signMessage(ethers.utils.isHexString(newHash) ? ethers.utils.arrayify(newHash) : newHash);
 
                                     console.log("signature", signature);
 
