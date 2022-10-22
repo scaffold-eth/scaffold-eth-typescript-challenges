@@ -16,6 +16,7 @@ export interface TransactionListItemProps {
   mainnetProvider: StaticJsonRpcProvider,
   readContracts: Record<string, BaseContract>,
   contractName: string,
+  children: React.ReactChild[],
 }
 
 export const TransactionListItem: FC<TransactionListItemProps> = (props) => {
@@ -25,6 +26,7 @@ export const TransactionListItem: FC<TransactionListItemProps> = (props) => {
   const mainnetProvider = props.mainnetProvider;
   const readContracts = props.readContracts;
   const contractName = props.contractName;
+  const children = props.children;
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -40,7 +42,7 @@ export const TransactionListItem: FC<TransactionListItemProps> = (props) => {
     const fragment = new FunctionFragment('Transfer', []);
     return new TransactionDescription({
       args: [transaction.to],
-      functionFragment: fragment ,
+      functionFragment: fragment,
       name: '',
       signature: '',
       sighash: item.data,
@@ -92,6 +94,11 @@ export const TransactionListItem: FC<TransactionListItemProps> = (props) => {
         </span>
         <Address address={item.to} fontSize={16} />
         <Balance address={undefined} balance={item.value ? item.value : parseEther("" + parseFloat(item.amount).toFixed(12))} price={price} />
+        <>
+          {
+            children
+          }
+        </>
         <Button
           onClick={showModal}
         >
