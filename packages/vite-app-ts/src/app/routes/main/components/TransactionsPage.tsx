@@ -97,9 +97,9 @@ export const TransactionsPage: FC<TransactionsPageProps> = (props) => {
             sigList.push({ signature: allSigs[s], signer: recover });
         }
 
-        sigList.sort((a: SignatureDescription, b: SignatureDescription) => {
-            return ethers.BigNumber.from(a.signer).sub(ethers.BigNumber.from(b.signer)).toNumber();
-        });
+        // sigList.sort((a: SignatureDescription, b: SignatureDescription) => {
+        //     return ethers.BigNumber.from(a.signer).sub(ethers.BigNumber.from(b.signer)).toNumber();
+        // });
 
         console.log("SORTED SIG LIST:", sigList);
 
@@ -160,8 +160,9 @@ export const TransactionsPage: FC<TransactionsPageProps> = (props) => {
                                     if (!provider) {
                                     return;
                                     }
-                                    const signature = await provider.send("personal_sign", [newHash, address.toLowerCase()]);
-                                    // const signature = await userProvider.send("personal_sign", [newHash, address]);
+
+                                    const signature = await signer?.signMessage(ethers.utils.isHexString(newHash) ? ethers.utils.arrayify(newHash) : newHash);
+
                                     console.log("signature", signature);
 
                                     const recover = await metaMultiSigWallet.recover(newHash, signature);

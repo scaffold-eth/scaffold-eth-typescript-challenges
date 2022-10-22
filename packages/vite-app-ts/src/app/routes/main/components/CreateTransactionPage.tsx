@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import axios from 'axios';
-import { BaseContract, BigNumber, Contract, Signer } from 'ethers';
+import { BaseContract, BigNumber, Contract, ethers, Signer } from 'ethers';
 import { JsonRpcProvider, StaticJsonRpcProvider } from '@ethersproject/providers';
 import { parseEther } from '@ethersproject/units';
 import { Button, Input, Select, Spin } from 'antd';
@@ -86,10 +86,8 @@ export const CreateTransactionPage: FC<CreateTransactionPageProps> = (props) => 
     if (!provider) {
       return;
     }
-    const signature = await provider.send("personal_sign", [newHash, address.toLowerCase()]);
 
-    // const signature2 = await signer?.signMessage(newHash);
-    // const recover2 = await metaMultiSigWallet.recover(newHash, signature2);
+    const signature = await signer?.signMessage(ethers.utils.isHexString(newHash) ? ethers.utils.arrayify(newHash) : newHash);
 
     console.log("signature", signature);
 
