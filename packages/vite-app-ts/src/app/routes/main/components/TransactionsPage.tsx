@@ -53,6 +53,10 @@ export const TransactionsPage: FC<TransactionsPageProps> = (props) => {
     usePoller(() => {
       const getTransactions = async () => {
 
+        if(!metaMultiSigWallet) {
+            return;
+        }
+
         if (true) console.log("🛰 Requesting Transaction List");
         const res = await axios.get<Transaction[]>(
           poolServerUrl + metaMultiSigWallet.address + "_" + chainId,
