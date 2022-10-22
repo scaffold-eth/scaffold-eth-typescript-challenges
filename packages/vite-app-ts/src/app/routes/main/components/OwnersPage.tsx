@@ -43,7 +43,7 @@ export const OwnersPage: FC<OwnersPageProps> = (props) => {
                 dataSource={ownerEvents}
                 renderItem={(item: TypedEvent<Result>) => {
                     return (
-                        <List.Item key={"owner_" + item.args[0]}>
+                        <List.Item key={"owner_" + item.transactionHash}>
                             <Address
                                 address={item.args[0]}
                                 ensProvider={mainnetProvider}
