@@ -39,7 +39,7 @@ export const CreateTransactionPage: FC<CreateTransactionPageProps> = (props) => 
 
   const history = useHistory();
 
-  const [customNonce, setCustomNonce] = useState('0');
+  const [customNonce, setCustomNonce] = useState<string>();
   const [methodName, setMethodName] = useState('');
   const [selectDisabled, setSelectDisabled] = useState(false);
   const [to, setTo] = useLocalStorage("to", "", 0);
