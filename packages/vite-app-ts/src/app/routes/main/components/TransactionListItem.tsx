@@ -11,12 +11,12 @@ import { Transaction } from '../interfaces/Transaction';
 import { TransactionDetailsModal } from './TransactionDetailsModal';
 
 export interface TransactionListItemProps {
-  item: Transaction,
+  item: any,
   price: number,
   mainnetProvider: StaticJsonRpcProvider,
   readContracts: Record<string, BaseContract>,
   contractName: string,
-  children: React.ReactChild[],
+  children?: React.ReactChild[],
 }
 
 export const TransactionListItem: FC<TransactionListItemProps> = (props) => {

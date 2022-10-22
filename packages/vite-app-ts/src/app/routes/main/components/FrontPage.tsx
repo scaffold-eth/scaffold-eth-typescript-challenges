@@ -62,7 +62,7 @@ export const FrontPage: FC<FrontPageProps> = (props) => {
           return (
             <>
               <TransactionListItem
-                item={item}
+                item={item.args}
                 mainnetProvider={mainnetProvider}
                 price={price}
                 readContracts={readContracts}
