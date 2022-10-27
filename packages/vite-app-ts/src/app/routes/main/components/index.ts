@@ -21,4 +21,19 @@ export const MainPageMenu = lazier(() => import('./MainPageMenu'), 'MainPageMenu
 /**
  * lazy/lazier loaded component
  */
-export const Staker = lazier(() => import('./Staker'), 'Staker');
+export const FrontPage = lazier(() => import('./FrontPage'), 'FrontPage');
+
+/**
+ * lazy/lazier loaded component
+ */
+export const OwnersPage = lazier(() => import('./OwnersPage'), 'OwnersPage');
+
+/**
+ * lazy/lazier loaded component
+ */
+export const CreateTransactionPage = lazier(() => import('./CreateTransactionPage'), 'CreateTransactionPage');
+
+/**
+ * lazy/lazier loaded component
+ */
+export const TransactionsPage = lazier(() => import('./TransactionsPage'), 'TransactionsPage');

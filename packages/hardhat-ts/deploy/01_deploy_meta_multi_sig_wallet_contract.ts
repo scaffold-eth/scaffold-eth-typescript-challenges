@@ -2,17 +2,17 @@ import { DeployFunction } from 'hardhat-deploy/types';
 import { HardhatRuntimeEnvironmentExtended } from 'helpers/types/hardhat-type-extensions';
 
 const func: DeployFunction = async (hre: HardhatRuntimeEnvironmentExtended) => {
-  const { getNamedAccounts, getChainId, deployments } = hre as any;
+  const { getNamedAccounts, deployments } = hre as any;
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
-  const { chainId } = await getChainId();
-
-  const exampleExternalContract = await hre.deployments.get('ExampleExternalContract');
-
-  await deploy('Staker', {
+  await deploy('MetaMultiSigWallet', {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    args: [exampleExternalContract.address],
+    args: [
+      31337,
+      ["0x6383D532bED4447f180eccc9c29ba61a21835cEe"],
+      1
+    ],
     log: true,
   });
 
@@ -25,11 +25,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironmentExtended) => {
   */
 };
 export default func;
-func.tags = ['Staker'];
-
-const delay = (ms: number) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
+func.tags = ['MetaMultiSigWallet'];
 
 /*
 Tenderly verification

@@ -36,6 +36,7 @@
     "fundedwallet": "cd packages/hardhat-ts && npx hardhat fundedwallet",
     "flatten": "cd packages/hardhat-ts && npx hardhat flatten",
     "clean": "cd packages/hardhat-ts && npx hardhat clean",
+    "backend": "yarn workspace @scaffold-eth/backend build && yarn workspace @scaffold-eth/backend start",
     "run-graph-node": "yarn workspace @scaffold-eth/services run-graph-node",
     "remove-graph-node": "yarn workspace @scaffold-eth/services remove-graph-node",
     "clean-graph-node": "yarn workspace @scaffold-eth/services clean-graph-node",
@@ -52,6 +53,7 @@
   },
   "workspaces": {
     "packages": [
+      "packages/backend",
       "packages/hardhat-ts",
       "packages/vite-app-ts",
       "packages/services/*",
