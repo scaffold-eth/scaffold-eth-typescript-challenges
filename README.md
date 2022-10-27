@@ -35,18 +35,18 @@ yarn install
 yarn chain
 ```
 
-> in a second terminal window, start your 📱 frontend:
-
-```sh
-cd challenge-0-simple-nft
-yarn start
-```
-
-> in a third terminal window, 🛰 deploy your contract:
+> in a second terminal window, 🛰 deploy your contract:
 
 ```sh
 cd challenge-0-simple-nft
 yarn deploy
+```
+
+> in a third terminal window, start your 📱 frontend:
+
+```sh
+cd challenge-0-simple-nft
+yarn start
 ```
 
 > You can `yarn deploy --reset` to deploy a new contract any time.
