@@ -36,6 +36,34 @@ https://github.com/scaffold-eth/scaffold-eth-typescript-challenges/tree/challeng
 
 ---
 
+## 🎉 Checkpoint: Eligible to join 🏰️ BuidlGuidl
+
+The BuidlGuidl is a curated group of Ethereum builders creating products, prototypes, and tutorials to enrich the web3 ecosystem. A place to show off your builds and meet other builders. Start crafting your Web3 portfolio by submitting your DEX, Multisig or SVG NFT build.
+
+https://buidlguidl.com/
+
+---
+
+## ⚖️ Build a DEX Challenge
+
+💵 Build an exchange that swaps ETH to tokens and tokens to ETH. 💰 This is possible because the smart contract holds reserves of both assets and has a price function based on the ratio of the reserves. Liquidity providers are issued a token that represents their share of the reserves and fees...
+
+DEX Telegram Channel: https://t.me/+_NeUIJ664Tc1MzIx
+
+https://github.com/scaffold-eth/scaffold-eth-typescript-challenges/tree/challenge-4-dex
+
+---
+
+## 👛 Multisig Wallet Challenge
+
+👩‍👩‍👧‍👧 Using a smart contract as a wallet we can secure assets by requiring multiple accounts to "vote" on transactions. The contract will keep track of transactions in an array of structs and owners will confirm or reject each one. Any transaction with enough confirmations can "execute".
+
+Multisig Telegram Channel: https://t.me/+mkNNF_yHsK8yMTcx
+
+https://github.com/scaffold-eth/scaffold-eth-typescript-challenges/tree/challenge-5-multisig
+
+---
+
 ### 💬 Support Chat
 
 Join the telegram [support chat 💬](https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA) to ask questions and find others building with 🏗 scaffold-eth!
