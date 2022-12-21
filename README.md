@@ -107,7 +107,7 @@ yarn start
 
 🛰 Ready to deploy to a public testnet?!?
 
-> Change the `defaultNetwork` in `packages/hardhat-ts/hardhat.config.ts` to `georli`
+> Change the `defaultNetwork` in `packages/hardhat-ts/hardhat.config.ts` to `goerli`
 
 🔐 Generate a **deployer address** with `yarn generate`
 
