@@ -66,7 +66,7 @@ const config: HardhatUserConfig = {
 
   networks: {
     localhost: {
-      url: 'http://localhost:8545',
+      url: 'http://127.0.0.1:8545',
       /*
         if there is no mnemonic, it will just use account 0 of the hardhat node to deploy
         (you can put in a mnemonic here to set the deployer locally)
