@@ -109,7 +109,7 @@ describe("🚩 Challenge 1: 🥩 Decentralized Staking App", function () {
           stakerContract = await Staker.deploy(exampleExternalContract.address);
 
           console.log('\t'," 🔨 Staking...")
-          const stakeResult = await stakerContract.stake({value: ethers.utils.parseEther("0.001")});
+          const stakeResult = await stakerContract.connect(secondAccount).stake({value: ethers.utils.parseEther("0.001")});
           console.log('\t'," 🏷  stakeResult: ",stakeResult.hash)
 
           console.log('\t'," ⏳ Waiting for confirmation...")
@@ -130,16 +130,21 @@ describe("🚩 Challenge 1: 🥩 Decentralized Staking App", function () {
 
 
           const startingBalance = await ethers.provider.getBalance(secondAccount.address);
-          console.log("startingBalance before withdraw", ethers.utils.formatEther(startingBalance))
+          //console.log("startingBalance before withdraw", ethers.utils.formatEther(startingBalance))
 
           console.log('\t'," 💵 calling withdraw")
-          const withdrawResult = await stakerContract.withdraw(secondAccount.address);
+          const withdrawResult = await stakerContract.connect(secondAccount).withdraw();
           console.log('\t'," 🏷  withdrawResult: ",withdrawResult.hash)
+          
+          // need to account for the gas cost from calling withdraw
+          const tx = await ethers.provider.getTransaction(withdrawResult.hash);
+          const receipt = await ethers.provider.getTransactionReceipt(withdrawResult.hash);
+          const gasCost = tx.gasPrice?.mul(receipt.gasUsed);
 
           const endingBalance = await ethers.provider.getBalance(secondAccount.address);
-          console.log("endingBalance after withdraw", ethers.utils.formatEther(endingBalance))
+          //console.log("endingBalance after withdraw", ethers.utils.formatEther(endingBalance))
 
-          expect(endingBalance).to.equal(startingBalance.add(ethers.utils.parseEther("0.001")));
+          expect(endingBalance).to.equal(startingBalance.add(ethers.utils.parseEther("0.001")).sub(ethers.BigNumber.from(gasCost)));
 
         });
       }

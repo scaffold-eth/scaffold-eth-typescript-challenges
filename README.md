@@ -96,6 +96,8 @@ uint256 public deadline = block.timestamp + 30 seconds;
 
 > 👩‍💻 Write your `execute()` function and test it with the `Debug Contracts` tab
 
+> Check the ExampleExternalContract.sol for the bool you can use to test if it has been completed or not.  But do not edit the ExampleExternalContract.sol as it can slow the auto grading.
+
 If the `address(this).balance` of the contract is over the `threshold` by the `deadline`, you will want to call: `exampleExternalContract.complete{value: address(this).balance}()`
 
 If the balance is less than the `threshold`, you want to set a `openForWithdraw` bool to `true` and allow users to `withdraw()` their funds.
@@ -171,8 +173,6 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 > 📝 Edit the `targetNetworkInfo` in `providersConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
 
 > 💻 View your frontend at http://localhost:3000/
-
-👩‍🎤 Take time to craft your user experience...
 
 📡 When you are ready to ship the frontend app...
 
