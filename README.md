@@ -31,7 +31,7 @@ yarn install
 
 ```
 
-🔏 Edit your smart contract `Staker.sol` in `packages/hardhat/contracts`
+🔏 Edit your smart contract `Staker.sol` in `packages/hardhat-ts/contracts`
 
 ---
 
@@ -72,7 +72,7 @@ uint256 public constant threshold = 1 ether;
 💸 Need more funds from the faucet?  Enter your frontend address into the wallet to get as much as you need!
 ![Wallet_Medium](https://user-images.githubusercontent.com/12072395/159990402-d5535875-f1eb-4c75-86a7-6fbd5e6cbe5f.png)
 
-✏ Need to troubleshoot your code?  If you import `hardhat/console.sol` to your contract, you can call `console.log()` right in your Solidity code.  The output will appear in your `yarn chain` terminal.
+✏ Need to troubleshoot your code?  If you import `hardhat-ts/console.sol` to your contract, you can call `console.log()` right in your Solidity code.  The output will appear in your `yarn chain` terminal.
 
 #### 🥅 Goals
 
@@ -190,7 +190,7 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 
 ### Checkpoint 7: 📜 Contract Verification
 
-Update the api-key in packages/hardhat/package.json file. You can get your key [here](https://etherscan.io/myapikey).
+Update the api-key in packages/hardhat-ts/package.json file. You can get your key [here](https://etherscan.io/myapikey).
 
 ![Screen Shot 2021-11-30 at 10 21 01 AM](https://user-images.githubusercontent.com/9419140/144075208-c50b70aa-345f-4e36-81d6-becaa5f74857.png)
 
