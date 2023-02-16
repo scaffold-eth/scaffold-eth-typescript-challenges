@@ -67,3 +67,5 @@ yarn-error.log*
 .yalc
 yalc.lock
 packages/vite-app-ts/dist
+
+*.code-workspace
