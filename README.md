@@ -31,7 +31,7 @@ yarn install
 
 ```
 
-🔏 Edit your smart contract `Staker.sol` in `packages/hardhat/contracts`
+🔏 Edit your smart contract `Staker.sol` in `packages/hardhat-ts/contracts`
 
 ---
 
@@ -190,7 +190,7 @@ If the balance is less than the `threshold`, you want to set a `openForWithdraw`
 
 ### Checkpoint 7: 📜 Contract Verification
 
-Update the api-key in packages/hardhat/package.json file. You can get your key [here](https://etherscan.io/myapikey).
+Update the api-key in packages/hardhat-ts/package.json file. You can get your key [here](https://etherscan.io/myapikey).
 
 ![Screen Shot 2021-11-30 at 10 21 01 AM](https://user-images.githubusercontent.com/9419140/144075208-c50b70aa-345f-4e36-81d6-becaa5f74857.png)
 
