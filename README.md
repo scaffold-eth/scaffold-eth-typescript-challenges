@@ -107,7 +107,7 @@ yarn start
 
 🛰 Ready to deploy to a public testnet?!?
 
-> Change the `defaultNetwork` in `packages/hardhat-ts/hardhat.config.ts` to `georli`
+> Change the `defaultNetwork` in `packages/hardhat-ts/hardhat.config.ts` to `sepolia`
 
 🔐 Generate a **deployer address** with `yarn generate`
 
@@ -117,7 +117,7 @@ yarn start
 
 ![nft8](https://user-images.githubusercontent.com/526558/124387068-8004ff80-dcb3-11eb-9d0f-43fba2b3b791.png)
 
-⛽️ Use a faucet like [faucet.paradigm.xyz](https://faucet.paradigm.xyz/) to fund your **deployer address**.
+⛽️ Use a faucet like [allthatnode.com/faucet/ethereum.dsrv](https://www.allthatnode.com/faucet/ethereum.dsrv) or [web.getlaika.app/faucets](https://web.getlaika.app/faucets) to fund your **deployer address**.
 
 > ⚔️ **Side Quest:** Keep a 🧑‍🎤 [punkwallet.io](https://punkwallet.io/) on your phone's home screen and keep it loaded with testnet eth. 🧙‍♂️ You'll look like a wizard when you can fund your **deployer address** from your phone in seconds.
 
@@ -127,7 +127,7 @@ yarn start
 yarn deploy
 ```
 
-> 💬 Hint: You can set the `defaultNetwork` in `hardhat.config.ts` to `goerli` OR you can `yarn deploy --network goerli`.
+> 💬 Hint: You can set the `defaultNetwork` in `hardhat.config.ts` to `sepolia` OR you can `yarn deploy --network sepolia`.
 
 ---
 
@@ -135,11 +135,11 @@ yarn deploy
 
 > ✏️ Edit the `TARGET_NETWORK_INFO` in `providersConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
 
-![image](https://user-images.githubusercontent.com/12072395/187539869-934b3a7a-f399-4f86-bd86-1ef85de28453.PNG)
+![Challenge0Sepolia](https://user-images.githubusercontent.com/12072395/221599357-5e65c47b-d2f7-4f68-932b-4978ee5c1751.PNG)
 
 You should see the correct network in the frontend (http://localhost:3000):
 
-![nft10](https://user-images.githubusercontent.com/12072395/187537642-11a60aae-2b1d-4c8f-a3fa-65e4ce36830e.PNG)
+![challenge-0-sepolia-wallet](https://user-images.githubusercontent.com/12072395/220204591-805e38ca-be8f-4534-b05d-a0ec7a2c7949.PNG)
 
 🎫 Ready to mint a batch of NFTs for reals? Use the `MINT NFT` button.
 
