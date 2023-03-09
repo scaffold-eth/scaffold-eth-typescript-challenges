@@ -313,9 +313,7 @@ Remember that you will need to call `approve()` from the `Balloons.sol` contract
 
 Cool beans! Your front-end should be showing something like this now!
 
-<p align="center">
-  <img src="images/ui-screenshot-final.png" width = "700" />
-</p>
+![image](https://user-images.githubusercontent.com/12072395/205334649-faca4ada-e3a4-4fbe-8c14-65d707535f7b.png)
 
 Now, a user can just enter the amount of ETH or tokens they want to swap and the chart will display how the price is calculated. The user can also visualize how larger swaps result in more slippage and less output asset.
 
