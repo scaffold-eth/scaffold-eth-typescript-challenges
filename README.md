@@ -13,7 +13,7 @@ git clone https://github.com/scaffold-eth/scaffold-eth-typescript-challenges cha
 
 cd challenge-5-multi-sig
 
-git checkout challenge-5-multi-sig
+git checkout challenge-5-multisig
 ```
 
 ```bash
