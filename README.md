@@ -133,7 +133,7 @@ yarn deploy
 
 # Checkpoint 4: 🚢 Ship it! 🚁
 
-> ✏️ Edit the `TARGET_NETWORK_INFO` in `providersConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
+> ✏️ Edit the `targetNetworkInfo` in `providersConfig.ts` (in `packages/vite-app-ts/src/config`) to be the public network where you deployed your smart contract.
 
 ![Challenge0Sepolia](https://user-images.githubusercontent.com/12072395/221599357-5e65c47b-d2f7-4f68-932b-4978ee5c1751.PNG)
 
