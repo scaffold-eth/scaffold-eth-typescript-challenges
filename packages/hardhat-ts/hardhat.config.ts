@@ -8,6 +8,7 @@ import { Signer, utils } from 'ethers';
 import '@typechain/hardhat';
 import '@nomiclabs/hardhat-waffle';
 import '@nomiclabs/hardhat-ethers';
+import "@nomiclabs/hardhat-etherscan";
 import '@tenderly/hardhat-tenderly';
 import 'hardhat-deploy';
 // not required as we are using @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers
@@ -105,6 +106,12 @@ const config: HardhatUserConfig = {
         mnemonic: getMnemonic(),
       },
     },
+    sepolia: {
+      url: "https://sepolia.infura.io/v3/ec6a8acd1d354717acec099ad46a0bab", // <---- YOUR INFURA ID! (or it won't work)
+      accounts: {
+        mnemonic: getMnemonic(),
+      },
+    },
     xdai: {
       url: 'https://rpc.xdaichain.com/',
       gasPrice: 1000000000,
@@ -158,6 +165,10 @@ const config: HardhatUserConfig = {
   },
   typechain: {
     outDir: '../vite-app-ts/src/generated/contract-types',
+  },
+  etherscan: {
+    // Add your api key here
+    apiKey: 'DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW',
   },
 };
 export default config;
