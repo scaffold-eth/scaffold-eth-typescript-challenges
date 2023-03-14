@@ -8,6 +8,7 @@ import { Signer, utils } from 'ethers';
 import '@typechain/hardhat';
 import '@nomiclabs/hardhat-waffle';
 import '@nomiclabs/hardhat-ethers';
+import '@nomiclabs/hardhat-etherscan';
 import '@tenderly/hardhat-tenderly';
 import 'hardhat-deploy';
 // not required as we are using @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers
@@ -99,6 +100,12 @@ const config: HardhatUserConfig = {
     },
     goerli: {
       url: 'https://goerli.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad', // <---- YOUR INFURA ID! (or it won't work)
+      accounts: {
+        mnemonic: getMnemonic(),
+      },
+    },
+    sepolia: {
+      url: "https://sepolia.infura.io/v3/ec6a8acd1d354717acec099ad46a0bab", // <---- YOUR INFURA ID! (or it won't work)
       accounts: {
         mnemonic: getMnemonic(),
       },
