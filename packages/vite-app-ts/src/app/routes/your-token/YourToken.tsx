@@ -214,7 +214,7 @@ export const YourToken: FC<IYourTokenProps> = (props) => {
                 }
 
                 setBuying(true);
-                await tx(vendorContractWrite.buyTokens({ value: ethCostToPurchaseTokens }));
+                await tx(vendorContractWrite.buyTokens(ethers.utils.parseEther('' + tokenBuyAmount), { value: ethCostToPurchaseTokens }));
                 setBuying(false);
               }}>
               Buy Tokens
