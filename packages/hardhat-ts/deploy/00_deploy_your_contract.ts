@@ -19,7 +19,6 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironmentExtended) => {
         from: deployer,
         args: [balloons.address],
         log: true,
-        waitConfirmations: 5,
     });
 
     const dex = await ethers.getContract("DEX", deployer);
