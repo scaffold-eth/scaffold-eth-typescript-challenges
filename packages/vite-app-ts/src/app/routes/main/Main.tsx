@@ -12,7 +12,7 @@ import { transactor } from 'eth-components/functions';
 import { ethers } from 'ethers';
 
 import { useEventListener } from 'eth-hooks';
-import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, Staker as StakerUI } from './components';
+import { MainPageMenu, MainPageContracts, MainPageFooter, MainPageHeader, YourCollectible as YourCollectibleUI } from './components';
 import { useAppContracts } from '~~/app/routes/main/hooks/useAppContracts';
 import { useScaffoldProviders as useScaffoldAppProviders } from '~~/app/routes/main/hooks/useScaffoldAppProviders';
 import { useBurnerFallback } from '~~/app/routes/main/hooks/useBurnerFallback';
@@ -22,7 +22,7 @@ import { subgraphUri } from '~~/config/subgraphConfig';
 import { useEthersContext } from 'eth-hooks/context';
 import { NETWORKS } from '~~/models/constants/networks';
 import { mainnetProvider } from '~~/config/providersConfig';
-import { Staker } from '~~/generated/contract-types';
+import { YourCollectible } from '~~/generated/contract-types';
 
 export const DEBUG = false;
 
@@ -62,7 +62,7 @@ export const Main: FC = () => {
   // -----------------------------
   // example for current contract and listners
   // -----------------------------
-  const yourContractRead = readContracts['Staker'] as Staker;
+  const yourContractRead = readContracts['YourCollectible'] as YourCollectible;
   // keep track of a variable from the contract in the local React state:
   const purpose = useContractReader<string>(yourContractRead, {
     contractName: 'YourContract',
@@ -104,7 +104,10 @@ export const Main: FC = () => {
         <MainPageMenu route={route} setRoute={setRoute} />
         <Switch>
           <Route exact path="/">
-            <StakerUI mainnetProvider={scaffoldAppProviders.mainnetProvider} />
+            <YourCollectibleUI
+              mainnetProvider={scaffoldAppProviders.mainnetProvider}
+              blockExplorer={scaffoldAppProviders.targetNetwork.blockExplorer}
+            />
           </Route>
           <Route exact path="/debug">
             <MainPageContracts
@@ -120,24 +123,6 @@ export const Main: FC = () => {
               yourCurrentBalance={yourCurrentBalance}
               mainnetProvider={scaffoldAppProviders.mainnetProvider}
               price={ethPrice}
-            />
-          </Route>
-          <Route path="/mainnetdai">
-            {mainnetProvider != null && (
-              <GenericContract
-                contractName="DAI"
-                contract={mainnetContracts?.['DAI']}
-                mainnetProvider={scaffoldAppProviders.mainnetProvider}
-                blockExplorer={NETWORKS['mainnet'].blockExplorer}
-                contractConfig={appContractConfig}
-              />
-            )}
-          </Route>
-          <Route path="/subgraph">
-            <Subgraph
-              subgraphUri={subgraphUri}
-              writeContracts={writeContracts}
-              mainnetProvider={scaffoldAppProviders.mainnetProvider}
             />
           </Route>
         </Switch>

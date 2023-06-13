@@ -35,17 +35,10 @@ export const MainPageContracts: FC<IMainPageContractsProps> = (props) => {
           this <Contract/> component will automatically parse your ABI
           and give you a form to interact with it locally
         ********** */}
-        <GenericContract
-          contractName="ExampleExternalContract"
-          contract={contractList?.['ExampleExternalContract']}
-          mainnetProvider={props.scaffoldAppProviders.mainnetProvider}
-          blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}
-          contractConfig={props.appContractConfig}
-        />
 
         <GenericContract
-          contractName="Staker"
-          contract={contractList?.['Staker']}
+          contractName="YourCollectible"
+          contract={contractList?.['YourCollectible']}
           mainnetProvider={props.scaffoldAppProviders.mainnetProvider}
           blockExplorer={props.scaffoldAppProviders.targetNetwork.blockExplorer}
           contractConfig={props.appContractConfig}

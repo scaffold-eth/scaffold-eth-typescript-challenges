@@ -11,6 +11,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
   <Menu
     style={{
       textAlign: 'center',
+      display: 'block',
     }}
     selectedKeys={[props.route]}
     mode="horizontal">
@@ -20,7 +21,7 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
           props.setRoute('/');
         }}
         to="/">
-        StakerUI
+        YourCollectible UI
       </Link>
     </Menu.Item>
     <Menu.Item key="/debug">
@@ -39,24 +40,6 @@ export const MainPageMenu: FC<IMainPageMenuProps> = (props) => (
         }}
         to="/hints">
         Hints
-      </Link>
-    </Menu.Item>
-    <Menu.Item key="/mainnetdai">
-      <Link
-        onClick={() => {
-          props.setRoute('/mainnetdai');
-        }}
-        to="/mainnetdai">
-        Mainnet DAI
-      </Link>
-    </Menu.Item>
-    <Menu.Item key="/subgraph">
-      <Link
-        onClick={() => {
-          props.setRoute('/subgraph');
-        }}
-        to="/subgraph">
-        Subgraph
       </Link>
     </Menu.Item>
   </Menu>

@@ -8,7 +8,7 @@ import { Signer, utils } from 'ethers';
 import '@typechain/hardhat';
 import '@nomiclabs/hardhat-waffle';
 import '@nomiclabs/hardhat-ethers';
-import "@nomiclabs/hardhat-etherscan";
+import '@nomiclabs/hardhat-etherscan';
 import '@tenderly/hardhat-tenderly';
 import 'hardhat-deploy';
 // not required as we are using @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers
